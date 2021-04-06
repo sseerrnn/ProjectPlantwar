@@ -3,6 +3,7 @@ package scene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -10,16 +11,16 @@ public class SceneController {
 	protected static int Width;
 	protected Scene mainscene;
 	protected Stage mainstage;
-	protected javafx.scene.layout.AnchorPane mainPane;
+	protected StackPane mainPane;
 
 	public SceneController() {
 		mainstage = new Stage();
 		mainstage.setTitle("PlantWar");
-		mainPane = new javafx.scene.layout.AnchorPane();
+		mainPane = new StackPane();
 		mainscene = new Scene(mainPane, Width, Height);
-		gui.Button button1 = new gui.Button("Hello");
+		gui.Button button1 = new gui.Button("Start Game");
 		mainPane.getChildren().add(button1);
-
+//		button1.initializeButtonListeners();
 		mainstage.setScene(mainscene);
 
 	}
