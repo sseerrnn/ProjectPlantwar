@@ -2,6 +2,7 @@ package gui;
 
 
 public class Button extends javafx.scene.control.Button{
+	
 	public Button(String text) {
 		setText(text);
 		
