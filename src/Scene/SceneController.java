@@ -13,7 +13,6 @@ public class SceneController {
 	protected javafx.scene.layout.AnchorPane mainPane;
 
 	public SceneController() {
-		// TODO Auto-generated constructor stub
 		mainstage = new Stage();
 		mainstage.setTitle("PlantWar");
 		mainPane = new javafx.scene.layout.AnchorPane();
@@ -34,4 +33,3 @@ public class SceneController {
 	}
 
 }
-
