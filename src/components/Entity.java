@@ -1,3 +1,4 @@
+
 package components;
 
 public class Entity {
@@ -7,3 +8,5 @@ protected int height;
 protected int width;
 
 }
+
+
