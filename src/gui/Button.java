@@ -12,16 +12,12 @@ public class Button extends javafx.scene.control.Button {
 	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigButton2.png');";
 
 	public Button(String text) {
+		
 		setText(text);
 		setButtonFont();
-		setPrefHeight(80);
-		setPrefWidth(400);
-		initializeButtonListeners();
 		setButtonStyle();
-//		ImageView image=new ImageView("Woodenbutton.png");
-//		image.setFitHeight(80);
-//		image.setFitWidth(400);
-//		this.setGraphic(image);
+
+		initializeButtonListeners();
 
 	}
 
@@ -32,9 +28,16 @@ public class Button extends javafx.scene.control.Button {
 	private void setButtonStyle() {
 		setStyle(BUTTON_STYLE);
 		setPrefHeight(50);
-		setLayoutX(50);
-		setLayoutY(50);
+		setPrefHeight(80);
+		setPrefWidth(400);
 
+	}
+
+	private void setButtonStyleBig() {
+		setStyle(BUTTON_STYLE_BIG);
+		setPrefHeight(50);
+		setPrefHeight(80);
+		setPrefWidth(420);
 	}
 
 	public void initializeButtonListeners() {
@@ -42,18 +45,16 @@ public class Button extends javafx.scene.control.Button {
 
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
-				setPrefHeight(80);
-				setPrefWidth(420);
-				setStyle(BUTTON_STYLE_BIG);
+
+				setButtonStyleBig();
 			}
 
 		});
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
-				setPrefHeight(80);
-				setPrefWidth(400);
-				setStyle(BUTTON_STYLE);
+
+				setButtonStyle();
 			}
 		});
 		setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -61,18 +62,18 @@ public class Button extends javafx.scene.control.Button {
 			@Override
 			public void handle(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 		setOnMouseReleased(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 	}
 }
