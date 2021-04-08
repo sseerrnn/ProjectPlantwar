@@ -8,8 +8,8 @@ import javafx.scene.text.*;
 
 public class Button extends javafx.scene.control.Button {
 	private final String FONT_PATH = "Bangers-Regular.ttf";
-	private final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('Button1.png');";
-	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigButton2.png');";
+	private final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('WoodButton.png');";
+	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigWoodButton.png');";
 
 	public Button(String text) {
 		
@@ -27,7 +27,7 @@ public class Button extends javafx.scene.control.Button {
 
 	private void setButtonStyle() {
 		setStyle(BUTTON_STYLE);
-		setPrefHeight(50);
+		
 		setPrefHeight(80);
 		setPrefWidth(400);
 
@@ -35,7 +35,7 @@ public class Button extends javafx.scene.control.Button {
 
 	private void setButtonStyleBig() {
 		setStyle(BUTTON_STYLE_BIG);
-		setPrefHeight(50);
+		
 		setPrefHeight(80);
 		setPrefWidth(420);
 	}
