@@ -26,7 +26,7 @@ public class SceneController {
 		mainstage.setTitle("PlantWar");
 		mainPane = new VBox();
 	
-		mainPane.setAlignment(Pos.CENTER);
+//		mainPane.setAlignment(Pos.CENTER);
 		gui.Button StartButton = new gui.Button("Start Game");
 		gui.Button ExitButton = new gui.Button("Exit Game");
 		mainPane.getChildren().addAll(StartButton,ExitButton);
