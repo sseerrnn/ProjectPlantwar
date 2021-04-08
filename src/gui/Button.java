@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
 public class Button extends javafx.scene.control.Button {
@@ -14,6 +15,7 @@ public class Button extends javafx.scene.control.Button {
 	public Button(String text) {
 		
 		setText(text);
+		
 		setButtonFont();
 		setButtonStyle();
 
@@ -23,6 +25,7 @@ public class Button extends javafx.scene.control.Button {
 
 	private void setButtonFont() {
 		setFont(Font.loadFont(getClass().getClassLoader().getResource(FONT_PATH).toExternalForm(), 40));
+		setTextFill(Color.LIGHTBLUE);
 	}
 
 	private void setButtonStyle() {
