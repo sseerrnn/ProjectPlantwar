@@ -25,7 +25,7 @@ public class Button extends javafx.scene.control.Button {
 
 	private void setButtonFont() {
 		setFont(Font.loadFont(getClass().getClassLoader().getResource(FONT_PATH).toExternalForm(), 40));
-		setTextFill(Color.LIGHTBLUE);
+		setTextFill(Color.CORNSILK);
 	}
 
 	private void setButtonStyle() {

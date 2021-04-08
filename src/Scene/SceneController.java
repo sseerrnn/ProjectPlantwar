@@ -18,7 +18,7 @@ public class SceneController {
 	protected Scene mainscene;
 	protected Stage mainstage;
 	protected VBox mainPane;
-	protected StackPane backgroundPane; 
+	protected AnchorPane backgroundPane; 
 	
 
 	public SceneController() {
@@ -31,8 +31,14 @@ public class SceneController {
 		gui.Button ExitButton = new gui.Button("Exit Game");
 		mainPane.getChildren().addAll(StartButton,ExitButton);
 		mainPane.setSpacing(20);
-		backgroundPane=new StackPane();
-		backgroundPane.getChildren().addAll(new ImageView("Background.jpg"),mainPane);
+		mainPane.setLayoutX(223);
+		mainPane.setLayoutY(340);
+		ImageView Logo= new ImageView("Logo.png");
+		Logo.setLayoutX(125);
+		Logo.setLayoutY(105);
+		backgroundPane=new AnchorPane();
+		backgroundPane.getChildren().addAll(new ImageView("Background.jpg"),mainPane,Logo);
+		
 		
 		mainscene = new Scene(backgroundPane,Width,Height);
 
