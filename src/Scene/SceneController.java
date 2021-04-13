@@ -28,12 +28,9 @@ public class SceneController {
 	public SceneController() {
 		mainStage = new Stage();
 		mainStage.setTitle("PlantWar");
-		createButtonPane();
-		createMenuButtons();
-		createBackgroundPane();
-		createLogo();
+		setUpMainStage();
 
-		mainScene = new Scene(mainPane, Width, Height);
+		
 		mainStage.setScene(mainScene);
 		mainStage.setResizable(false);
 
@@ -42,7 +39,13 @@ public class SceneController {
 	public Stage getMainstage() {
 		return mainStage;
 	}
-
+public void setUpMainStage() {
+	createButtonPane();
+	createMenuButtons();
+	createBackgroundPane();
+	createLogo();
+	mainScene = new Scene(mainPane, Width, Height);
+}
 	public void setMainstage(Stage mainstage) {
 		this.mainStage = mainstage;
 	}
@@ -117,7 +120,22 @@ public class SceneController {
 		
 
 	}
+public void createBackButton() {
+	GameButton back =new GameButton("");
+	back.setUpButtonStyle3();
+	mainPane.getChildren().add(back);
+	back.setOnAction(new EventHandler<ActionEvent>() {
 
+		@Override
+		public void handle(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			setUpMainStage();
+			mainStage.setScene(mainScene);
+		}
+	});
+	back.setLayoutX(38);
+	back.setLayoutY(36);
+}
 	public void createChooseMapButton1() {
 		GameButton map1 = new GameButton("ENTER");
 		map1.setUpButtonStyle2();
@@ -170,6 +188,7 @@ public class SceneController {
 		createChooseMapButton1();
 		createChooseMapButton2();
 		createChooseMapButton3();
+		createBackButton();
 	}
 	public void createMapTopic() {
 		ImageView maps=new ImageView("Maps.png");

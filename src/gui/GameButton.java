@@ -14,6 +14,7 @@ public class GameButton extends javafx.scene.control.Button {
 	private final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('WoodButton.png');";
 	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigWoodButton.png');";
 	private final String BUTTON_STYLE_2 = "-fx-background-color: transparent; -fx-background-image: url('MapButton.png');";
+	private final String BUTTON_STYLE_3 = "-fx-background-color: transparent; -fx-background-image: url('back.png');";
 
 	public GameButton(String text) {
 
@@ -130,4 +131,48 @@ public class GameButton extends javafx.scene.control.Button {
 
 		});
 	}
+	public void setUpButtonStyle3() {
+		setStyle(BUTTON_STYLE_3);
+		setPrefHeight(77);
+		setPrefWidth(82);
+		initializeButtonListeners3();
+
+	}
+	public void initializeButtonListeners3() {
+		setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				DropShadow drop = new DropShadow();
+				drop.setColor(Color.WHITE);
+				setEffect(drop);
+			}
+
+		});
+		setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				setEffect(null);
+
+			}
+		});
+		setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+		setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+}
 }
