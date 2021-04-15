@@ -267,7 +267,7 @@ public class SceneController {
 		});
 		pause.setLayoutX(1112);
 		pause.setLayoutY(17);
-		pause.setPrefHeight(60);
+		
 	}
 
 	public void createGameButtons() {
