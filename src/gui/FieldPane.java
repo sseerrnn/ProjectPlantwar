@@ -14,6 +14,7 @@ public class FieldPane extends GridPane {
 			for (int j = 0; j < 9; j++) {
 				FieldCell cell = new FieldCell();
 				fieldCells.add(cell);
+				
 				this.add(cell, j, i);
 			}
 		}

@@ -2,6 +2,7 @@ package scene;
 
 import com.sun.glass.events.MouseEvent;
 
+import gui.FieldPane;
 import gui.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,9 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -30,7 +33,6 @@ public class SceneController {
 		mainStage.setTitle("PlantWar");
 		setUpMainStage();
 
-		
 		mainStage.setScene(mainScene);
 		mainStage.setResizable(false);
 
@@ -39,13 +41,15 @@ public class SceneController {
 	public Stage getMainstage() {
 		return mainStage;
 	}
-public void setUpMainStage() {
-	createButtonPane();
-	createMenuButtons();
-	createBackgroundPane();
-	createLogo();
-	mainScene = new Scene(mainPane, Width, Height);
-}
+
+	public void setUpMainStage() {
+		createButtonPane();
+		createMenuButtons();
+		createBackgroundPane();
+		createLogo();
+		mainScene = new Scene(mainPane, Width, Height);
+	}
+
 	public void setMainstage(Stage mainstage) {
 		this.mainStage = mainstage;
 	}
@@ -117,25 +121,26 @@ public void setUpMainStage() {
 	public void setUpChooseMapPane() {
 		mainPane = new AnchorPane();
 		mainPane.getChildren().add(new ImageView("blue green.jpg"));
-		
 
 	}
-public void createBackButton() {
-	GameButton back =new GameButton("");
-	back.setUpButtonStyle3();
-	mainPane.getChildren().add(back);
-	back.setOnAction(new EventHandler<ActionEvent>() {
 
-		@Override
-		public void handle(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			setUpMainStage();
-			mainStage.setScene(mainScene);
-		}
-	});
-	back.setLayoutX(38);
-	back.setLayoutY(36);
-}
+	public void createBackButton() {
+		GameButton back = new GameButton("");
+		back.setUpButtonStyle3();
+		mainPane.getChildren().add(back);
+		back.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				setUpMainStage();
+				mainStage.setScene(mainScene);
+			}
+		});
+		back.setLayoutX(38);
+		back.setLayoutY(36);
+	}
+
 	public void createChooseMapButton1() {
 		GameButton map1 = new GameButton("ENTER");
 		map1.setUpButtonStyle2();
@@ -146,6 +151,8 @@ public void createBackButton() {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println(1);
+				setUpGameScene();
+				mainStage.setScene(mainScene);
 			}
 		});
 		map1.setLayoutX(166.5);
@@ -190,38 +197,80 @@ public void createBackButton() {
 		createChooseMapButton3();
 		createBackButton();
 	}
+
 	public void createMapTopic() {
-		ImageView maps=new ImageView("Maps.png");
+		ImageView maps = new ImageView("Maps.png");
 		maps.setLayoutX(444);
 		maps.setLayoutY(58);
 		mainPane.getChildren().add(maps);
-		
+
 	}
+
 	public void createMapPicture() {
-		ImageView mapPic1= new ImageView("black.jpg");
-		ImageView mapPic2= new ImageView("black.jpg");
-		ImageView mapPic3= new ImageView("black.jpg");
-		
+		ImageView mapPic1 = new ImageView("black.jpg");
+		ImageView mapPic2 = new ImageView("black.jpg");
+		ImageView mapPic3 = new ImageView("black.jpg");
+
 		mapPic1.setLayoutX(180);
 		mapPic1.setLayoutY(216);
 		mapPic2.setLayoutX(489);
 		mapPic2.setLayoutY(216);
 		mapPic3.setLayoutX(797);
 		mapPic3.setLayoutY(216);
-		
-		mainPane.getChildren().addAll(mapPic1,mapPic2,mapPic3);
-		
-		
+
+		mainPane.getChildren().addAll(mapPic1, mapPic2, mapPic3);
+
 		ImageView mapLock2 = new ImageView("lock.png");
 		ImageView mapLock3 = new ImageView("lock.png");
-		
+
 		mapLock2.setLayoutX(548);
 		mapLock2.setLayoutY(269);
 		mapLock3.setLayoutX(857);
 		mapLock3.setLayoutY(269);
-		
-		mainPane.getChildren().addAll(mapLock2,mapLock3);
-		
+
+		mainPane.getChildren().addAll(mapLock2, mapLock3);
+
 	}
 
+	public void setUpGameScene() {
+		setUpGamePane();
+		setUpFieldPane();
+		createGameButtons();
+		mainScene = new Scene(mainPane, Width, Height);
+	}
+
+	public void setUpGamePane() {
+		mainPane = new AnchorPane();
+		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
+
+	}
+
+	public void setUpFieldPane() {
+		FieldPane field = new FieldPane();
+		mainPane.getChildren().add(field);
+		field.setLayoutX(310);
+		field.setLayoutY(100);
+	}
+
+	public void createPauseButton() {
+		GameButton pause = new GameButton("");
+		pause.setUpPauseButtonStyle();
+		mainPane.getChildren().add(pause);
+		pause.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// pop up Pause menu
+			}
+
+		});
+		pause.setLayoutX(1112);
+		pause.setLayoutY(17);
+		pause.setPrefHeight(60);
+	}
+
+	public void createGameButtons() {
+		createPauseButton();
+	}
 }

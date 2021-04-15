@@ -15,6 +15,7 @@ public class GameButton extends javafx.scene.control.Button {
 	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigWoodButton.png');";
 	private final String BUTTON_STYLE_2 = "-fx-background-color: transparent; -fx-background-image: url('MapButton.png');";
 	private final String BUTTON_STYLE_3 = "-fx-background-color: transparent; -fx-background-image: url('back.png');";
+	private final String BUTTON_STYLE_PAUSE="-fx-background-color: transparent; -fx-background-image: url('pause.png');";
 
 	public GameButton(String text) {
 
@@ -175,4 +176,11 @@ public class GameButton extends javafx.scene.control.Button {
 
 		});
 }
+	public void setUpPauseButtonStyle() {
+		setStyle(BUTTON_STYLE_PAUSE);
+		setPrefHeight(65);
+		setPrefWidth(53);
+		initializeButtonListeners3();
+		
+	}
 }
