@@ -39,5 +39,14 @@ public int getPrice() {
 public void setPrice(int price) {
 	this.price = price;
 }
+public String getPriceText() {
+	if(price > 0 ) {
+		return "\nPrice: "+ price;			
+	}
+	return "";
+}
+
+
 
 }
+

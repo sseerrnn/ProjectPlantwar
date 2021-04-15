@@ -7,7 +7,9 @@ import gui.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Camera;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -153,6 +155,8 @@ public class SceneController {
 				System.out.println(1);
 				setUpGameScene();
 				mainStage.setScene(mainScene);
+				createChooseCharSubScene();
+				
 			}
 		});
 		map1.setLayoutX(166.5);
@@ -237,6 +241,8 @@ public class SceneController {
 		setUpFieldPane();
 		createGameButtons();
 		mainScene = new Scene(mainPane, Width, Height);
+
+		
 	}
 
 	public void setUpGamePane() {
@@ -244,11 +250,25 @@ public class SceneController {
 		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
 
 	}
+	public void createChooseCharSubScene() {
+		AnchorPane subScenePane=new AnchorPane();
+		SubScene chooseChar = new SubScene(subScenePane, 983, 520);
+		ImageView board = new ImageView("board.png");
+		subScenePane.setBackground(null);
+		subScenePane.getChildren().add(board);
+		subScenePane.setLayoutX(200);
+		subScenePane.setLayoutY(94);
+		mainPane.getChildren().add(subScenePane);
+		
+	}
+	public void createPlantChooseCharButton() {
+		
+	}
 
 	public void setUpFieldPane() {
 		FieldPane field = new FieldPane();
 		mainPane.getChildren().add(field);
-		field.setLayoutX(310);
+		field.setLayoutX(300);
 		field.setLayoutY(100);
 	}
 
