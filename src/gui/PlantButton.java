@@ -24,13 +24,9 @@ public class PlantButton extends Button {
 		this.setGraphic(image);
 	}
 
-	public void highlight() {
-		this.setBackground(new Background(new BackgroundFill(Color.GRAY, null, getInsets())));
-	}
 
-	public void unhighlight() {
-		this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-	}
+
+
 
 	private void setTooltip() {
 		Tooltip tooltip = new Tooltip();

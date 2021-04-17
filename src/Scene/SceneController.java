@@ -4,6 +4,8 @@ import com.sun.glass.events.MouseEvent;
 
 import gui.FieldPane;
 import gui.GameButton;
+import gui.GameSubScene;
+import gui.PlantButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,6 +23,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import logic.GameController;
+import logic.LevelController;
 
 public class SceneController {
 	protected static final int Height = 674;
@@ -29,6 +33,9 @@ public class SceneController {
 	protected Stage mainStage;
 	protected VBox buttonPane;
 	protected AnchorPane mainPane;
+
+	private GameController gameController;
+	private LevelController levelController;
 
 	public SceneController() {
 		mainStage = new Stage();
@@ -156,7 +163,7 @@ public class SceneController {
 				setUpGameScene();
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
-				
+
 			}
 		});
 		map1.setLayoutX(166.5);
@@ -242,7 +249,6 @@ public class SceneController {
 		createGameButtons();
 		mainScene = new Scene(mainPane, Width, Height);
 
-		
 	}
 
 	public void setUpGamePane() {
@@ -250,19 +256,41 @@ public class SceneController {
 		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
 
 	}
+
 	public void createChooseCharSubScene() {
-		AnchorPane subScenePane=new AnchorPane();
-		SubScene chooseChar = new SubScene(subScenePane, 983, 520);
-		ImageView board = new ImageView("board.png");
-		subScenePane.setBackground(null);
-		subScenePane.getChildren().add(board);
-		subScenePane.setLayoutX(200);
-		subScenePane.setLayoutY(94);
-		mainPane.getChildren().add(subScenePane);
+
+		GameSubScene chooseChar = new GameSubScene(983, 520);
+
+		mainPane.getChildren().add(chooseChar.getRoot());
 		
+//		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
+//			if (i < 5) {
+//			chooseCharr	levelController.getPlantButtonList().get(i);
+//			} else {
+//
+//			}
+//		}
 	}
-	public void createPlantChooseCharButton() {
-		
+
+	
+
+	public void createPlantButton() {
+
+		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
+			if (i < 5) {
+				levelController.getPlantButtonList().get(i);
+			} else {
+
+			}
+		}
+	}
+
+	public void initializeLevelController() {
+		levelController = new LevelController();
+	}
+
+	public void initializeGameController() {
+		gameController = new GameController();
 	}
 
 	public void setUpFieldPane() {
@@ -287,7 +315,7 @@ public class SceneController {
 		});
 		pause.setLayoutX(1112);
 		pause.setLayoutY(17);
-		
+
 	}
 
 	public void createGameButtons() {

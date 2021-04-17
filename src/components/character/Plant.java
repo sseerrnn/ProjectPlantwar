@@ -6,18 +6,18 @@ private String url;
 private int price;
 public Plant(String plantName) {
 	switch(plantName) {
-	case "CabbagePult" :		url = "-.png"; 		price = 100;	break;
-	case "CornPult" : 	url = "-.png"; 	price = 100;	break;
-	case "DoublePeaShooter" : 	url = "-.png"; 	price = 200;	break;
-	case "FireDragon" : url = "-.png"; price = 150;	break;
-	case "PeaShooter" : 	url = "-.png"; 	price = 100;	break;
-	case "PotatoBomb" : 	url = "-.png"; 	price = 25;	break;
-	case "SnowPea" : 	url = "-.png"; 	price = 150;	break;
-	case "Sunflower" : 	url = "-.png"; 	price = 50;	break;
-	case "TwinSunflower" : 	url = "-.png"; 	price = 125;	break;
-	case "Wallnut" : 	url = "-.png"; 	price = 50;	break;
+	case "CabbagePult" :		url = "black.png"; 		price = 100;	break;
+	case "CornPult" : 	url = "black.png"; 	price = 100;	break;
+	case "DoublePeaShooter" : 	url = "black.png"; 	price = 200;	break;
+	case "FireDragon" : url = "black.png"; price = 150;	break;
+	case "PeaShooter" : 	url = "black.png"; 	price = 100;	break;
+	case "PotatoBomb" : 	url = "black.png"; 	price = 25;	break;
+	case "SnowPea" : 	url = "black.png"; 	price = 150;	break;
+	case "Sunflower" : 	url = "black.png"; 	price = 50;	break;
+	case "TwinSunflower" : 	url = "black.png"; 	price = 125;	break;
+	case "Wallnut" : 	url = "black.png"; 	price = 50;	break;
 	
-	default : 			url = "-.png"; 	price = 0; plantName = "";
+	default : 			url = "black.png"; 	price = 0; plantName = "";
 }
 this.plantName=plantName;
 }
