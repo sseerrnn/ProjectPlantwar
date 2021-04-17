@@ -258,21 +258,32 @@ public class SceneController {
 	}
 
 	public void createChooseCharSubScene() {
-
-		GameSubScene chooseChar = new GameSubScene(983, 520);
+		initializeLevelController();
+		AnchorPane subScenePane = new AnchorPane();
+		GameSubScene chooseChar = new GameSubScene(subScenePane, 983, 520);
 
 		mainPane.getChildren().add(chooseChar.getRoot());
-		
-//		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
-//			if (i < 5) {
-//			chooseCharr	levelController.getPlantButtonList().get(i);
-//			} else {
-//
-//			}
-//		}
-	}
 
-	
+		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
+			if (i < 5) {
+				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
+				chooseCharButton.setLayoutX(55+177*(i));
+				chooseCharButton.setLayoutY(146);
+				subScenePane.getChildren().add(chooseCharButton);
+				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						chooseCharButton.setTranslateX(-200);
+					}
+				});
+
+			} else {
+
+			}
+		}
+	}
 
 	public void createPlantButton() {
 

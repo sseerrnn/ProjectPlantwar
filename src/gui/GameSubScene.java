@@ -13,7 +13,7 @@ public class GameSubScene extends SubScene {
 	private AnchorPane root;
 	protected final String BACKGROUND_PATH = "board.png";
 
-	public GameSubScene(double width, double height) {
+	public GameSubScene(AnchorPane pane,double width, double height) {
 		super(new AnchorPane(), width, height);
 		root = (AnchorPane) this.getRoot();
 
