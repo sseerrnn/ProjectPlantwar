@@ -1,6 +1,7 @@
 package gui;
 
 import components.character.Plant;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -12,16 +13,17 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class PlantButton extends Button {
+	private  String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('WoodButton.png');";
 	private Plant plant;
 
 	public PlantButton(String plantName) {
 		// TODO Auto-generated constructor stub
 		this.plant = new Plant(plantName);
+		ImageView image = new ImageView(plant.getUrl());
 		this.setPrefHeight(107);
 		this.setPrefWidth(165);
-		ImageView image = new ImageView(plant.getUrl());
-		this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.setGraphic(image);
+BUTTON_STYLE="-fx-background-color: transparent; -fx-background-image: url('"+plant.getUrl()+"');";
+		this.setStyle(BUTTON_STYLE);
 	}
 
 

@@ -259,23 +259,30 @@ public class SceneController {
 
 	public void createChooseCharSubScene() {
 		initializeLevelController();
-		AnchorPane subScenePane = new AnchorPane();
-		GameSubScene chooseChar = new GameSubScene(subScenePane, 983, 520);
+		
+		GameSubScene chooseChar = new GameSubScene();
 
-		mainPane.getChildren().add(chooseChar.getRoot());
-
+		mainPane.getChildren().add(chooseChar);
+//		Button testbutton =new Button("");
+//		chooseChar.getPane().getChildren().add(testbutton);
+	   
+	
+	
 		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
 			if (i < 5) {
 				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
 				chooseCharButton.setLayoutX(55+177*(i));
-				chooseCharButton.setLayoutY(146);
-				subScenePane.getChildren().add(chooseCharButton);
+			chooseCharButton.setLayoutY(146);
+				chooseChar.getPane().getChildren().add(chooseCharButton);
 				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent arg0) {
 						// TODO Auto-generated method stub
 						chooseCharButton.setTranslateX(-200);
+//						chooseCharButton.setVisible(false);
+						mainPane.getChildren().add(chooseCharButton);
+						
 					}
 				});
 
