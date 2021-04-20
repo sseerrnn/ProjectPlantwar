@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -15,7 +16,8 @@ public class GameButton extends javafx.scene.control.Button {
 	private final String BUTTON_STYLE_BIG = "-fx-background-color: transparent; -fx-background-image: url('BigWoodButton.png');";
 	private final String BUTTON_STYLE_2 = "-fx-background-color: transparent; -fx-background-image: url('MapButton.png');";
 	private final String BUTTON_STYLE_3 = "-fx-background-color: transparent; -fx-background-image: url('back.png');";
-	private final String BUTTON_STYLE_PAUSE="-fx-background-color: transparent; -fx-background-image: url('pause.png');";
+	private final String BUTTON_STYLE_PAUSE="-fx-background-color: transparent; -fx-background-image: url('pause2.png');";
+	private final String BUTTON_STYLE_SUBMIT ="-fx-background-color: transparent; -fx-background-image: url('submit3.png');";
 
 	public GameButton(String text) {
 
@@ -182,5 +184,12 @@ public class GameButton extends javafx.scene.control.Button {
 		setPrefWidth(53);
 		initializeButtonListeners3();
 		
+	}
+	public void setUpSubmitButtonStyle() {
+		setStyle(BUTTON_STYLE_SUBMIT);
+		initializeButtonListeners3();
+		setPrefHeight(63);
+		setPrefWidth(237);
+
 	}
 }

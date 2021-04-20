@@ -4,10 +4,15 @@ import com.sun.glass.events.MouseEvent;
 
 import gui.FieldPane;
 import gui.GameButton;
+import gui.GameSubScene;
+import gui.PlantButton;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Camera;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +23,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import logic.GameController;
+import logic.LevelController;
 
 public class SceneController {
 	protected static final int Height = 674;
@@ -27,6 +36,10 @@ public class SceneController {
 	protected Stage mainStage;
 	protected VBox buttonPane;
 	protected AnchorPane mainPane;
+
+	private GameController gameController;
+	private LevelController levelController;
+	private GameSubScene chooseChar;
 
 	public SceneController() {
 		mainStage = new Stage();
@@ -153,6 +166,9 @@ public class SceneController {
 				System.out.println(1);
 				setUpGameScene();
 				mainStage.setScene(mainScene);
+				createChooseCharSubScene();
+				chooseChar.moveSubSceneIn();
+
 			}
 		});
 		map1.setLayoutX(166.5);
@@ -237,6 +253,7 @@ public class SceneController {
 		setUpFieldPane();
 		createGameButtons();
 		mainScene = new Scene(mainPane, Width, Height);
+
 	}
 
 	public void setUpGamePane() {
@@ -245,10 +262,96 @@ public class SceneController {
 
 	}
 
+	public void createSubmitButton() {
+		GameButton submit = new GameButton("Submit");
+		submit.setUpSubmitButtonStyle();
+		submit.setLayoutX(691);
+		submit.setLayoutY(437);
+		chooseChar.getPane().getChildren().add(submit);
+		submit.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				chooseChar.moveSubSceneOut();
+			}
+		});
+
+	}
+
+	public void createChooseCharSubScene() {
+		initializeLevelController();
+		initializeGameController();
+		chooseChar = new GameSubScene();
+
+		mainPane.getChildren().add(chooseChar);
+//		Button testbutton =new Button("");
+//		chooseChar.getPane().getChildren().add(testbutton);
+		createSubmitButton();
+
+		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
+			if (i < 5) {
+				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
+				chooseCharButton.setLayoutX(55 + 177 * (i));
+				chooseCharButton.setLayoutY(146);
+				chooseChar.getPane().getChildren().add(chooseCharButton);
+				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						chooseCharButton.setVisible(false);
+						PlantButton charButton = new PlantButton(chooseCharButton.getText());
+						TranslateTransition transition = new TranslateTransition();
+						transition.setNode(charButton);
+						transition.setDuration(Duration.millis(100));
+						charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
+						charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
+						gameController.setSelectedPlantButton(charButton);
+						gameController.getSelectedPlantButtons().add(charButton);
+						mainPane.getChildren().add(charButton);
+						transition.setToX(19 - charButton.getLayoutX());
+						transition.setToY(
+								-14 + gameController.getSelectedPlantButtons().size() * 105 - charButton.getLayoutY());
+						transition.play();
+//						charButton.setTranslateX(19-charButton.getLayoutX());
+//						charButton.setTranslateY(-14+gameController.getSelectedPlantButtons().size()*105-charButton.getLayoutY());
+
+//						chooseCharButton.setTranslateX(-200);
+//						chooseCharButton.setVisible(false);
+						charButton.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								// TODO Auto-generated method stub
+								chooseCharButton.setVisible(true);
+								charButton.setVisible(false);
+								gameController.getSelectedPlantButtons()
+										.remove(gameController.getSelectedPlantButtons().size() - 1);
+							}
+						});
+
+					}
+				});
+
+			} else {
+
+			}
+		}
+	}
+
+	public void initializeLevelController() {
+		levelController = new LevelController();
+	}
+
+	public void initializeGameController() {
+		gameController = new GameController();
+	}
+
 	public void setUpFieldPane() {
 		FieldPane field = new FieldPane();
 		mainPane.getChildren().add(field);
-		field.setLayoutX(310);
+		field.setLayoutX(300);
 		field.setLayoutY(100);
 	}
 
@@ -267,7 +370,7 @@ public class SceneController {
 		});
 		pause.setLayoutX(1112);
 		pause.setLayoutY(17);
-		pause.setPrefHeight(60);
+
 	}
 
 	public void createGameButtons() {
