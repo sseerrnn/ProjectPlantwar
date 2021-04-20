@@ -261,6 +261,7 @@ public class SceneController {
 		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
 
 	}
+
 	public void createSubmitButton() {
 		GameButton submit = new GameButton("Submit");
 		submit.setUpSubmitButtonStyle();
@@ -286,14 +287,13 @@ public class SceneController {
 		mainPane.getChildren().add(chooseChar);
 //		Button testbutton =new Button("");
 //		chooseChar.getPane().getChildren().add(testbutton);
-	   createSubmitButton();
-	
-	
+		createSubmitButton();
+
 		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
 			if (i < 5) {
 				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
-				chooseCharButton.setLayoutX(55+177*(i));
-			chooseCharButton.setLayoutY(146);
+				chooseCharButton.setLayoutX(55 + 177 * (i));
+				chooseCharButton.setLayoutY(146);
 				chooseChar.getPane().getChildren().add(chooseCharButton);
 				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -301,21 +301,22 @@ public class SceneController {
 					public void handle(ActionEvent arg0) {
 						// TODO Auto-generated method stub
 						chooseCharButton.setVisible(false);
-						PlantButton charButton =new PlantButton(chooseCharButton.getText());
-						TranslateTransition transition=new TranslateTransition();
+						PlantButton charButton = new PlantButton(chooseCharButton.getText());
+						TranslateTransition transition = new TranslateTransition();
 						transition.setNode(charButton);
 						transition.setDuration(Duration.millis(100));
-						charButton.setLayoutX(chooseCharButton.getLayoutX()+199);
-						charButton.setLayoutY(chooseCharButton.getLayoutY()+96);
+						charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
+						charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
 						gameController.setSelectedPlantButton(charButton);
-						gameController.getSelectedPlantButtons().add(charButton) ;
+						gameController.getSelectedPlantButtons().add(charButton);
 						mainPane.getChildren().add(charButton);
-						transition.setToX(19-charButton.getLayoutX());
-						transition.setToY(-14+gameController.getSelectedPlantButtons().size()*105-charButton.getLayoutY());
+						transition.setToX(19 - charButton.getLayoutX());
+						transition.setToY(
+								-14 + gameController.getSelectedPlantButtons().size() * 105 - charButton.getLayoutY());
 						transition.play();
 //						charButton.setTranslateX(19-charButton.getLayoutX());
 //						charButton.setTranslateY(-14+gameController.getSelectedPlantButtons().size()*105-charButton.getLayoutY());
-						
+
 //						chooseCharButton.setTranslateX(-200);
 //						chooseCharButton.setVisible(false);
 						charButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -325,10 +326,11 @@ public class SceneController {
 								// TODO Auto-generated method stub
 								chooseCharButton.setVisible(true);
 								charButton.setVisible(false);
-								gameController.getSelectedPlantButtons().remove(gameController.getSelectedPlantButtons().size()-1);
+								gameController.getSelectedPlantButtons()
+										.remove(gameController.getSelectedPlantButtons().size() - 1);
 							}
 						});
-						
+
 					}
 				});
 
@@ -337,9 +339,6 @@ public class SceneController {
 			}
 		}
 	}
-
-
-	
 
 	public void initializeLevelController() {
 		levelController = new LevelController();
