@@ -14,11 +14,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		// TODO Auto-generated method stub
+		try {
+			SceneController manager = new SceneController();
 
-		SceneController manager = new SceneController();
-
-		primarystage = manager.getMainstage();
-		primarystage.show();
+			primarystage = manager.getMainstage();
+			primarystage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 }
