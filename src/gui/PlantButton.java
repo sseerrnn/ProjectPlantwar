@@ -42,4 +42,12 @@ BUTTON_STYLE="-fx-background-color: transparent; -fx-background-image: url('"+pl
 		});
 
 	}
+
+
+
+
+
+	public Plant getPlant() {
+		return plant;
+	}
 }

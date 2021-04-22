@@ -11,20 +11,28 @@ public class LevelController {
 		// TODO Auto-generated constructor stub
 		plantButtonList = new ArrayList<PlantButton>();
 		setUpLevel1Button();
+		setUpLevel2Button();
 	}
 
 	public void setUpLevel1Button() {
 		plantButtonList.add(new PlantButton("PeaShooter"));
 		plantButtonList.add(new PlantButton("Sunflower"));
-		plantButtonList.add(new PlantButton("PotatoBomb"));
 		plantButtonList.add(new PlantButton("Wallnut"));
-		plantButtonList.add(new PlantButton("PeaShooter"));
 	}
 
 	public void setUpLevel2Button() {
-		plantButtonList.add(new PlantButton("PeaShooter"));
-		plantButtonList.add(new PlantButton("PeaShooter"));
-		plantButtonList.add(new PlantButton("PeaShooter"));
+		plantButtonList.add(new PlantButton("PotatoBomb"));
+		plantButtonList.add(new PlantButton("CabbagePult"));
+		plantButtonList.add(new PlantButton("SnowPea"));
+	
+
+	}
+	public void setUpLevel3Button() {
+		plantButtonList.add(new PlantButton("TwinSunflower"));
+		plantButtonList.add(new PlantButton("CornPult"));
+		plantButtonList.add(new PlantButton("DoublePeaShooter"));
+		plantButtonList.add(new PlantButton("FireDragon"));
+
 
 	}
 

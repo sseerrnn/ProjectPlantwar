@@ -2,6 +2,7 @@ package scene;
 
 import com.sun.glass.events.MouseEvent;
 
+import exception.ChooseCharacterFailException;
 import gui.FieldPane;
 import gui.GameButton;
 import gui.GameSubScene;
@@ -285,8 +286,7 @@ public class SceneController {
 		chooseChar = new GameSubScene();
 
 		mainPane.getChildren().add(chooseChar);
-//		Button testbutton =new Button("");
-//		chooseChar.getPane().getChildren().add(testbutton);
+
 		createSubmitButton();
 
 		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
@@ -299,42 +299,94 @@ public class SceneController {
 
 					@Override
 					public void handle(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						chooseCharButton.setVisible(false);
-						PlantButton charButton = new PlantButton(chooseCharButton.getText());
-						TranslateTransition transition = new TranslateTransition();
-						transition.setNode(charButton);
-						transition.setDuration(Duration.millis(100));
-						charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
-						charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
-						gameController.setSelectedPlantButton(charButton);
-						gameController.getSelectedPlantButtons().add(charButton);
-						mainPane.getChildren().add(charButton);
-						transition.setToX(19 - charButton.getLayoutX());
-						transition.setToY(
-								-14 + gameController.getSelectedPlantButtons().size() * 105 - charButton.getLayoutY());
-						transition.play();
-//						charButton.setTranslateX(19-charButton.getLayoutX());
-//						charButton.setTranslateY(-14+gameController.getSelectedPlantButtons().size()*105-charButton.getLayoutY());
 
-//						chooseCharButton.setTranslateX(-200);
-//						chooseCharButton.setVisible(false);
-						charButton.setOnAction(new EventHandler<ActionEvent>() {
+						try {
+							gameController.checkSpaceInselectedPlantButtons();
+							chooseCharButton.setVisible(false);
+							PlantButton charButton = new PlantButton(chooseCharButton.getPlant().getPlantName());
+							TranslateTransition transition = new TranslateTransition();
+							transition.setNode(charButton);
+							transition.setDuration(Duration.millis(100));
+							charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
+							charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
+							gameController.setSelectedPlantButton(charButton);
+							gameController.getSelectedPlantButtons().set(gameController.getSpaceIndex(), charButton);
+							mainPane.getChildren().add(charButton);
+							transition.setToX(19 - charButton.getLayoutX());
 
-							@Override
-							public void handle(ActionEvent arg0) {
-								// TODO Auto-generated method stub
-								chooseCharButton.setVisible(true);
-								charButton.setVisible(false);
-								gameController.getSelectedPlantButtons()
-										.remove(gameController.getSelectedPlantButtons().size() - 1);
-							}
-						});
+							transition.setToY(+91 + gameController.getSpaceIndex() * 105 - charButton.getLayoutY());
+							transition.play();
+							charButton.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent arg0) {
+
+									chooseCharButton.setVisible(true);
+									charButton.setVisible(false);
+
+									gameController.getSelectedPlantButtons().set(
+											gameController.getSelectedPlantButtons().indexOf(charButton),
+											new PlantButton(""));
+								}
+							});
+
+						} catch (ChooseCharacterFailException e) {
+
+							System.out.println("Choose Character Fail, " + e.getMessage());
+						}
 
 					}
 				});
 
 			} else {
+				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
+				int j = i - 5;
+				chooseCharButton.setLayoutX(55 + 177 * (j));
+				chooseCharButton.setLayoutY(272);
+				chooseChar.getPane().getChildren().add(chooseCharButton);
+				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+
+						try {
+							gameController.checkSpaceInselectedPlantButtons();
+							chooseCharButton.setVisible(false);
+							PlantButton charButton = new PlantButton(chooseCharButton.getPlant().getPlantName());
+							TranslateTransition transition = new TranslateTransition();
+							transition.setNode(charButton);
+							transition.setDuration(Duration.millis(100));
+							charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
+							charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
+							gameController.setSelectedPlantButton(charButton);
+							gameController.getSelectedPlantButtons().set(gameController.getSpaceIndex(), charButton);
+							mainPane.getChildren().add(charButton);
+							transition.setToX(19 - charButton.getLayoutX());
+
+							transition.setToY(+91 + gameController.getSpaceIndex() * 105 - charButton.getLayoutY());
+
+							transition.play();
+							charButton.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent arg0) {
+
+									chooseCharButton.setVisible(true);
+									charButton.setVisible(false);
+//								
+									gameController.getSelectedPlantButtons().set(
+											gameController.getSelectedPlantButtons().indexOf(charButton),
+											new PlantButton(""));
+								}
+							});
+
+						} catch (ChooseCharacterFailException e) {
+
+							System.out.println("Choose Character Fail, " + e.getMessage());
+						}
+
+					}
+				});
 
 			}
 		}
