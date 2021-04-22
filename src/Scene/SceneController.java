@@ -3,6 +3,7 @@ package scene;
 import com.sun.glass.events.MouseEvent;
 
 import exception.ChooseCharacterFailException;
+import exception.PlantNotEnoughFailException;
 import gui.FieldPane;
 import gui.GameButton;
 import gui.GameSubScene;
@@ -78,7 +79,6 @@ public class SceneController {
 				// TODO Auto-generated method stub
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
-				System.out.println(0);// To change scene
 
 			}
 		});
@@ -164,7 +164,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(1);
+
 				setUpGameScene();
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
@@ -185,7 +185,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(2);
+
 			}
 		});
 		map2.setLayoutX(474.5);
@@ -201,7 +201,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(3);
+
 			}
 		});
 		map3.setLayoutX(782.5);
@@ -274,7 +274,14 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				chooseChar.moveSubSceneOut();
+				try {
+					gameController.checkPlantEnough();
+					gameController.setGameStart(true);
+					setUpInGamePlantButtons();
+					chooseChar.moveSubSceneOut();
+				} catch (PlantNotEnoughFailException e) {
+					System.out.println("Submit fail, " + e.getMessage());
+				}
 			}
 		});
 
@@ -304,37 +311,17 @@ public class SceneController {
 							gameController.checkSpaceInselectedPlantButtons();
 							chooseCharButton.setVisible(false);
 							PlantButton charButton = new PlantButton(chooseCharButton.getPlant().getPlantName());
-							TranslateTransition transition = new TranslateTransition();
-							transition.setNode(charButton);
-							transition.setDuration(Duration.millis(100));
-							charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
-							charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
 							gameController.setSelectedPlantButton(charButton);
 							gameController.getSelectedPlantButtons().set(gameController.getSpaceIndex(), charButton);
 							mainPane.getChildren().add(charButton);
-							transition.setToX(19 - charButton.getLayoutX());
 
-							transition.setToY(+91 + gameController.getSpaceIndex() * 105 - charButton.getLayoutY());
-							transition.play();
-							charButton.setOnAction(new EventHandler<ActionEvent>() {
+							moveCharacterButton(chooseCharButton, charButton);
 
-								@Override
-								public void handle(ActionEvent arg0) {
-
-									chooseCharButton.setVisible(true);
-									charButton.setVisible(false);
-
-									gameController.getSelectedPlantButtons().set(
-											gameController.getSelectedPlantButtons().indexOf(charButton),
-											new PlantButton(""));
-								}
-							});
+							setUpUnselectButtonListener(charButton, chooseCharButton);
 
 						} catch (ChooseCharacterFailException e) {
-
-							System.out.println("Choose Character Fail, " + e.getMessage());
+							System.out.println("Choose character fail, " + e.getMessage());
 						}
-
 					}
 				});
 
@@ -353,36 +340,17 @@ public class SceneController {
 							gameController.checkSpaceInselectedPlantButtons();
 							chooseCharButton.setVisible(false);
 							PlantButton charButton = new PlantButton(chooseCharButton.getPlant().getPlantName());
-							TranslateTransition transition = new TranslateTransition();
-							transition.setNode(charButton);
-							transition.setDuration(Duration.millis(100));
-							charButton.setLayoutX(chooseCharButton.getLayoutX() + 199);
-							charButton.setLayoutY(chooseCharButton.getLayoutY() + 96);
 							gameController.setSelectedPlantButton(charButton);
 							gameController.getSelectedPlantButtons().set(gameController.getSpaceIndex(), charButton);
 							mainPane.getChildren().add(charButton);
-							transition.setToX(19 - charButton.getLayoutX());
 
-							transition.setToY(+91 + gameController.getSpaceIndex() * 105 - charButton.getLayoutY());
+							moveCharacterButton(chooseCharButton, charButton);
 
-							transition.play();
-							charButton.setOnAction(new EventHandler<ActionEvent>() {
-
-								@Override
-								public void handle(ActionEvent arg0) {
-
-									chooseCharButton.setVisible(true);
-									charButton.setVisible(false);
-//								
-									gameController.getSelectedPlantButtons().set(
-											gameController.getSelectedPlantButtons().indexOf(charButton),
-											new PlantButton(""));
-								}
-							});
+							setUpUnselectButtonListener(charButton, chooseCharButton);
 
 						} catch (ChooseCharacterFailException e) {
 
-							System.out.println("Choose Character Fail, " + e.getMessage());
+							System.out.println("Choose character fail, " + e.getMessage());
 						}
 
 					}
@@ -390,6 +358,54 @@ public class SceneController {
 
 			}
 		}
+	}
+
+	public void setUpInGamePlantButtons() {
+		for (PlantButton charButton : gameController.getSelectedPlantButtons()) {
+			setUpPlantButton(charButton);
+		}
+	}
+
+	public void setUpPlantButton(PlantButton charButton) {
+
+		charButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+System.out.println(0);
+			}
+		});
+	}
+
+	public void setUpUnselectButtonListener(PlantButton charButton, PlantButton chooseCharButton) {
+		charButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+
+				chooseCharButton.setVisible(true);
+				charButton.setVisible(false);
+
+				gameController.getSelectedPlantButtons()
+						.set(gameController.getSelectedPlantButtons().indexOf(charButton), new PlantButton(""));
+			}
+
+		});
+
+	}
+
+	public void moveCharacterButton(PlantButton input, PlantButton output) {
+		TranslateTransition transition = new TranslateTransition();
+		transition.setNode(output);
+		transition.setDuration(Duration.millis(100));
+
+		output.setLayoutX(input.getLayoutX() + 199);
+		output.setLayoutY(input.getLayoutY() + 96);
+
+		transition.setToX(19 - output.getLayoutX());
+		transition.setToY(+91 + gameController.getSpaceIndex() * 105 - output.getLayoutY());
+		transition.play();
 	}
 
 	public void initializeLevelController() {
