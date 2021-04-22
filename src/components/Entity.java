@@ -1,5 +1,7 @@
 package components;
 
+import javafx.animation.Animation;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -16,6 +18,10 @@ public class Entity {
 
 	protected int velocity_x;
 	protected int velocity_y;
+	
+	protected ImageView imageView;
+    protected Animation animation;
+    protected String img_path;
 
 	public Entity(int init_x, int init_y, int width, int height) {
 		this.init_x = init_x;

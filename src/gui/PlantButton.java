@@ -32,18 +32,7 @@ public class PlantButton extends Button {
 
 	}
 
-	private void setTooltip() {
-		Tooltip tooltip = new Tooltip();
-		tooltip.setText(plant.getPlantName() + plant.getPriceText());
-		this.setOnMouseMoved((MouseEvent e) -> {
-			if (plant != null)
-				tooltip.show(this, e.getScreenX(), e.getScreenY() + 10);
-		});
-		this.setOnMouseExited((MouseEvent e) -> {
-			tooltip.hide();
-		});
-
-	}
+	
 
 	public Plant getPlant() {
 		return plant;
