@@ -2,15 +2,19 @@ package logic;
 
 import java.util.ArrayList;
 
+import components.character.Plant;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.GameButton;
 import gui.PlantButton;
 
 public class GameController {
-	private ArrayList<PlantButton> selectedPlantButtons ;
+	private ArrayList<PlantButton> selectedPlantButtons;
+	private PlantButton selectedPlantButton;// for choose plant in choose menu
 	private int spaceIndex;
-	private PlantButton selectedPlantButton;
+
+	private Plant selectedPlant;// for chooseplant in game
+	private int energy;
 	private boolean isGameStart;
 
 	public GameController() {
@@ -18,7 +22,7 @@ public class GameController {
 		isGameStart = false;
 
 		setUpArrayLv1();
-		setUpArrayLv2();
+		
 	}
 
 	public ArrayList<PlantButton> getSelectedPlantButtons() {
@@ -47,8 +51,9 @@ public class GameController {
 
 		}
 		this.spaceIndex = count;
-		if (spaceIndex==selectedPlantButtons.size()) {
-			throw new ChooseCharacterFailException("Cannot choose plant more than "+selectedPlantButtons.size()+" plants.");
+		if (spaceIndex == selectedPlantButtons.size()) {
+			throw new ChooseCharacterFailException(
+					"Cannot choose plant more than " + selectedPlantButtons.size() + " plants.");
 		}
 	}
 
@@ -69,7 +74,7 @@ public class GameController {
 
 	public void setUpArrayLv2() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 4; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -89,6 +94,7 @@ public class GameController {
 	public void setGameStart(boolean isGameStart) {
 		this.isGameStart = isGameStart;
 	}
+
 	public void checkPlantEnough() throws PlantNotEnoughFailException {
 		int count = 0;
 		for (PlantButton button : selectedPlantButtons) {
@@ -99,8 +105,23 @@ public class GameController {
 
 		}
 		this.spaceIndex = count;
-		if (spaceIndex!=selectedPlantButtons.size()) {
+		if (spaceIndex != selectedPlantButtons.size()) {
 			throw new PlantNotEnoughFailException("Plant not enough.");
 		}
 	}
+
+	public Plant getSelectedPlant() {
+		return selectedPlant;
+	}
+
+	public void setSelectedPlant(Plant selectedPlant) {
+		this.selectedPlant = selectedPlant;
+	}
+	public void reduceEneryToBuyPlant() {
+		if(energy>=selectedPlant.getPrice()) {
+			energy-=selectedPlant.getPrice();
+			
+		}
+	}
+
 }

@@ -4,12 +4,16 @@ import com.sun.glass.events.MouseEvent;
 
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
+import gui.FieldCell;
 import gui.FieldPane;
 import gui.GameButton;
 import gui.GameSubScene;
 import gui.PlantButton;
+import gui.SpriteAnimation;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
@@ -30,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GameController;
 import logic.LevelController;
+import javafx.scene.input.MouseEvent;
 
 public class SceneController {
 	protected static final int Height = 674;
@@ -359,6 +364,28 @@ public class SceneController {
 			}
 		}
 	}
+	public void initializeFieldCellListeners(FieldCell cell) {
+		cell.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				// TODO Auto-generated method stub
+				onClickHandler(cell);
+			}
+		});
+			
+		
+		
+	}
+	public void onClickHandler(FieldCell cell) {
+		if(gameController.getSelectedPlant()!=null) {
+			if(cell.getPlant()==null) {
+				cell.setPlant(gameController.getSelectedPlant());
+				gameController.reduceEneryToBuyPlant();
+//				SpriteAnimation sprite=new SpriteAnimation(null, null, Height, Height, Height, Height, Width, Height)
+			}
+		}
+	}
 
 	public void setUpInGamePlantButtons() {
 		for (PlantButton charButton : gameController.getSelectedPlantButtons()) {
@@ -374,6 +401,7 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println(0);
+				gameController.setSelectedPlant(charButton.getPlant());
 			}
 		});
 	}
