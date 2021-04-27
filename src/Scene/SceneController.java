@@ -1,6 +1,6 @@
 package scene;
 
-import com.sun.glass.events.MouseEvent;
+
 
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
@@ -285,7 +285,7 @@ public class SceneController {
 					setUpInGamePlantButtons();
 					chooseChar.moveSubSceneOut();
 				} catch (PlantNotEnoughFailException e) {
-					System.out.println("Submit fail, " + e.getMessage());
+					System.out.println("Submit failed, " + e.getMessage());
 				}
 			}
 		});
@@ -325,7 +325,7 @@ public class SceneController {
 							setUpUnselectButtonListener(charButton, chooseCharButton);
 
 						} catch (ChooseCharacterFailException e) {
-							System.out.println("Choose character fail, " + e.getMessage());
+							System.out.println("Choose character failed, " + e.getMessage());
 						}
 					}
 				});
@@ -355,7 +355,7 @@ public class SceneController {
 
 						} catch (ChooseCharacterFailException e) {
 
-							System.out.println("Choose character fail, " + e.getMessage());
+							System.out.println("Choose character failed, " + e.getMessage());
 						}
 
 					}

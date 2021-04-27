@@ -53,7 +53,7 @@ public class GameController {
 		this.spaceIndex = count;
 		if (spaceIndex == selectedPlantButtons.size()) {
 			throw new ChooseCharacterFailException(
-					"Cannot choose plant more than " + selectedPlantButtons.size() + " plants.");
+					"Cannot choose more than " + selectedPlantButtons.size() + " plants.");
 		}
 	}
 
