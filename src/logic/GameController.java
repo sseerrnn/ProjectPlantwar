@@ -22,6 +22,7 @@ public class GameController {
 		isGameStart = false;
 
 		setUpArrayLv1();
+		energy=5000;
 		
 	}
 

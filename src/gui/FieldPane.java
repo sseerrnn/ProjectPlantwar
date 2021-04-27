@@ -10,6 +10,14 @@ import javafx.scene.paint.Color;
 public class FieldPane extends GridPane {
 	private ObservableList<FieldCell> fieldCells = FXCollections.observableArrayList();
 
+	public ObservableList<FieldCell> getFieldCells() {
+		return fieldCells;
+	}
+
+	public void setFieldCells(ObservableList<FieldCell> fieldCells) {
+		this.fieldCells = fieldCells;
+	}
+
 	public FieldPane() {
 		this.setPrefWidth(855);
 		this.setPrefHeight(500);

@@ -1,7 +1,5 @@
 package scene;
 
-
-
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.FieldCell;
@@ -17,6 +15,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
@@ -283,6 +282,7 @@ public class SceneController {
 					gameController.checkPlantEnough();
 					gameController.setGameStart(true);
 					setUpInGamePlantButtons();
+
 					chooseChar.moveSubSceneOut();
 				} catch (PlantNotEnoughFailException e) {
 					System.out.println("Submit failed, " + e.getMessage());
@@ -364,27 +364,33 @@ public class SceneController {
 			}
 		}
 	}
+
 	public void initializeFieldCellListeners(FieldCell cell) {
 		cell.setOnMouseClicked(new EventHandler<Event>() {
 
 			@Override
 			public void handle(Event arg0) {
 				// TODO Auto-generated method stub
+//				System.out.println(cell.getPlant().getPlantName());
 				onClickHandler(cell);
 			}
 		});
-			
-		
-		
+
 	}
+
 	public void onClickHandler(FieldCell cell) {
-		if(gameController.getSelectedPlant()!=null) {
-			if(cell.getPlant()==null) {
+		if (gameController.getSelectedPlant() != null) {
+			if (cell.getPlant() == null) {
 				cell.setPlant(gameController.getSelectedPlant());
 				gameController.reduceEneryToBuyPlant();
-//				SpriteAnimation sprite=new SpriteAnimation(null, null, Height, Height, Height, Height, Width, Height)
+				gameController.getSelectedPlant().setInitX((int) cell.getLayoutX());
+				gameController.getSelectedPlant().setInitY((int) cell.getLayoutY());
+				gameController.getSelectedPlant().setUp();
+				mainPane.getChildren().add(new Group(gameController.getSelectedPlant().getGameChar().getImageView())); 
+
 			}
 		}
+		System.out.println(cell.getPlant().getPlantName());
 	}
 
 	public void setUpInGamePlantButtons() {
@@ -394,14 +400,16 @@ public class SceneController {
 	}
 
 	public void setUpPlantButton(PlantButton charButton) {
-
+		charButton.setOnAction(null);
 		charButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(0);
+
 				gameController.setSelectedPlant(charButton.getPlant());
+				System.out.println(gameController.getSelectedPlant().getPlantName());
+
 			}
 		});
 	}
@@ -449,6 +457,9 @@ public class SceneController {
 		mainPane.getChildren().add(field);
 		field.setLayoutX(300);
 		field.setLayoutY(100);
+		for (FieldCell cell : field.getFieldCells()) {
+			initializeFieldCellListeners(cell);
+		}
 	}
 
 	public void createPauseButton() {

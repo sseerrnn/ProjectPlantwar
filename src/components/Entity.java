@@ -18,10 +18,10 @@ public class Entity {
 
 	protected int velocity_x;
 	protected int velocity_y;
-	
+
 	protected ImageView imageView;
-    protected Animation animation;
-    protected String img_path;
+	protected Animation animation;
+	protected String img_path;
 
 	public Entity(int init_x, int init_y, int width, int height) {
 		this.init_x = init_x;
@@ -33,6 +33,10 @@ public class Entity {
 		setX(init_x);
 		setY(init_y);
 
+	}
+
+	public ImageView getImageView() {
+		return imageView;
 	}
 
 	public int getX() {
