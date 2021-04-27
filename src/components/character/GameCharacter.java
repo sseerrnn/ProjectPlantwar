@@ -35,6 +35,8 @@ public class GameCharacter extends Entity {
 		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
 				height);
 		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(init_x);
+		imageView.setLayoutY(init_y);
 		animation.play();
 	}
 

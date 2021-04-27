@@ -13,7 +13,11 @@ public class Wallnut extends GameCharacter implements Interactable {
 		this.count=5;
 		this.offsetX=0;
 		this.offsetY=0;
+		this.height=64;
+		this.width=54;
+		
 		createAnimation();
+		
 	}
 
 	@Override
