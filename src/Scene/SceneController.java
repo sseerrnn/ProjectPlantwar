@@ -282,7 +282,7 @@ public class SceneController {
 					gameController.checkPlantEnough();
 					gameController.setGameStart(true);
 					setUpInGamePlantButtons();
-
+					gameController.Startgame();
 					chooseChar.moveSubSceneOut();
 				} catch (PlantNotEnoughFailException e) {
 					System.out.println("Submit failed, " + e.getMessage());
@@ -383,11 +383,15 @@ public class SceneController {
 			if (cell.getPlant() == null) {
 				cell.setPlant(gameController.getSelectedPlant());
 				gameController.reduceEneryToBuyPlant();
-				gameController.getSelectedPlant().setInitX(((int) cell.getLayoutX())+318);
-				System.out.println(cell.getLayoutX());
-				gameController.getSelectedPlant().setInitY(((int) cell.getLayoutY())+96);
 				gameController.getSelectedPlant().setUp();
-				mainPane.getChildren().add(new Group(gameController.getSelectedPlant().getGameChar().getImageView())); 
+				gameController.getSelectedPlant().setInitX(
+						((int) cell.getLayoutX()) + 318 + gameController.getSelectedPlant().getGameChar().getDiffX());
+				gameController.getSelectedPlant().setInitY(
+						((int) cell.getLayoutY()) + 96 + gameController.getSelectedPlant().getGameChar().getDiffY());
+				
+				gameController.getSelectedPlant().setUp();
+				
+				mainPane.getChildren().add(new Group(gameController.getSelectedPlant().getGameChar().getImageView()));
 
 			}
 		}

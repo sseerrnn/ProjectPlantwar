@@ -19,6 +19,18 @@ public class GameCharacter extends Entity {
 	protected int width;
 	protected int height;
 
+	protected int diffX;
+	protected int diffY;
+	
+
+	public int getDiffX() {
+		return diffX;
+	}
+
+	public int getDiffY() {
+		return diffY;
+	}
+
 	public GameCharacter(String img_path, int init_x, int init_y, int width, int height, int currentHP,
 			int attackPoint) {
 		super(init_x, init_y, width, height);

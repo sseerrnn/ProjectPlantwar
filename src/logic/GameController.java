@@ -7,6 +7,7 @@ import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.GameButton;
 import gui.PlantButton;
+import javafx.animation.AnimationTimer;
 
 public class GameController {
 	private ArrayList<PlantButton> selectedPlantButtons;
@@ -17,14 +18,44 @@ public class GameController {
 	private int energy;
 	private boolean isGameStart;
 
+	private int currentTime;
+	private AnimationTimer animationTimer;
+	private long lastTimeTriggered;
+
 	public GameController() {
 		// TODO Auto-generated constructor stub
 		isGameStart = false;
-
 		setUpArrayLv1();
-		energy=5000;
-		
+		energy = 5000;
+		currentTime = 0;
+		lastTimeTriggered = -1;
+
 	}
+
+	public void Startgame() {
+		isGameStart = true;
+		timecount();
+
+	}
+ public void timecount() {
+		this.animationTimer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				// TODO Auto-generated method stub
+
+				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+
+				if (now - lastTimeTriggered >= 1000000000) {
+					currentTime++;
+
+					lastTimeTriggered = now;
+					System.out.println(currentTime);
+				}
+			}
+		};
+		this.animationTimer.start();
+ }
 
 	public ArrayList<PlantButton> getSelectedPlantButtons() {
 		return selectedPlantButtons;
@@ -118,10 +149,11 @@ public class GameController {
 	public void setSelectedPlant(Plant selectedPlant) {
 		this.selectedPlant = selectedPlant;
 	}
+
 	public void reduceEneryToBuyPlant() {
-		if(energy>=selectedPlant.getPrice()) {
-			energy-=selectedPlant.getPrice();
-			
+		if (energy >= selectedPlant.getPrice()) {
+			energy -= selectedPlant.getPrice();
+
 		}
 	}
 
