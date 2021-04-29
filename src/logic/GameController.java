@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import components.character.Plant;
+import components.other.Sun;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.GameButton;
@@ -17,6 +18,7 @@ public class GameController {
 	private Plant selectedPlant;// for chooseplant in game
 	private int energy;
 	private boolean isGameStart;
+	private boolean isGameEnd;
 
 	private int currentTime;
 	private AnimationTimer animationTimer;
@@ -29,7 +31,20 @@ public class GameController {
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
+		isGameEnd=false;
 
+	}
+
+	public int getCurrentTime() {
+		return currentTime;
+	}
+
+	public boolean isGameEnd() {
+		return isGameEnd;
+	}
+
+	public void setGameEnd(boolean isGameEnd) {
+		this.isGameEnd = isGameEnd;
 	}
 
 	public void Startgame() {
@@ -37,7 +52,8 @@ public class GameController {
 		timecount();
 
 	}
- public void timecount() {
+
+	public void timecount() {
 		this.animationTimer = new AnimationTimer() {
 
 			@Override
@@ -51,11 +67,12 @@ public class GameController {
 
 					lastTimeTriggered = now;
 					System.out.println(currentTime);
+
 				}
 			}
 		};
 		this.animationTimer.start();
- }
+	}
 
 	public ArrayList<PlantButton> getSelectedPlantButtons() {
 		return selectedPlantButtons;
@@ -155,6 +172,10 @@ public class GameController {
 			energy -= selectedPlant.getPrice();
 
 		}
+	}
+
+	public void increaseEnegy() {
+		energy += 50;
 	}
 
 }

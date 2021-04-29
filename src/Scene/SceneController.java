@@ -1,5 +1,6 @@
 package scene;
 
+import components.other.Sun;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.FieldCell;
@@ -10,6 +11,7 @@ import gui.PlantButton;
 import gui.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -284,12 +286,39 @@ public class SceneController {
 					setUpInGamePlantButtons();
 					gameController.Startgame();
 					chooseChar.moveSubSceneOut();
+					toFallSun();
 				} catch (PlantNotEnoughFailException e) {
 					System.out.println("Submit failed, " + e.getMessage());
 				}
 			}
 		});
 
+	}
+
+//	public void createFallSunThread() {
+//		Thread thread =new Thread();
+//	}
+	
+	public void toFallSun() {
+		while (gameController.getCurrentTime()<30) {
+			if (gameController.getCurrentTime() % 7 == 0) {
+				Sun sun = new Sun();
+				sun.toImageView();
+				sun.toFalling(sun.getImageView());
+				mainPane.getChildren().add(sun.getImageView());
+				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
+
+					@Override
+					public void handle(Event arg0) {
+						// TODO Auto-generated method stub
+						sun.moveOut(sun.getImageView());
+						gameController.increaseEnegy();
+						mainPane.getChildren().remove(sun.getImageView());
+					}
+
+				});
+			}
+		}
 	}
 
 	public void createChooseCharSubScene() {
@@ -359,6 +388,7 @@ public class SceneController {
 						}
 
 					}
+
 				});
 
 			}
@@ -388,9 +418,9 @@ public class SceneController {
 						((int) cell.getLayoutX()) + 318 + gameController.getSelectedPlant().getGameChar().getDiffX());
 				gameController.getSelectedPlant().setInitY(
 						((int) cell.getLayoutY()) + 96 + gameController.getSelectedPlant().getGameChar().getDiffY());
-				
+
 				gameController.getSelectedPlant().setUp();
-				
+
 				mainPane.getChildren().add(new Group(gameController.getSelectedPlant().getGameChar().getImageView()));
 
 			}
@@ -426,7 +456,8 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 
 				chooseCharButton.setVisible(true);
-				charButton.setVisible(false);
+//				charButton.setVisible(false);
+				mainPane.getChildren().remove(charButton);
 
 				gameController.getSelectedPlantButtons()
 						.set(gameController.getSelectedPlantButtons().indexOf(charButton), new PlantButton(""));
