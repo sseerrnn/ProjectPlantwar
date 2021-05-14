@@ -32,7 +32,7 @@ public class Sun extends Entity {
 
 	public int randomY() {
 		Random random = new Random();
-		int y = 200 + random.nextInt(860);
+		int y = 200+ random.nextInt(460);
 		return y;
 
 	}

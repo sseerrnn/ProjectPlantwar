@@ -38,6 +38,7 @@ import logic.LevelController;
 import javafx.scene.input.MouseEvent;
 
 public class SceneController {
+	private static SceneController instance = null;
 	protected static final int Height = 674;
 	protected static final int Width = 1200;
 	protected Scene mainScene;
@@ -49,7 +50,7 @@ public class SceneController {
 	private LevelController levelController;
 	private GameSubScene chooseChar;
 
-	public SceneController() {
+	private SceneController() {
 		mainStage = new Stage();
 		mainStage.setTitle("PlantWar");
 		setUpMainStage();
@@ -57,6 +58,12 @@ public class SceneController {
 		mainStage.setScene(mainScene);
 		mainStage.setResizable(false);
 
+	}
+	public static SceneController getInstance() {
+		 if (instance == null)
+	            instance = new SceneController();
+	  
+	        return instance;
 	}
 
 	public Stage getMainstage() {
@@ -298,14 +305,16 @@ public class SceneController {
 //	public void createFallSunThread() {
 //		Thread thread =new Thread();
 //	}
-	
+
 	public void toFallSun() {
-		while (gameController.getCurrentTime()<30) {
-			if (gameController.getCurrentTime() % 7 == 0) {
+		if (gameController.getSunCount() < 50) {
+			if (gameController.getCurrentTime() % 2 == 0) {
 				Sun sun = new Sun();
 				sun.toImageView();
 				sun.toFalling(sun.getImageView());
 				mainPane.getChildren().add(sun.getImageView());
+				gameController.setSunCount(gameController.getSunCount() + 1);
+				System.out.println(gameController.getSunCount());
 				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
 
 					@Override

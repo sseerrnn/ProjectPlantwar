@@ -6,10 +6,19 @@ import implement.Producable;
 
 public class TwinSunflower extends GameCharacter implements Interactable, Producable {
 
-	public TwinSunflower(String img_path, int init_x, int init_y, int width, int height, int currentHP,
-			int attackPoint) {
-		super(img_path, init_x, init_y, width, height, 100, 0);
+	public TwinSunflower(int init_x, int init_y) {
+		super("twinsunflowersprite.png", init_x, init_y,90, 75, 100, 0);
 		// TODO Auto-generated constructor stub
+		this.currentHP=maxHP;
+		this.columns=8;
+		this.count=8;
+		this.offsetX=0;
+		this.offsetY=0;
+		this.width=90;
+		this.height=75;
+		this.diffX=-15;
+		this.diffY=13;
+		createAnimation();
 	}
 
 	@Override

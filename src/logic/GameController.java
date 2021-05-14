@@ -9,6 +9,7 @@ import exception.PlantNotEnoughFailException;
 import gui.GameButton;
 import gui.PlantButton;
 import javafx.animation.AnimationTimer;
+import scene.SceneController;
 
 public class GameController {
 	private ArrayList<PlantButton> selectedPlantButtons;
@@ -16,7 +17,11 @@ public class GameController {
 	private int spaceIndex;
 
 	private Plant selectedPlant;// for chooseplant in game
+	
 	private int energy;
+	private int sunCount;
+	private boolean canCreateSun;
+	
 	private boolean isGameStart;
 	private boolean isGameEnd;
 
@@ -27,12 +32,22 @@ public class GameController {
 	public GameController() {
 		// TODO Auto-generated constructor stub
 		isGameStart = false;
-		setUpArrayLv1();
+		setUpArrayLv3();
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
 		isGameEnd=false;
+		sunCount=0;
+		canCreateSun=false;
 
+	}
+
+	public int getSunCount() {
+		return sunCount;
+	}
+
+	public void setSunCount(int sunCount) {
+		this.sunCount = sunCount;
 	}
 
 	public int getCurrentTime() {
@@ -67,11 +82,21 @@ public class GameController {
 
 					lastTimeTriggered = now;
 					System.out.println(currentTime);
+					
+//						canCreateSun=true;
+						SceneController.getInstance().toFallSun(); 
+						
+					
+						canCreateSun=false;
 
 				}
 			}
 		};
 		this.animationTimer.start();
+	}
+
+	public boolean isCanCreateSun() {
+		return canCreateSun;
 	}
 
 	public ArrayList<PlantButton> getSelectedPlantButtons() {

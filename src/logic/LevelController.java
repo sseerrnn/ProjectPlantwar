@@ -12,6 +12,7 @@ public class LevelController {
 		plantButtonList = new ArrayList<PlantButton>();
 		setUpLevel1Button();
 		setUpLevel2Button();
+		setUpLevel3Button();
 	}
 
 	public void setUpLevel1Button() {
@@ -31,7 +32,7 @@ public class LevelController {
 		plantButtonList.add(new PlantButton("TwinSunflower"));
 		plantButtonList.add(new PlantButton("CornPult"));
 		plantButtonList.add(new PlantButton("DoublePeaShooter"));
-		plantButtonList.add(new PlantButton("FireDragon"));
+		plantButtonList.add(new PlantButton("Tallnut"));
 
 
 	}
