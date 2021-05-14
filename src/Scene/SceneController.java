@@ -59,11 +59,12 @@ public class SceneController {
 		mainStage.setResizable(false);
 
 	}
+
 	public static SceneController getInstance() {
-		 if (instance == null)
-	            instance = new SceneController();
-	  
-	        return instance;
+		if (instance == null)
+			instance = new SceneController();
+
+		return instance;
 	}
 
 	public Stage getMainstage() {
@@ -95,6 +96,14 @@ public class SceneController {
 
 			}
 		});
+	}
+
+	public AnchorPane getMainPane() {
+		return mainPane;
+	}
+
+	public void setMainPane(AnchorPane mainPane) {
+		this.mainPane = mainPane;
 	}
 
 	public void createExitButton() {

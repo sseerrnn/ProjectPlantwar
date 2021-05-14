@@ -4,8 +4,10 @@ import components.plant.CabbagePult;
 import components.plant.CornPult;
 import components.plant.DoublePeaShooter;
 import components.plant.PeaShooter;
+import components.plant.PotatoBomb;
 import components.plant.SnowPea;
 import components.plant.Sunflower;
+import components.plant.Tallnut;
 import components.plant.TwinSunflower;
 import components.plant.Wallnut;
 
@@ -85,12 +87,13 @@ public class Plant {
 			gameChar = new DoublePeaShooter(initX, initY);
 			break;
 		case "Tallnut":
-
+			gameChar = new Tallnut(initX, initY);
 			break;
 		case "PeaShooter":
 			gameChar = new PeaShooter(initX, initY);
 			break;
 		case "PotatoBomb":
+			gameChar = new PotatoBomb(initX, initY);
 			break;
 		case "SnowPea":
 			gameChar = new SnowPea(initX, initY);

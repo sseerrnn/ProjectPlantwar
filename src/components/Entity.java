@@ -35,6 +35,14 @@ public class Entity {
 
 	}
 
+	public Animation getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+
 	public ImageView getImageView() {
 		return imageView;
 	}

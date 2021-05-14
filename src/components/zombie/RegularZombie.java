@@ -1,12 +1,13 @@
 package components.zombie;
 
 import components.character.GameCharacter;
+import components.character.Zombie;
 import implement.Interactable;
 
-public class RegularZombie extends GameCharacter implements Interactable {
+public class RegularZombie extends Zombie implements Interactable {
 
 	public RegularZombie(int init_x, int init_y) {
-		super("zombiewalk1.png", init_x, init_y, 100, 100, 100, 35);
+		super("regularzombiesprite.png", init_x, init_y, 100, 100, 100, 35);
 		// TODO Auto-generated constructor stub
 		this.currentHP=maxHP;
 		this.columns=7;
@@ -17,6 +18,7 @@ public class RegularZombie extends GameCharacter implements Interactable {
 		this.width=100;
 		this.diffX=0;
 		this.diffY=0;
+		this.offsetY=100;
 		createAnimation();
 	}
 

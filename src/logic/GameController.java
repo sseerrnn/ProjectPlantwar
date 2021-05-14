@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import components.character.Plant;
 import components.other.Sun;
+import components.zombie.RegularZombie;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.GameButton;
@@ -17,11 +18,11 @@ public class GameController {
 	private int spaceIndex;
 
 	private Plant selectedPlant;// for chooseplant in game
-	
+
 	private int energy;
 	private int sunCount;
 	private boolean canCreateSun;
-	
+
 	private boolean isGameStart;
 	private boolean isGameEnd;
 
@@ -36,9 +37,9 @@ public class GameController {
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
-		isGameEnd=false;
-		sunCount=0;
-		canCreateSun=false;
+		isGameEnd = false;
+		sunCount = 0;
+		canCreateSun = false;
 
 	}
 
@@ -82,12 +83,11 @@ public class GameController {
 
 					lastTimeTriggered = now;
 					System.out.println(currentTime);
-					
+
 //						canCreateSun=true;
-						SceneController.getInstance().toFallSun(); 
-						
-					
-						canCreateSun=false;
+					SceneController.getInstance().toFallSun();
+					generateRegularZombie(1200, 470);
+					canCreateSun = false;
 
 				}
 			}
@@ -203,4 +203,11 @@ public class GameController {
 		energy += 50;
 	}
 
+	public void generateRegularZombie(int initx, int inity) {
+
+		RegularZombie zombie = new RegularZombie(initx, inity);
+		SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+		zombie.walkleft();
+
+	}
 }

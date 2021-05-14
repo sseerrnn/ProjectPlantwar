@@ -51,5 +51,88 @@ public class GameCharacter extends Entity {
 		imageView.setLayoutY(init_y);
 		animation.play();
 	}
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+
+	public int getCurrentHP() {
+		return currentHP;
+	}
+
+	public void setCurrentHP(int currentHP) {
+		this.currentHP = currentHP;
+	}
+
+	public int getAttackPoint() {
+		return attackPoint;
+	}
+
+	public void setAttackPoint(int attackPoint) {
+		this.attackPoint = attackPoint;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public void setColumns(int columns) {
+		this.columns = columns;
+	}
+
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public void setOffsetX(int offsetX) {
+		this.offsetX = offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
+	}
+
+	public void setOffsetY(int offsetY) {
+		this.offsetY = offsetY;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setDiffX(int diffX) {
+		this.diffX = diffX;
+	}
+
+	public void setDiffY(int diffY) {
+		this.diffY = diffY;
+	}
+
+	public boolean checkCollision(GameCharacter gameCharacter) {
+		return this.getBox().intersects(gameCharacter.getBox().getBoundsInLocal());
+	}
 
 }
