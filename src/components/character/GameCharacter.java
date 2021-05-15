@@ -41,16 +41,6 @@ public class GameCharacter extends Entity {
 
 	}
 
-	public void createAnimation() {
-		imageView = new ImageView(img_path);
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
-				height);
-		animation.setCycleCount(Animation.INDEFINITE);
-		imageView.setLayoutX(init_x);
-		imageView.setLayoutY(init_y);
-		animation.play();
-	}
 	public int getMaxHP() {
 		return maxHP;
 	}
@@ -133,6 +123,32 @@ public class GameCharacter extends Entity {
 
 	public boolean checkCollision(GameCharacter gameCharacter) {
 		return this.getBox().intersects(gameCharacter.getBox().getBoundsInLocal());
+	}
+	public void createAnimation() {
+		imageView = new ImageView(img_path);
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(init_x);
+		imageView.setLayoutY(init_y);
+		animation.play();
+	}
+	public void doEatPlant() {
+		if (this.getCurrentHP()<30) {
+			
+		}
+		else {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY+130, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY+130, width,
+					height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+			
+			
+		}
 	}
 
 }

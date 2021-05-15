@@ -3,6 +3,7 @@ package components.plant;
 import components.character.GameCharacter;
 import implement.Interactable;
 import implement.Producable;
+import javafx.scene.shape.Rectangle;
 
 public class Sunflower extends GameCharacter implements Interactable, Producable {
 	protected double time_count = 0;
@@ -19,6 +20,8 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 		this.width=75;
 		this.diffX=-10;
 		this.diffY=12;
+		Rectangle hitbox=new Rectangle(95,100);
+		setBox(hitbox);
 		createAnimation();
 	}
 

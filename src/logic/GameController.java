@@ -2,13 +2,16 @@ package logic;
 
 import java.util.ArrayList;
 
+import components.character.GameCharacter;
 import components.character.Plant;
+import components.character.Zombie;
 import components.other.Sun;
 import components.zombie.RegularZombie;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
 import gui.GameButton;
 import gui.PlantButton;
+import implement.Interactable;
 import javafx.animation.AnimationTimer;
 import scene.SceneController;
 
@@ -18,7 +21,6 @@ public class GameController {
 	private int spaceIndex;
 
 	private Plant selectedPlant;// for chooseplant in game
-
 	private int energy;
 	private int sunCount;
 	private boolean canCreateSun;
@@ -30,6 +32,10 @@ public class GameController {
 	private AnimationTimer animationTimer;
 	private long lastTimeTriggered;
 
+	private ArrayList<Zombie> zombieInGame;
+	private ArrayList<GameCharacter> inGameCharacter;
+	private ArrayList<GameCharacter> plantInGame;
+
 	public GameController() {
 		// TODO Auto-generated constructor stub
 		isGameStart = false;
@@ -40,7 +46,9 @@ public class GameController {
 		isGameEnd = false;
 		sunCount = 0;
 		canCreateSun = false;
-
+		zombieInGame = new ArrayList<Zombie>();
+		inGameCharacter = new ArrayList<GameCharacter>();
+		plantInGame = new ArrayList<GameCharacter>();
 	}
 
 	public int getSunCount() {
@@ -87,6 +95,10 @@ public class GameController {
 //						canCreateSun=true;
 					SceneController.getInstance().toFallSun();
 					generateRegularZombie(1200, 470);
+					for (Zombie zombie : zombieInGame) {
+						zombie.walkleft();
+					}
+					System.out.println("Zombie : " + zombieInGame.size());
 					canCreateSun = false;
 
 				}
@@ -204,10 +216,50 @@ public class GameController {
 	}
 
 	public void generateRegularZombie(int initx, int inity) {
+		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+			RegularZombie zombie = new RegularZombie(initx, inity);
+			zombie.setY(zombie.getY() + zombie.getDiffY());
+			zombie.getImageView().setLayoutY(zombie.getY());
+			zombieInGame.add(zombie);
+			inGameCharacter.add(zombie);
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
 
-		RegularZombie zombie = new RegularZombie(initx, inity);
-		SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
-		zombie.walkleft();
+		}
+	}
 
+	public ArrayList<Zombie> getZombieInGame() {
+		return zombieInGame;
+	}
+
+	public void setZombieInGame(ArrayList<Zombie> zombieInGame) {
+		this.zombieInGame = zombieInGame;
+	}
+
+	public ArrayList<GameCharacter> getInGameCharacter() {
+		return inGameCharacter;
+	}
+
+	public void setInGameCharacter(ArrayList<GameCharacter> inGameCharacter) {
+		this.inGameCharacter = inGameCharacter;
+	}
+
+	public ArrayList<GameCharacter> getPlantInGame() {
+		return plantInGame;
+	}
+
+	public void setPlantInGame(ArrayList<GameCharacter> plantInGame) {
+		this.plantInGame = plantInGame;
+	}
+
+	public void checkCollision() {
+		for (GameCharacter plant : plantInGame) {
+			for (Zombie zombie : zombieInGame) {
+				if (plant instanceof Interactable) {
+					((Interactable) plant).interact(zombie);
+					zombie.isEat=true;
+				}
+			}
+		}
 	}
 }

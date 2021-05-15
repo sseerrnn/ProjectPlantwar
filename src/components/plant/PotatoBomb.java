@@ -7,6 +7,7 @@ import implement.Interactable;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class PotatoBomb extends GameCharacter implements Interactable, Explodable {
@@ -23,7 +24,8 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		this.width=100;
 		this.diffX=-22;
 		this.diffY=15;
-		
+		Rectangle hitbox=new Rectangle(95,100);
+		setBox(hitbox);
 		createAnimation();
 	}
 

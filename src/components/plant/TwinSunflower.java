@@ -3,6 +3,8 @@ package components.plant;
 import components.character.GameCharacter;
 import implement.Interactable;
 import implement.Producable;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class TwinSunflower extends GameCharacter implements Interactable, Producable {
 
@@ -18,6 +20,10 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 		this.height=75;
 		this.diffX=-15;
 		this.diffY=13;
+		Rectangle hitbox=new Rectangle(95,100);
+		
+		
+		setBox(hitbox);
 		createAnimation();
 	}
 

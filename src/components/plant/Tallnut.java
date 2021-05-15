@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import implement.Interactable;
+import javafx.scene.shape.Rectangle;
 
 public class Tallnut extends GameCharacter implements Interactable {
 
@@ -17,6 +18,8 @@ public class Tallnut extends GameCharacter implements Interactable {
 		this.width=60;
 		this.diffX=1;
 		this.diffY=15;
+		Rectangle hitbox=new Rectangle(95,100);
+		setBox(hitbox);
 		
 		createAnimation();
 	}

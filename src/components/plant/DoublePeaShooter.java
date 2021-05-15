@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import implement.Interactable;
+import javafx.scene.shape.Rectangle;
 
 public class DoublePeaShooter extends GameCharacter implements Interactable {
 
@@ -17,6 +18,8 @@ public class DoublePeaShooter extends GameCharacter implements Interactable {
 		this.width=80;
 		this.diffX=-10;
 		this.diffY=11;
+		Rectangle hitbox=new Rectangle(95,100);
+		setBox(hitbox);
 		createAnimation();
 	}
 

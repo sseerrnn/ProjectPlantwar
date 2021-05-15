@@ -1,26 +1,35 @@
 package components.character;
 
 import javafx.animation.TranslateTransition;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import scene.SceneController;
 
 public class Zombie extends GameCharacter{
-
+public boolean isEat;
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
 		super(img_path, init_x, init_y, width, height, currentHP, attackPoint);
 		// TODO Auto-generated constructor stub
-		this.setBox(new Rectangle(100, 50));
-		this.getBox().setFill(Color.BLACK);
+		Rectangle hitBox = new Rectangle(100, 100);
+		hitBox.setLayoutX(getX());
+		hitBox.setLayoutY(getY()+30);
+		hitBox.setFill(Color.TRANSPARENT);
+		this.setBox(hitBox);
+		this.velocity_x=20;
 		
 	}
 	public void walkleft() {
+		
 		TranslateTransition move = new TranslateTransition();
 		//code more to change animation
-		move.setNode(this.getImageView());
-		move.setDuration(Duration.seconds(40));
-		move.setToX(-1400);
-		move.play();
+		this.setX(getX()-this.velocity_x);
+		getImageView().setLayoutX(getX());
+		getBox().setLayoutX(getX());
+		
+		
+		
 		
 	}
 	

@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import implement.Interactable;
+import javafx.scene.shape.Rectangle;
 
 public class CabbagePult extends GameCharacter implements Interactable {
 
@@ -17,6 +18,8 @@ public class CabbagePult extends GameCharacter implements Interactable {
 	this.width=90;
 	this.diffX=-28;
 	this.diffY=-9;
+	Rectangle hitbox=new Rectangle(95,100);
+	setBox(hitbox);
 	createAnimation();
 	}
 

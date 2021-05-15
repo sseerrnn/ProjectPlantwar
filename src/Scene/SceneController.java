@@ -30,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -438,8 +439,15 @@ public class SceneController {
 						((int) cell.getLayoutY()) + 96 + gameController.getSelectedPlant().getGameChar().getDiffY());
 
 				gameController.getSelectedPlant().setUp();
+				gameController.getPlantInGame().add(gameController.getSelectedPlant().getGameChar());
+				gameController.getInGameCharacter().add(gameController.getSelectedPlant().getGameChar());
 
-				mainPane.getChildren().add(new Group(gameController.getSelectedPlant().getGameChar().getImageView()));
+				Rectangle box =gameController.getSelectedPlant().getGameChar().getBox();
+				box.setLayoutX((int) cell.getLayoutX() + 300);
+				box.setLayoutY(((int) cell.getLayoutY())+ 100);
+				box.setFill(Color.BLUE);
+				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
+				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());
 
 			}
 		}

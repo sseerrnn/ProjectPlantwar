@@ -3,6 +3,8 @@ package components.plant;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import implement.Interactable;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Wallnut extends GameCharacter implements Interactable {
 
@@ -18,6 +20,10 @@ public class Wallnut extends GameCharacter implements Interactable {
 		this.width = 54;
 		this.diffX = 1;
 		this.diffY = 22;
+		Rectangle hitbox=new Rectangle(95,100);
+		
+		
+		setBox(hitbox);
 
 		createAnimation();
 
@@ -27,9 +33,7 @@ public class Wallnut extends GameCharacter implements Interactable {
 	public void interact(GameCharacter gameCharacter) {
 		// TODO Auto-generated method stub 
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
-            gameCharacter.setOffsetY(200);
-            gameCharacter.
-            gameCharacter.createAnimation();
+           gameCharacter.doEatPlant();
 		}
 	}
 
