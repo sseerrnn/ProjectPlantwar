@@ -122,7 +122,9 @@ public class GameCharacter extends Entity {
 	}
 
 	public boolean checkCollision(GameCharacter gameCharacter) {
-		return this.getBox().intersects(gameCharacter.getBox().getBoundsInLocal());
+//		System.out.println(this.getBox().getBoundsInLocal());
+//		System.out.println(gameCharacter.getBox().getBoundsInParent());
+		return this.getBox().getBoundsInParent().intersects(gameCharacter.getBox().getBoundsInParent());
 	}
 	public void createAnimation() {
 		imageView = new ImageView(img_path);
@@ -139,6 +141,7 @@ public class GameCharacter extends Entity {
 			
 		}
 		else {
+			
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY+130, width, height));
 			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY+130, width,
 					height);
@@ -146,6 +149,8 @@ public class GameCharacter extends Entity {
 			imageView.setLayoutX(getX());
 			imageView.setLayoutY(getY());
 			animation.play();
+			
+			
 			
 			
 		}

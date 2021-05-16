@@ -442,9 +442,9 @@ public class SceneController {
 				gameController.getPlantInGame().add(gameController.getSelectedPlant().getGameChar());
 				gameController.getInGameCharacter().add(gameController.getSelectedPlant().getGameChar());
 
-				Rectangle box =gameController.getSelectedPlant().getGameChar().getBox();
+				Rectangle box = gameController.getSelectedPlant().getGameChar().getBox();
 				box.setLayoutX((int) cell.getLayoutX() + 300);
-				box.setLayoutY(((int) cell.getLayoutY())+ 100);
+				box.setLayoutY(((int) cell.getLayoutY()) + 100);
 				box.setFill(Color.BLUE);
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());

@@ -20,9 +20,8 @@ public class Wallnut extends GameCharacter implements Interactable {
 		this.width = 54;
 		this.diffX = 1;
 		this.diffY = 22;
-		Rectangle hitbox=new Rectangle(95,100);
-		
-		
+		Rectangle hitbox = new Rectangle(95, 100);
+
 		setBox(hitbox);
 
 		createAnimation();
@@ -31,9 +30,14 @@ public class Wallnut extends GameCharacter implements Interactable {
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub 
+		// TODO Auto-generated method stub
+//		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
-           gameCharacter.doEatPlant();
+			gameCharacter.doEatPlant();
+			((Zombie)gameCharacter).isEat=true;
+			if(currentHP>0) {
+			this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
+			}
 		}
 	}
 

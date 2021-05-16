@@ -96,10 +96,12 @@ public class GameController {
 					SceneController.getInstance().toFallSun();
 					generateRegularZombie(1200, 470);
 					for (Zombie zombie : zombieInGame) {
-						zombie.walkleft();
+						zombie.walkLeft();
 					}
 					System.out.println("Zombie : " + zombieInGame.size());
 					canCreateSun = false;
+					checkCollision();
+					
 
 				}
 			}
@@ -252,12 +254,33 @@ public class GameController {
 		this.plantInGame = plantInGame;
 	}
 
+	public void checkDie() {
+		for (GameCharacter plant : plantInGame) {
+			if (plant.getCurrentHP()<0) {
+				System.out.println("plantdie : "+plant);
+				for (Zombie zombie : zombieInGame) {
+					if(plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInLocal())){
+						zombie.setEat(false);
+						zombie.walkLeft();
+					}
+				}
+				SceneController.getInstance().getMainPane().getChildren().remove(plant.getImageView());
+				SceneController.getInstance().getMainPane().getChildren().remove(plant.getBox());
+			}
+		}
+
+	}
+
 	public void checkCollision() {
 		for (GameCharacter plant : plantInGame) {
 			for (Zombie zombie : zombieInGame) {
 				if (plant instanceof Interactable) {
 					((Interactable) plant).interact(zombie);
-					zombie.isEat=true;
+					
+					System.out.println("plant hp: "+plant.getCurrentHP());
+					checkDie();
+					
+
 				}
 			}
 		}

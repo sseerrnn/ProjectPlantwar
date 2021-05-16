@@ -1,6 +1,7 @@
 package components.plant;
 
 import components.character.GameCharacter;
+import components.character.Zombie;
 import implement.Interactable;
 import javafx.scene.shape.Rectangle;
 
@@ -26,7 +27,11 @@ public class CornPult extends GameCharacter implements Interactable {
 	@Override
 	public void interact(GameCharacter gameCharacter) {
 		// TODO Auto-generated method stub
-
+//		System.out.println(checkCollision(gameCharacter));
+		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
+			gameCharacter.doEatPlant();
+			((Zombie)gameCharacter).isEat=true;
+		}
 	}
 
 }
