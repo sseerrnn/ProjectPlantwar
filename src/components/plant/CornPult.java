@@ -10,16 +10,16 @@ public class CornPult extends GameCharacter implements Interactable {
 	public CornPult(int init_x, int init_y) {
 		super("cornpultsprite.png", init_x, init_y, 76, 105, 100, 15);
 		// TODO Auto-generated constructor stub
-		this.currentHP=maxHP;
-		this.columns=4;
-		this.count=4;
-		this.offsetX=0;
-		this.offsetY=0;
-		this.height=105;
-		this.width=76;
-		this.diffX=-15;
-		this.diffY=-18;
-		Rectangle hitbox=new Rectangle(95,100);
+		this.currentHP = maxHP;
+		this.columns = 4;
+		this.count = 4;
+		this.offsetX = 0;
+		this.offsetY = 0;
+		this.height = 105;
+		this.width = 76;
+		this.diffX = -15;
+		this.diffY = -18;
+		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
 		createAnimation();
 	}
@@ -30,10 +30,16 @@ public class CornPult extends GameCharacter implements Interactable {
 //		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
+<<<<<<< Updated upstream
 			((Zombie)gameCharacter).isEat=true;
 			if(currentHP>0) {
 				this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
 				}
+||||||| ancestor
+			((Zombie)gameCharacter).isEat=true;
+=======
+			((Zombie) gameCharacter).isEat = true;
+>>>>>>> Stashed changes
 		}
 	}
 

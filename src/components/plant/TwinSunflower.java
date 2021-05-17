@@ -21,7 +21,7 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 		this.height = 75;
 		this.diffX = -15;
 		this.diffY = 13;
-		Rectangle hitbox = new Rectangle(95, 100);
+		Rectangle hitbox = new Rectangle(40, 100);
 
 		setBox(hitbox);
 		createAnimation();
@@ -39,10 +39,16 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 //		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
+<<<<<<< Updated upstream
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
+||||||| ancestor
+			((Zombie)gameCharacter).isEat=true;
+=======
+			((Zombie) gameCharacter).isEat = true;
+>>>>>>> Stashed changes
 		}
 	}
 

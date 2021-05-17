@@ -13,9 +13,9 @@ public class Zombie extends GameCharacter {
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
 		super(img_path, init_x, init_y, width, height, currentHP, attackPoint);
 		// TODO Auto-generated constructor stub
-		Rectangle hitBox = new Rectangle(100, 100);
+		Rectangle hitBox = new Rectangle(100, 90);
 		hitBox.setLayoutX(getX());
-		hitBox.setLayoutY(getY() + 30);
+		hitBox.setLayoutY(getY() + 35);
 		hitBox.setFill(Color.TRANSPARENT);
 		this.setBox(hitBox);
 		this.velocity_x = 20;

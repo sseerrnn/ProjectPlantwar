@@ -6,6 +6,8 @@ import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
 import components.other.Sun;
+import components.zombie.BucketheadZombie;
+import components.zombie.ConeheadZombie;
 import components.zombie.RegularZombie;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
@@ -95,13 +97,16 @@ public class GameController {
 //						canCreateSun=true;
 					SceneController.getInstance().toFallSun();
 					generateRegularZombie(1200, 470);
+					generateBucketheadZombie(1200, 370);
+					generateConeheadZombie(1200, 270);
+					generateRegularZombie(1200, 170);
+					generateBucketheadZombie(1200, 70);
 					for (Zombie zombie : zombieInGame) {
 						zombie.walkLeft();
 					}
 					System.out.println("Zombie : " + zombieInGame.size());
 					canCreateSun = false;
 					checkCollision();
-					
 
 				}
 			}
@@ -226,7 +231,30 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+		}
+	}
 
+	public void generateBucketheadZombie(int initx, int inity) {
+		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
+			zombie.setY(zombie.getY() + zombie.getDiffY());
+			zombie.getImageView().setLayoutY(zombie.getY());
+			zombieInGame.add(zombie);
+			inGameCharacter.add(zombie);
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+		}
+	}
+
+	public void generateConeheadZombie(int initx, int inity) {
+		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
+			zombie.setY(zombie.getY() + zombie.getDiffY());
+			zombie.getImageView().setLayoutY(zombie.getY());
+			zombieInGame.add(zombie);
+			inGameCharacter.add(zombie);
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
+			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
 		}
 	}
 
@@ -256,10 +284,16 @@ public class GameController {
 
 	public void checkDie() {
 		for (GameCharacter plant : plantInGame) {
-			if (plant.getCurrentHP()<0) {
-				System.out.println("plantdie : "+plant);
+			if (plant.getCurrentHP() < 0) {
+				System.out.println("plantdie : " + plant);
 				for (Zombie zombie : zombieInGame) {
+<<<<<<< Updated upstream
 					if(plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())){
+||||||| ancestor
+					if(plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInLocal())){
+=======
+					if (plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInLocal())) {
+>>>>>>> Stashed changes
 						zombie.setEat(false);
 //						System.out.println(zombie.isEat());
 						zombie.resetAnimation();
@@ -278,10 +312,9 @@ public class GameController {
 			for (Zombie zombie : zombieInGame) {
 				if (plant instanceof Interactable) {
 					((Interactable) plant).interact(zombie);
-					
-					System.out.println("plant hp: "+plant.getCurrentHP());
+
+					System.out.println("plant hp: " + plant.getCurrentHP());
 					checkDie();
-					
 
 				}
 			}

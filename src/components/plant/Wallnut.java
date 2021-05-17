@@ -20,7 +20,7 @@ public class Wallnut extends GameCharacter implements Interactable {
 		this.width = 54;
 		this.diffX = 1;
 		this.diffY = 22;
-		Rectangle hitbox = new Rectangle(95, 100);
+		Rectangle hitbox = new Rectangle(40, 100);
 
 		setBox(hitbox);
 

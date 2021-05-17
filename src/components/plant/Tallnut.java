@@ -19,7 +19,7 @@ public class Tallnut extends GameCharacter implements Interactable {
 		this.width = 60;
 		this.diffX = 1;
 		this.diffY = 15;
-		Rectangle hitbox = new Rectangle(95, 100);
+		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
 
 		createAnimation();
@@ -31,12 +31,17 @@ public class Tallnut extends GameCharacter implements Interactable {
 //		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
+<<<<<<< Updated upstream
 			((Zombie)gameCharacter).isEat=true;
 			if(currentHP>0) {
 				this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
 				}
+||||||| ancestor
+			((Zombie)gameCharacter).isEat=true;
+=======
+			((Zombie) gameCharacter).isEat = true;
+>>>>>>> Stashed changes
 		}
 	}
-
 
 }

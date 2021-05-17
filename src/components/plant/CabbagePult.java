@@ -19,7 +19,7 @@ public class CabbagePult extends GameCharacter implements Interactable {
 	this.width=90;
 	this.diffX=-28;
 	this.diffY=-9;
-	Rectangle hitbox=new Rectangle(95,100);
+	Rectangle hitbox=new Rectangle(40,100);
 	setBox(hitbox);
 	createAnimation();
 	}
