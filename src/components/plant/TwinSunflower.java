@@ -39,9 +39,11 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 //		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
-			((Zombie)gameCharacter).isEat=true;
+			((Zombie) gameCharacter).isEat = true;
+			if (currentHP > 0) {
+				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
+			}
 		}
 	}
-
 
 }

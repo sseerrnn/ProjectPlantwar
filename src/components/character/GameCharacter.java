@@ -155,5 +155,14 @@ public class GameCharacter extends Entity {
 			
 		}
 	}
+	public void resetAnimation() {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
 
 }

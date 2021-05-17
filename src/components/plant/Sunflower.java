@@ -39,6 +39,9 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
 			((Zombie)gameCharacter).isEat=true;
+			if(currentHP>0) {
+				this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
+				}
 		}
 	}
 

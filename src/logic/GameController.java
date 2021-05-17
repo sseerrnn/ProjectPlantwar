@@ -259,9 +259,11 @@ public class GameController {
 			if (plant.getCurrentHP()<0) {
 				System.out.println("plantdie : "+plant);
 				for (Zombie zombie : zombieInGame) {
-					if(plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInLocal())){
+					if(plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())){
 						zombie.setEat(false);
-						zombie.walkLeft();
+//						System.out.println(zombie.isEat());
+						zombie.resetAnimation();
+						
 					}
 				}
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getImageView());

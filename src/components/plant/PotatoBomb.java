@@ -37,6 +37,9 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
 			((Zombie)gameCharacter).isEat=true;
+			if(currentHP>0) {
+				this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
+				}
 		}
 	}
 
