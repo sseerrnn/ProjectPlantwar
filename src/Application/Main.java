@@ -15,9 +15,8 @@ public class Main extends Application {
 	public void start(Stage primarystage) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			SceneController manager = new SceneController();
 
-			primarystage = manager.getMainstage();
+			primarystage = SceneController.getInstance().getMainstage();
 			primarystage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

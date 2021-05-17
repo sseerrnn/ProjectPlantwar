@@ -18,14 +18,15 @@ public class Entity {
 
 	protected int velocity_x;
 	protected int velocity_y;
-	
+
 	protected ImageView imageView;
-    protected Animation animation;
-    protected String img_path;
+	protected Animation animation;
+	protected String img_path;
 
 	public Entity(int init_x, int init_y, int width, int height) {
 		this.init_x = init_x;
 		this.init_y = init_y;
+		
 		box = new Rectangle(width, height);
 		this.box.setFill(Color.TRANSPARENT);
 		this.width = width;
@@ -33,6 +34,18 @@ public class Entity {
 		setX(init_x);
 		setY(init_y);
 
+	}
+
+	public Animation getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+
+	public ImageView getImageView() {
+		return imageView;
 	}
 
 	public int getX() {

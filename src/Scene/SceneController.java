@@ -1,18 +1,23 @@
 package scene;
 
-import com.sun.glass.events.MouseEvent;
-
+import components.other.Sun;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
+import gui.FieldCell;
 import gui.FieldPane;
 import gui.GameButton;
 import gui.GameSubScene;
 import gui.PlantButton;
+import gui.SpriteAnimation;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
@@ -25,13 +30,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GameController;
 import logic.LevelController;
+import javafx.scene.input.MouseEvent;
 
 public class SceneController {
+	private static SceneController instance = null;
 	protected static final int Height = 674;
 	protected static final int Width = 1200;
 	protected Scene mainScene;
@@ -43,7 +51,7 @@ public class SceneController {
 	private LevelController levelController;
 	private GameSubScene chooseChar;
 
-	public SceneController() {
+	private SceneController() {
 		mainStage = new Stage();
 		mainStage.setTitle("PlantWar");
 		setUpMainStage();
@@ -51,6 +59,13 @@ public class SceneController {
 		mainStage.setScene(mainScene);
 		mainStage.setResizable(false);
 
+	}
+
+	public static SceneController getInstance() {
+		if (instance == null)
+			instance = new SceneController();
+
+		return instance;
 	}
 
 	public Stage getMainstage() {
@@ -82,6 +97,14 @@ public class SceneController {
 
 			}
 		});
+	}
+
+	public AnchorPane getMainPane() {
+		return mainPane;
+	}
+
+	public void setMainPane(AnchorPane mainPane) {
+		this.mainPane = mainPane;
 	}
 
 	public void createExitButton() {
@@ -278,13 +301,43 @@ public class SceneController {
 					gameController.checkPlantEnough();
 					gameController.setGameStart(true);
 					setUpInGamePlantButtons();
+					gameController.Startgame();
 					chooseChar.moveSubSceneOut();
+					toFallSun();
 				} catch (PlantNotEnoughFailException e) {
-					System.out.println("Submit fail, " + e.getMessage());
+					System.out.println("Submit failed, " + e.getMessage());
 				}
 			}
 		});
 
+	}
+
+//	public void createFallSunThread() {
+//		Thread thread =new Thread();
+//	}
+
+	public void toFallSun() {
+		if (gameController.getSunCount() < 50) {
+			if (gameController.getCurrentTime() % 2 == 0) {
+				Sun sun = new Sun();
+				sun.toImageView();
+				sun.toFalling(sun.getImageView());
+				mainPane.getChildren().add(sun.getImageView());
+				gameController.setSunCount(gameController.getSunCount() + 1);
+				System.out.println(gameController.getSunCount());
+				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
+
+					@Override
+					public void handle(Event arg0) {
+						// TODO Auto-generated method stub
+						sun.moveOut(sun.getImageView());
+						gameController.increaseEnegy();
+						mainPane.getChildren().remove(sun.getImageView());
+					}
+
+				});
+			}
+		}
 	}
 
 	public void createChooseCharSubScene() {
@@ -320,7 +373,7 @@ public class SceneController {
 							setUpUnselectButtonListener(charButton, chooseCharButton);
 
 						} catch (ChooseCharacterFailException e) {
-							System.out.println("Choose character fail, " + e.getMessage());
+							System.out.println("Choose character failed, " + e.getMessage());
 						}
 					}
 				});
@@ -350,14 +403,55 @@ public class SceneController {
 
 						} catch (ChooseCharacterFailException e) {
 
-							System.out.println("Choose character fail, " + e.getMessage());
+							System.out.println("Choose character failed, " + e.getMessage());
 						}
 
 					}
+
 				});
 
 			}
 		}
+	}
+
+	public void initializeFieldCellListeners(FieldCell cell) {
+		cell.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				// TODO Auto-generated method stub
+//				System.out.println(cell.getPlant().getPlantName());
+				onClickHandler(cell);
+			}
+		});
+
+	}
+
+	public void onClickHandler(FieldCell cell) {
+		if (gameController.getSelectedPlant() != null) {
+			if (cell.getPlant() == null) {
+				cell.setPlant(gameController.getSelectedPlant());
+				gameController.reduceEneryToBuyPlant();
+				gameController.getSelectedPlant().setUp();
+				gameController.getSelectedPlant().setInitX(
+						((int) cell.getLayoutX()) + 318 + gameController.getSelectedPlant().getGameChar().getDiffX());
+				gameController.getSelectedPlant().setInitY(
+						((int) cell.getLayoutY()) + 96 + gameController.getSelectedPlant().getGameChar().getDiffY());
+
+				gameController.getSelectedPlant().setUp();
+				gameController.getPlantInGame().add(gameController.getSelectedPlant().getGameChar());
+				gameController.getInGameCharacter().add(gameController.getSelectedPlant().getGameChar());
+
+				Rectangle box = gameController.getSelectedPlant().getGameChar().getBox();
+				box.setLayoutX((int) cell.getLayoutX() + 300);
+				box.setLayoutY(((int) cell.getLayoutY()) + 100);
+				box.setFill(Color.BLUE);
+				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
+				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());
+
+			}
+		}
+		System.out.println(cell.getPlant().getPlantName());
 	}
 
 	public void setUpInGamePlantButtons() {
@@ -367,13 +461,16 @@ public class SceneController {
 	}
 
 	public void setUpPlantButton(PlantButton charButton) {
-
+		charButton.setOnAction(null);
 		charButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println(0);
+
+				gameController.setSelectedPlant(charButton.getPlant());
+				System.out.println(gameController.getSelectedPlant().getPlantName());
+
 			}
 		});
 	}
@@ -385,7 +482,8 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 
 				chooseCharButton.setVisible(true);
-				charButton.setVisible(false);
+//				charButton.setVisible(false);
+				mainPane.getChildren().remove(charButton);
 
 				gameController.getSelectedPlantButtons()
 						.set(gameController.getSelectedPlantButtons().indexOf(charButton), new PlantButton(""));
@@ -421,6 +519,9 @@ public class SceneController {
 		mainPane.getChildren().add(field);
 		field.setLayoutX(300);
 		field.setLayoutY(100);
+		for (FieldCell cell : field.getFieldCells()) {
+			initializeFieldCellListeners(cell);
+		}
 	}
 
 	public void createPauseButton() {

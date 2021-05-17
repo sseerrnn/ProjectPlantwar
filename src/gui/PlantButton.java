@@ -19,6 +19,7 @@ import javafx.util.Duration;
 public class PlantButton extends Button {
 	private String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('WoodButton.png');";
 	private Plant plant;
+	private boolean isClicked = false;
 
 	public PlantButton(String plantName) {
 		// TODO Auto-generated constructor stub
@@ -32,39 +33,38 @@ public class PlantButton extends Button {
 
 	}
 
-	
-
 	public Plant getPlant() {
 		return plant;
 	}
+
 	public void initializeButtonListeners() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
-				DropShadow drop = new DropShadow();
-				drop.setColor(Color.WHITE);
-				setEffect(drop);
+				highlight();
 			}
 
 		});
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
-				setEffect(null);
-
+				
+					setEffect(null);
+				
 			}
 		});
-		setOnMousePressed(new EventHandler<MouseEvent>() {
+		
 
-			@Override
-			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				DropShadow drop = new DropShadow();
-				drop.setColor(Color.WHITE);
-				setEffect(drop);
-			}
-		});
+	}
+//	public void initializeButtonListeners2() {
+//		setOnMouseEntered(getOnDragDetected());
+//	}
+
+	public void highlight() {
+		DropShadow drop = new DropShadow();
+		drop.setColor(Color.WHITE);
+		setEffect(drop);
 	}
 
 }

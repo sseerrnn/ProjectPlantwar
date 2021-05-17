@@ -32,4 +32,7 @@ public class SpriteAnimation extends Transition {
         final int y = (index / columns) * height + offsetY;
         imageView.setViewport(new Rectangle2D(x, y, width, height));
     }
+
+	
+    
 }

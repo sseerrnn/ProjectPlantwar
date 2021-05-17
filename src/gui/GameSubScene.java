@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
@@ -20,6 +22,7 @@ public class GameSubScene extends SubScene {
 	protected static final String BACKGROUND_PATH = "board.png";
 	protected static final int width = 983;
 	protected static final int height = 520;
+protected static final String[] PLANTBUTTON_OFF_PATH= {"peashooterbuttonoff.png","sunflowerbuttonoff.png","wallnutbuttonoff.png","potatobombbuttonoff.png","cabbagepultbuttonoff.png","snowpeabuttonoff.png","twinsunflowerbuttonoff.png","cornpultbuttonoff.png","doublepeashooterbuttonoff.png","tallnutbuttonoff.png"};
 
 	public GameSubScene() {
 		super(new AnchorPane(), width, height);
@@ -37,17 +40,22 @@ public class GameSubScene extends SubScene {
 //		root.getChildren().add();
 
 		for (int i = 0; i < 10; i++) {
-			Rectangle rect = new Rectangle(165, 107, Color.GRAY);
+//			Rectangle rect = new Rectangle(165, 107, Color.GRAY);
+			ImageView pic= new ImageView(PLANTBUTTON_OFF_PATH[i]);
+			
 			if (i < 5) {
 
-				rect.setLayoutX(55 + 177 * (i));
-				rect.setLayoutY(146);
-				root.getChildren().add(rect);
+				pic.setLayoutX(55 + 177 * (i));
+				pic.setLayoutY(146);
+				
+				root.getChildren().add(pic);
 			} else {
 
-				rect.setLayoutX(55 + 177 * (i - 5));
-				rect.setLayoutY(272);
-				root.getChildren().add(rect);
+				pic.setLayoutX(55 + 177 * (i - 5));
+				pic.setLayoutY(272);
+				
+
+				root.getChildren().add(pic);
 			}
 
 		}

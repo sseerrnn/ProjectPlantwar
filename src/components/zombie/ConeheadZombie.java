@@ -3,7 +3,7 @@ package components.zombie;
 import components.character.GameCharacter;
 import implement.Interactable;
 
-public class ConeheadZombie extends GameCharacter implements Interactable {
+public class ConeheadZombie extends Zombie implements Interactable {
 
 	public ConeheadZombie(String img_path, int init_x, int init_y, int width, int height, int currentHP,
 			int attackPoint) {
