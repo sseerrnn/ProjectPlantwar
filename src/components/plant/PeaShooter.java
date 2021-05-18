@@ -44,12 +44,12 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 	}
 
 	@Override
-	public void shoot() {
+	public Bullet shoot() {
 		Bullet bullet=new PeaBullet(this.getX(),this.getY());
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
-		bullet.shootRight();
+		return bullet;
 	}
 
 }

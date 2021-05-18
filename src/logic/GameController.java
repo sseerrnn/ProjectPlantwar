@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
+import components.other.Bullet;
 import components.other.Sun;
 import components.plant.PeaShooter;
 import components.zombie.BucketheadZombie;
@@ -39,6 +40,7 @@ public class GameController {
 	private ArrayList<Zombie> zombieInGame;
 	private ArrayList<GameCharacter> inGameCharacter;
 	private ArrayList<GameCharacter> plantInGame;
+	private ArrayList<Bullet> bullets;
 
 	public GameController() {
 		// TODO Auto-generated constructor stub
@@ -53,6 +55,7 @@ public class GameController {
 		zombieInGame = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
 		plantInGame = new ArrayList<GameCharacter>();
+		bullets =new ArrayList<Bullet>();
 	}
 
 	public int getSunCount() {
@@ -325,9 +328,12 @@ public class GameController {
 	public void shootBullet() {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
-				((Shootable) plant).shoot();
+				bullets.add(((Shootable)plant).shoot());
 
 			}
+		}
+		for (Bullet bullet : bullets) {
+			bullet.shootRight();
 		}
 	}
 }

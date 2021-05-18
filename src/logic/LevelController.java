@@ -1,12 +1,13 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import gui.PlantButton;
 
 public class LevelController {
 	private ArrayList<PlantButton> plantButtonList;
-
+protected int timeSpawn ;
 	public LevelController() {
 		// TODO Auto-generated constructor stub
 		plantButtonList = new ArrayList<PlantButton>();
@@ -44,5 +45,9 @@ public class LevelController {
 	public void setPlantButtonList(ArrayList<PlantButton> plantButtonList) {
 		this.plantButtonList = plantButtonList;
 	}
-	
+	public void setUpLevel1Zombie() {
+		Random random =new Random();
+		int lane = random.nextInt(5);
+		timeSpawn=10;
+	}
 }
