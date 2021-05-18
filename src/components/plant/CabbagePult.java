@@ -1,11 +1,14 @@
 package components.plant;
 
+import components.bullet.CabbageBullet;
+import components.bullet.PeaBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.scene.shape.Rectangle;
+import scene.SceneController;
 
 public class CabbagePult extends GameCharacter implements Interactable, Shootable {
 
@@ -40,8 +43,12 @@ public class CabbagePult extends GameCharacter implements Interactable, Shootabl
 	}
 
 	@Override
-	public void shoot() {
-
+	public Bullet shoot() {
+		Bullet bullet = new CabbageBullet(this.getX() + 10, this.getY() + 10);
+		System.out.println(bullet);
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		return bullet;
 	}
 
 }

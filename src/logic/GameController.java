@@ -42,6 +42,7 @@ public class GameController {
 	private ArrayList<GameCharacter> inGameCharacter;
 	private ArrayList<GameCharacter> plantInGame;
 	private ArrayList<Bullet> bullets;
+	private ArrayList<Zombie> zombies;
 
 	public GameController() {
 		// TODO Auto-generated constructor stub
@@ -56,7 +57,8 @@ public class GameController {
 		zombieInGame = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
 		plantInGame = new ArrayList<GameCharacter>();
-		bullets =new ArrayList<Bullet>();
+		bullets = new ArrayList<Bullet>();
+		zombies = new ArrayList<Zombie>(5);
 	}
 
 	public int getSunCount() {
@@ -229,7 +231,7 @@ public class GameController {
 		energy += 50;
 	}
 
-	public void generateRegularZombie(int initx, int inity,int timeSpawn) {
+	public void generateRegularZombie(int initx, int inity, int timeSpawn) {
 		if (zombieInGame.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -290,7 +292,7 @@ public class GameController {
 	}
 
 	public void checkDie() {
-		ArrayList<GameCharacter> deadPlants= new ArrayList<GameCharacter>();
+		ArrayList<GameCharacter> deadPlants = new ArrayList<GameCharacter>();
 		for (GameCharacter plant : plantInGame) {
 			if (plant.getCurrentHP() < 0) {
 				System.out.println("plantdie : " + plant);
@@ -305,13 +307,13 @@ public class GameController {
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getBox());
 				deadPlants.add(plant);
 			}
-			
+
 		}
-		for(GameCharacter plant :deadPlants) {
+		for (GameCharacter plant : deadPlants) {
 			plantInGame.remove(plant);
 			plant.getFieldCell().setPlant(null);
 		}
-		
+
 	}
 
 	public void checkCollision() {
@@ -330,19 +332,20 @@ public class GameController {
 	public void shootBullet() {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
-				bullets.add(((Shootable)plant).shoot());
+				bullets.add(((Shootable) plant).shoot());
 
 			}
 		}
+
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
 		}
 	}
+
 	public void generateZombieLv1() {
 		Random random = new Random();
 		int row = random.nextInt(5);
-		int timeSpawn = 4+random.nextInt(4);
-		generateRegularZombie(1200, 70+100*row,timeSpawn);
-		
+		int timeSpawn = 4 + random.nextInt(4);
+		generateRegularZombie(1200, 70 + 100 * row, timeSpawn);
 	}
 }
