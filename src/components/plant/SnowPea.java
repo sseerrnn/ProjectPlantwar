@@ -1,11 +1,14 @@
 package components.plant;
 
+import components.bullet.PeaBullet;
+import components.bullet.SnowBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.scene.shape.Rectangle;
+import scene.SceneController;
 
 public class SnowPea extends GameCharacter implements Interactable, Shootable {
 
@@ -41,8 +44,12 @@ public class SnowPea extends GameCharacter implements Interactable, Shootable {
 	}
 	
 	@Override
-	public void shoot() {
-		
+	public Bullet shoot() {
+		Bullet bullet = new SnowBullet(this.getX() + 15, this.getY() + 12);
+		System.out.println(bullet);
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		return bullet;
 	}
 
 }

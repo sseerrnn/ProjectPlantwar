@@ -1,11 +1,13 @@
 package components.plant;
 
+import components.bullet.PeaBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.scene.shape.Rectangle;
+import scene.SceneController;
 
 public class DoublePeaShooter extends GameCharacter implements Interactable, Shootable {
 
@@ -42,8 +44,12 @@ public class DoublePeaShooter extends GameCharacter implements Interactable, Sho
 	}
 
 	@Override
-	public void shoot() {
-
+	public Bullet shoot() {
+		Bullet bullet = new PeaBullet(this.getX() + 10, this.getY() + 17);
+		System.out.println(bullet);
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		return bullet;
 	}
 
 }

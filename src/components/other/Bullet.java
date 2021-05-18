@@ -22,7 +22,7 @@ public abstract class Bullet extends Entity {
 	}
 
 	public void shootRight() {
-		this.setX(getX() - this.velocity_x);
+		this.setX(getX() + this.velocity_x);
 		getImageView().setLayoutX(getX());
 		getBox().setLayoutX(getX());
 	}
