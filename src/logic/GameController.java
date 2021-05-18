@@ -340,6 +340,7 @@ public class GameController {
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
 		}
+
 	}
 
 	public void generateZombieLv1() {
