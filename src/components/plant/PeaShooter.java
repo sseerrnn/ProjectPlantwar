@@ -7,6 +7,7 @@ import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.scene.shape.Rectangle;
+import scene.SceneController;
 
 public class PeaShooter extends GameCharacter implements Interactable, Shootable {
 
@@ -44,7 +45,10 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 
 	@Override
 	public void shoot() {
-		
+		Bullet bullet=new PeaBullet(getX()+10,getY()+10);
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
+		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		bullet.shootRight();
 	}
 
 }

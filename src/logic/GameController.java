@@ -15,6 +15,7 @@ import exception.PlantNotEnoughFailException;
 import gui.GameButton;
 import gui.PlantButton;
 import implement.Interactable;
+import implement.Shootable;
 import javafx.animation.AnimationTimer;
 import scene.SceneController;
 
@@ -108,6 +109,7 @@ public class GameController {
 					System.out.println("Zombie : " + zombieInGame.size());
 					canCreateSun = false;
 					checkCollision();
+					shootBullet();
 
 				}
 			}
@@ -310,5 +312,12 @@ public class GameController {
 			}
 		}
 	}
-
+public void shootBullet() {
+	for (GameCharacter plant: plantInGame) {
+		if(plant instanceof Shootable) {
+			((Shootable)plant).shoot();
+			
+		}
+	}
+}
 }
