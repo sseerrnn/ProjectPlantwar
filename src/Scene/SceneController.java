@@ -448,7 +448,7 @@ public class SceneController {
 				box.setFill(Color.BLUE);
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());
-
+				gameController.getSelectedPlant().getGameChar().setFieldCell(cell);
 			}
 		}
 		System.out.println(cell.getPlant().getPlantName());

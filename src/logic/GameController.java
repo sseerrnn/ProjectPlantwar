@@ -109,6 +109,7 @@ public class GameController {
 					System.out.println("Zombie : " + zombieInGame.size());
 					canCreateSun = false;
 					checkCollision();
+					checkDie();
 					shootBullet();
 
 				}
@@ -284,6 +285,7 @@ public class GameController {
 	}
 
 	public void checkDie() {
+		ArrayList<GameCharacter> deadPlants= new ArrayList<GameCharacter>();
 		for (GameCharacter plant : plantInGame) {
 			if (plant.getCurrentHP() < 0) {
 				System.out.println("plantdie : " + plant);
@@ -296,8 +298,15 @@ public class GameController {
 				}
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getImageView());
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getBox());
+				deadPlants.add(plant);
 			}
+			
 		}
+		for(GameCharacter plant :deadPlants) {
+			plantInGame.remove(plant);
+			plant.getFieldCell().setPlant(null);
+		}
+		
 	}
 
 	public void checkCollision() {
@@ -307,17 +316,18 @@ public class GameController {
 					((Interactable) plant).interact(zombie);
 
 					System.out.println("plant hp: " + plant.getCurrentHP());
-					checkDie();
+
 				}
 			}
 		}
 	}
-public void shootBullet() {
-	for (GameCharacter plant: plantInGame) {
-		if(plant instanceof Shootable) {
-			((Shootable)plant).shoot();
-			
+
+	public void shootBullet() {
+		for (GameCharacter plant : plantInGame) {
+			if (plant instanceof Shootable) {
+				((Shootable) plant).shoot();
+
+			}
 		}
 	}
-}
 }

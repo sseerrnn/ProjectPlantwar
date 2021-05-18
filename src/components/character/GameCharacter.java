@@ -1,5 +1,6 @@
 package components.character;
 
+import gui.FieldCell;
 import gui.SpriteAnimation;
 import components.Entity;
 import javafx.animation.Animation;
@@ -22,6 +23,7 @@ public class GameCharacter extends Entity {
 	protected int diffX;
 	protected int diffY;
 
+	protected FieldCell fieldCell;
 	public int getDiffX() {
 		return diffX;
 	}
@@ -161,6 +163,14 @@ public class GameCharacter extends Entity {
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
 		animation.play();
+	}
+
+	public FieldCell getFieldCell() {
+		return fieldCell;
+	}
+
+	public void setFieldCell(FieldCell fieldCell) {
+		this.fieldCell = fieldCell;
 	}
 
 }

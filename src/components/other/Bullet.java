@@ -13,11 +13,9 @@ public abstract class Bullet extends Entity {
 	public Bullet(String img_path,  int initX, int initY, int width,int  height) {
 		super(initX, initY, width, height);
 		this.img_path = img_path;
-		Rectangle hitBox = new Rectangle(100, 90);
-		hitBox.setLayoutX(getX());
-		hitBox.setLayoutY(getY() + 35);
-		hitBox.setFill(Color.YELLOW);
-		this.setBox(hitBox);
+		
+		
+		
 		this.velocity_x = 40;
 		this.imageView=new ImageView(img_path);
 				
