@@ -7,7 +7,7 @@ import gui.PlantButton;
 
 public class LevelController {
 	private ArrayList<PlantButton> plantButtonList;
-protected int timeSpawn ;
+
 	public LevelController() {
 		// TODO Auto-generated constructor stub
 		plantButtonList = new ArrayList<PlantButton>();
@@ -45,9 +45,5 @@ protected int timeSpawn ;
 	public void setPlantButtonList(ArrayList<PlantButton> plantButtonList) {
 		this.plantButtonList = plantButtonList;
 	}
-	public void setUpLevel1Zombie() {
-		Random random =new Random();
-		int lane = random.nextInt(5);
-		timeSpawn=10;
-	}
+	
 }

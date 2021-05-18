@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import components.character.GameCharacter;
 import components.character.Plant;
@@ -101,11 +102,12 @@ public class GameController {
 
 //						canCreateSun=true;
 					SceneController.getInstance().toFallSun();
-					generateRegularZombie(1200, 470);
-					generateConeheadZombie(1200, 370);
-					generateBucketheadZombie(1200, 270);
-					generateRegularZombie(1200, 170);
-					generateBucketheadZombie(1200, 70);
+//					generateRegularZombie(1200, 470);
+//					generateConeheadZombie(1200, 370);
+//					generateBucketheadZombie(1200, 270);
+//					generateRegularZombie(1200, 170);
+//					generateBucketheadZombie(1200, 70);
+					generateZombieLv1();
 					for (Zombie zombie : zombieInGame) {
 						zombie.walkLeft();
 					}
@@ -227,8 +229,8 @@ public class GameController {
 		energy += 50;
 	}
 
-	public void generateRegularZombie(int initx, int inity) {
-		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+	public void generateRegularZombie(int initx, int inity,int timeSpawn) {
+		if (zombieInGame.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -240,7 +242,7 @@ public class GameController {
 	}
 
 	public void generateConeheadZombie(int initx, int inity) {
-		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+		if (zombieInGame.size() < 5 && currentTime % 7 == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -252,7 +254,7 @@ public class GameController {
 	}
 
 	public void generateBucketheadZombie(int initx, int inity) {
-		if (zombieInGame.size() < 5 && currentTime % 4 == 0) {
+		if (zombieInGame.size() < 5 && currentTime % 9 == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -335,5 +337,12 @@ public class GameController {
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
 		}
+	}
+	public void generateZombieLv1() {
+		Random random = new Random();
+		int row = random.nextInt(5);
+		int timeSpawn = 4+random.nextInt(4);
+		generateRegularZombie(1200, 70+100*row,timeSpawn);
+		
 	}
 }
