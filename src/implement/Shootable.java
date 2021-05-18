@@ -1,5 +1,7 @@
 package implement;
 
 public interface Shootable {
-public abstract void shoot();
+
+	public abstract void shoot();
+
 }

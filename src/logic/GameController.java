@@ -6,6 +6,7 @@ import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
 import components.other.Sun;
+import components.plant.PeaShooter;
 import components.zombie.BucketheadZombie;
 import components.zombie.ConeheadZombie;
 import components.zombie.RegularZombie;
@@ -195,7 +196,6 @@ public class GameController {
 				break;
 			}
 			count += 1;
-
 		}
 		this.spaceIndex = count;
 		if (spaceIndex != selectedPlantButtons.size()) {
@@ -214,7 +214,6 @@ public class GameController {
 	public void reduceEneryToBuyPlant() {
 		if (energy >= selectedPlant.getPrice()) {
 			energy -= selectedPlant.getPrice();
-
 		}
 	}
 
@@ -231,7 +230,6 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
-
 		}
 	}
 
@@ -244,7 +242,6 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
-
 		}
 	}
 
@@ -257,7 +254,6 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
-
 		}
 	}
 
@@ -294,14 +290,12 @@ public class GameController {
 						zombie.setEat(false);
 //						System.out.println(zombie.isEat());
 						zombie.resetAnimation();
-
 					}
 				}
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getImageView());
 				SceneController.getInstance().getMainPane().getChildren().remove(plant.getBox());
 			}
 		}
-
 	}
 
 	public void checkCollision() {
@@ -312,9 +306,9 @@ public class GameController {
 
 					System.out.println("plant hp: " + plant.getCurrentHP());
 					checkDie();
-
 				}
 			}
 		}
 	}
+
 }

@@ -2,10 +2,12 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
+import implement.Shootable;
 import javafx.scene.shape.Rectangle;
 
-public class CornPult extends GameCharacter implements Interactable {
+public class CornPult extends GameCharacter implements Interactable, Shootable {
 
 	public CornPult(int init_x, int init_y) {
 		super("cornpultsprite.png", init_x, init_y, 76, 105, 100, 15);
@@ -36,6 +38,11 @@ public class CornPult extends GameCharacter implements Interactable {
 			}
 
 		}
+	}
+
+	@Override
+	public void shoot() {
+
 	}
 
 }

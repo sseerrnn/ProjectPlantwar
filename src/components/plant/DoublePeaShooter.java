@@ -2,10 +2,12 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
+import implement.Shootable;
 import javafx.scene.shape.Rectangle;
 
-public class DoublePeaShooter extends GameCharacter implements Interactable {
+public class DoublePeaShooter extends GameCharacter implements Interactable, Shootable {
 
 	public DoublePeaShooter(int init_x, int init_y) {
 		super("doublepeashootersprite.png", init_x, init_y, 80, 80, 100, 20);
@@ -37,6 +39,11 @@ public class DoublePeaShooter extends GameCharacter implements Interactable {
 			}
 
 		}
+	}
+
+	@Override
+	public void shoot() {
+
 	}
 
 }

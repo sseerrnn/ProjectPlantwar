@@ -2,10 +2,12 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
+import implement.Shootable;
 import javafx.scene.shape.Rectangle;
 
-public class SnowPea extends GameCharacter implements Interactable {
+public class SnowPea extends GameCharacter implements Interactable, Shootable {
 
 	public SnowPea(int init_x, int init_y) {
 		super("snowpeasprite.png", init_x, init_y, 80, 75, 100, 20);
@@ -36,6 +38,11 @@ public class SnowPea extends GameCharacter implements Interactable {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
 		}
+	}
+	
+	@Override
+	public void shoot() {
+		
 	}
 
 }

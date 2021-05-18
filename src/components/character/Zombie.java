@@ -40,6 +40,5 @@ public class Zombie extends GameCharacter {
 	public void setEat(boolean isEat) {
 		this.isEat = isEat;
 	}
-	
 
 }

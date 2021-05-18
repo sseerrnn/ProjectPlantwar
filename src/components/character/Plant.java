@@ -24,7 +24,6 @@ public class Plant {
 		case "CabbagePult":
 			url = "cabbagepultbutton1.png";
 			price = 100;
-
 			break;
 		case "CornPult":
 			url = "cornpultbutton1.png";
