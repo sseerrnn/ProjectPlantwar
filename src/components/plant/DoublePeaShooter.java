@@ -49,6 +49,7 @@ public class DoublePeaShooter extends GameCharacter implements Interactable, Sho
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		this.shooting(2,2);
 		return bullet;
 	}
 

@@ -47,6 +47,7 @@ public class CabbagePult extends GameCharacter implements Interactable, Shootabl
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		this.shooting(9,9);
 		return bullet;
 	}
 

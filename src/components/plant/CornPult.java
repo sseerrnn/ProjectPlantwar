@@ -48,6 +48,7 @@ public class CornPult extends GameCharacter implements Interactable, Shootable {
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		this.shooting(7,7);
 		return bullet;
 	}
 

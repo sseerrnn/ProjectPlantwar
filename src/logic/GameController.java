@@ -375,12 +375,11 @@ public class GameController {
 					((Interactable) zombie).interact(bullet);
 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
-					
-							// TODO Auto-generated method stub
+
+					// TODO Auto-generated method stub
 //							SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
 //							SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
-						
-					
+
 				}
 			}
 		}
@@ -423,11 +422,9 @@ public class GameController {
 		int y = (int) plant.getBox().getLayoutY();
 		int row = 0;
 		switch (y) {
-		case 100: {
-
+		case 100:
 			row = 1;
 			break;
-		}
 		case 200:
 			row = 2;
 			break;
@@ -454,6 +451,7 @@ public class GameController {
 
 					bullets.add(bullet);
 					bullet.shootRight();
+					plant.setShoot(true);
 
 				}
 			}

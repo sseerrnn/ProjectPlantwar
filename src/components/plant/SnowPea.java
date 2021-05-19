@@ -48,6 +48,7 @@ public class SnowPea extends GameCharacter implements Interactable, Shootable {
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
+		this.shooting(3,3);
 		return bullet;
 	}
 

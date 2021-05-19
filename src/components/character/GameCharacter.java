@@ -2,6 +2,7 @@ package components.character;
 
 import gui.FieldCell;
 import gui.SpriteAnimation;
+import implement.Shootable;
 import components.Entity;
 import components.other.Bullet;
 import javafx.animation.Animation;
@@ -158,6 +159,18 @@ public class GameCharacter extends Entity {
 	
 	public boolean checkCollision(Bullet bullet) {
 		return this.getBox().getBoundsInParent().intersects(bullet.getBox().getBoundsInParent());
+	}
+	
+	public void shooting(int count, int columns) {
+		if(this instanceof Shootable && isShoot) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + height, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + height,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
 	}
 	
 	public void shootZombie() {
