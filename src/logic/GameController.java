@@ -394,4 +394,31 @@ public class GameController {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		gc.fillText(energy + "", canvas.getWidth() / 2, canvas.getHeight() / 2);
 	}
+
+	public int checkPlantRow(GameCharacter plant) {
+		int y = (int) plant.getBox().getLayoutY();
+		int row = 0;
+		switch (y) {
+		case 100: {
+
+			row = 1;
+			break;
+		}
+		case 200:
+			row = 2;
+			break;
+		case 300:
+			row = 3;
+			break;
+		case 400:
+			row = 4;
+			break;
+		case 500:
+			row = 5;
+			break;
+
+		}
+		System.out.println("row : "+row);
+		return row;
+	}
 }

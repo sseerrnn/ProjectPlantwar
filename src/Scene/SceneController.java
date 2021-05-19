@@ -2,6 +2,7 @@ package scene;
 
 
 
+import components.character.GameCharacter;
 import components.other.Sun;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
@@ -457,6 +458,9 @@ public class SceneController {
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());
 				gameController.getSelectedPlant().getGameChar().setFieldCell(cell);
+				System.out.println(box.getLayoutX());
+				System.out.println(box.getLayoutY());
+				gameController.checkPlantRow(gameController.getSelectedPlant().getGameChar());
 			}
 		}
 		System.out.println(cell.getPlant().getPlantName());
