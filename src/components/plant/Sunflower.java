@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
 import implement.Producable;
 import javafx.scene.shape.Rectangle;
@@ -45,6 +46,12 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 			}
 
 		}
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

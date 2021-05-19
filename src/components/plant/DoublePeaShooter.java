@@ -52,4 +52,10 @@ public class DoublePeaShooter extends GameCharacter implements Interactable, Sho
 		return bullet;
 	}
 
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import gui.SpriteAnimation;
 import implement.Explodable;
 import implement.Interactable;
@@ -59,6 +60,12 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		imageView.setLayoutX(init_x);
 		imageView.setLayoutY(init_y);
 		animation.play();
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

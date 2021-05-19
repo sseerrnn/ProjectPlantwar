@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
 import implement.Producable;
 import javafx.scene.paint.Color;
@@ -46,6 +47,12 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 			}
 
 		}
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

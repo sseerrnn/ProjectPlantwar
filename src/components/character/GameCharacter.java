@@ -3,6 +3,7 @@ package components.character;
 import gui.FieldCell;
 import gui.SpriteAnimation;
 import components.Entity;
+import components.other.Bullet;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
@@ -145,6 +146,24 @@ public class GameCharacter extends Entity {
 		} else {
 
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 130, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+
+		}
+	}
+	
+	public boolean checkCollision(Bullet bullet) {
+		return this.getBox().getBoundsInParent().intersects(bullet.getBox().getBoundsInParent());
+	}
+	
+	public void shootZombie() {
+		if (this.getCurrentHP() < 100) {
+
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
 			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
 					width, height);
 			animation.setCycleCount(Animation.INDEFINITE);

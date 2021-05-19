@@ -10,15 +10,13 @@ public abstract class Bullet extends Entity {
 	protected String img_path;
 	protected int damage;
 
-	public Bullet(String img_path,  int initX, int initY, int width,int  height) {
+	public Bullet(String img_path, int initX, int initY, int width, int height) {
 		super(initX, initY, width, height);
 		this.img_path = img_path;
-		
-		
-		
+
 		this.velocity_x = 40;
-		this.imageView=new ImageView(img_path);
-				
+		this.imageView = new ImageView(img_path);
+
 	}
 
 	public void shootRight() {
@@ -30,8 +28,9 @@ public abstract class Bullet extends Entity {
 	public int getDamage() {
 		return damage;
 	}
+
 	public void setDamage(int damage) {
-		this.damage= damage;
+		this.damage = damage;
 	}
 
 }

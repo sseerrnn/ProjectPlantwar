@@ -2,6 +2,7 @@ package components.zombie;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
 
 public class BucketheadZombie extends Zombie implements Interactable {
@@ -24,8 +25,17 @@ public class BucketheadZombie extends Zombie implements Interactable {
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void interact(Bullet bullet) {
+		if (checkCollision(bullet)) {
+			this.shootZombie();
+			if (currentHP > 0) {
+				this.setCurrentHP(currentHP - bullet.getDamage());
+			}
+		}
 	}
 
 }

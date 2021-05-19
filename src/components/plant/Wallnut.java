@@ -2,6 +2,7 @@ package components.plant;
 
 import components.character.GameCharacter;
 import components.character.Zombie;
+import components.other.Bullet;
 import implement.Interactable;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -39,6 +40,12 @@ public class Wallnut extends GameCharacter implements Interactable {
 			this.setCurrentHP(currentHP-gameCharacter.getAttackPoint());
 			}
 		}
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

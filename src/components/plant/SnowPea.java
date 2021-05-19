@@ -1,6 +1,5 @@
 package components.plant;
 
-import components.bullet.PeaBullet;
 import components.bullet.SnowBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
@@ -50,6 +49,12 @@ public class SnowPea extends GameCharacter implements Interactable, Shootable {
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
 		return bullet;
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

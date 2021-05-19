@@ -250,7 +250,7 @@ public class GameController {
 
 	}
 
-	public void generateConeheadZombie(int initx, int inity, int timeSpawn) {
+	public void generateConeheadZombie(int initx, int inity, int timeSpawn, int row) {
 		if (zombieInGame.size() < 5 && currentTime % 7 == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -262,7 +262,7 @@ public class GameController {
 		}
 	}
 
-	public void generateBucketheadZombie(int initx, int inity, int timeSpawn) {
+	public void generateBucketheadZombie(int initx, int inity, int timeSpawn, int row) {
 		if (zombieInGame.size() < 5 && currentTime % 9 == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -350,6 +350,18 @@ public class GameController {
 
 	}
 
+	public void checkBulletCollision() {
+		for (Zombie zombie : zombieInGame) {
+			for (Bullet bullet : bullets) {
+				if (zombie instanceof Interactable) {
+					((Interactable) zombie).interact(bullet);
+
+					System.out.println("zombie hp: " + zombie.getCurrentHP());
+				}
+			}
+		}
+	}
+
 	public void generateZombieLv1() {
 		Random random = new Random();
 		int row = random.nextInt(5);
@@ -361,7 +373,7 @@ public class GameController {
 		Random random = new Random();
 		int row = random.nextInt(5);
 		int timeSpawn = 5 + random.nextInt(4);
-		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn);
+		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn, row);
 
 	}
 
@@ -370,7 +382,7 @@ public class GameController {
 		Random random = new Random();
 		int row = random.nextInt(5);
 		int timeSpawn = 6 + random.nextInt(4);
-		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn);
+		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn, row);
 
 	}
 

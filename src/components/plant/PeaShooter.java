@@ -52,4 +52,10 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 		return bullet;
 	}
 
+	@Override
+	public void interact(Bullet bullet) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
