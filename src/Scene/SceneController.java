@@ -1,5 +1,7 @@
 package scene;
 
+
+
 import components.other.Sun;
 import exception.ChooseCharacterFailException;
 import exception.PlantNotEnoughFailException;
@@ -20,6 +22,8 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +35,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -50,6 +55,8 @@ public class SceneController {
 	private GameController gameController;
 	private LevelController levelController;
 	private GameSubScene chooseChar;
+	private Canvas canvas;
+	private GraphicsContext gc;
 
 	private SceneController() {
 		mainStage = new Stage();
@@ -304,6 +311,7 @@ public class SceneController {
 					gameController.Startgame();
 					chooseChar.moveSubSceneOut();
 					toFallSun();
+					createCavnas();
 				} catch (PlantNotEnoughFailException e) {
 					System.out.println("Submit failed, " + e.getMessage());
 				}
@@ -545,4 +553,30 @@ public class SceneController {
 	public void createGameButtons() {
 		createPauseButton();
 	}
+	public void createCavnas() {
+		canvas = new Canvas(300, 100);
+		gc= canvas.getGraphicsContext2D();
+		mainPane.getChildren().add(canvas);
+		canvas.setLayoutX(0);
+		canvas.setLayoutY(0);
+		
+		
+	}
+
+	public GraphicsContext getGc() {
+		return gc;
+	}
+
+	public void setGc(GraphicsContext gc) {
+		this.gc = gc;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+
 }

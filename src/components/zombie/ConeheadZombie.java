@@ -25,7 +25,7 @@ public class ConeheadZombie extends Zombie implements Interactable {
 	@Override
 	public void interact(GameCharacter gameCharacter) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

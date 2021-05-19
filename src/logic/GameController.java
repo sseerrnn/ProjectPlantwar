@@ -19,6 +19,10 @@ import gui.PlantButton;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import scene.SceneController;
 
 public class GameController {
@@ -118,6 +122,7 @@ public class GameController {
 					checkCollision();
 					checkDie();
 					shootBullet();
+					addEnergy();
 
 				}
 			}
@@ -231,7 +236,7 @@ public class GameController {
 		energy += 50;
 	}
 
-	public void generateRegularZombie(int initx, int inity, int timeSpawn) {
+	public void generateRegularZombie(int initx, int inity, int timeSpawn, int row) {
 		if (zombieInGame.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -240,10 +245,12 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+
 		}
+
 	}
 
-	public void generateConeheadZombie(int initx, int inity,int timeSpawn) {
+	public void generateConeheadZombie(int initx, int inity, int timeSpawn) {
 		if (zombieInGame.size() < 5 && currentTime % 7 == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -255,7 +262,7 @@ public class GameController {
 		}
 	}
 
-	public void generateBucketheadZombie(int initx, int inity,int timeSpawn) {
+	public void generateBucketheadZombie(int initx, int inity, int timeSpawn) {
 		if (zombieInGame.size() < 5 && currentTime % 9 == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
@@ -347,21 +354,32 @@ public class GameController {
 		Random random = new Random();
 		int row = random.nextInt(5);
 		int timeSpawn = 4 + random.nextInt(4);
-		generateRegularZombie(1200, 70 + 100 * row, timeSpawn);
+		generateRegularZombie(1200, 70 + 100 * row, timeSpawn, row);
 	}
+
 	public void generateZombieLv2() {
 		Random random = new Random();
 		int row = random.nextInt(5);
-		int timeSpawn = 5+random.nextInt(4);
-		generateConeheadZombie(1200, 70+100*row,timeSpawn);
-		
+		int timeSpawn = 5 + random.nextInt(4);
+		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn);
+
 	}
+
 	public void generateZombieLv3() {
-		
+
 		Random random = new Random();
 		int row = random.nextInt(5);
-		int timeSpawn = 6+random.nextInt(4);
-		generateConeheadZombie(1200, 70+100*row,timeSpawn);
-		
+		int timeSpawn = 6 + random.nextInt(4);
+		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn);
+
+	}
+
+	public void addEnergy() {
+		Canvas canvas = SceneController.getInstance().getCanvas();
+		GraphicsContext gc = SceneController.getInstance().getGc();
+		gc.setFill(Color.BLACK);
+		gc.setFont(new Font(40));
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.fillText(energy + "", canvas.getWidth() / 2, canvas.getHeight() / 2);
 	}
 }
