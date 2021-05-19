@@ -164,7 +164,7 @@ public class GameCharacter extends Entity {
 		if (this.getCurrentHP() < 100) {
 
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
 					width, height);
 			animation.setCycleCount(Animation.INDEFINITE);
 			imageView.setLayoutX(getX());
@@ -191,5 +191,5 @@ public class GameCharacter extends Entity {
 	public void setFieldCell(FieldCell fieldCell) {
 		this.fieldCell = fieldCell;
 	}
-
+ 
 }

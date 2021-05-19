@@ -19,6 +19,7 @@ import gui.PlantButton;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -63,12 +64,11 @@ public class GameController {
 		plantInGame = new ArrayList<GameCharacter>();
 		bullets = new ArrayList<Bullet>();
 		zombies = new ArrayList<ArrayList<Zombie>>(5);
-		for (int i=0; i<5;i++) {
+		for (int i = 0; i < 5; i++) {
 			zombies.add(new ArrayList<Zombie>());
 		}
-		
+
 	}
-	
 
 	public int getSunCount() {
 		return sunCount;
@@ -119,6 +119,8 @@ public class GameController {
 //					generateRegularZombie(1200, 170);
 //					generateBucketheadZombie(1200, 70);
 					generateZombieLv1();
+					generateZombieLv2();
+					generateZombieLv3();
 					for (Zombie zombie : zombieInGame) {
 						zombie.walkLeft();
 					}
@@ -127,8 +129,10 @@ public class GameController {
 					checkCollision();
 					checkDie();
 					checkPlantShoot();
-					shootBullet();
+//					shootBullet();
 					addEnergy();
+					checkBulletCollision();
+					checkZombieDie();
 
 				}
 			}
@@ -332,6 +336,25 @@ public class GameController {
 
 	}
 
+	public void checkZombieDie() {
+		ArrayList<Zombie> deadZombies = new ArrayList<Zombie>();
+		for (Zombie zombie : zombieInGame) {
+			if (zombie.getCurrentHP() <= 0) {
+				zombie.dokillZombie();
+				deadZombies.add(zombie);
+
+				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
+				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getBox());
+
+			}
+
+		}
+		for (GameCharacter zombie : deadZombies) {
+			zombieInGame.remove(zombie);
+
+		}
+	}
+
 	public void checkCollision() {
 		for (GameCharacter plant : plantInGame) {
 			for (Zombie zombie : zombieInGame) {
@@ -345,7 +368,6 @@ public class GameController {
 		}
 	}
 
-
 	public void checkBulletCollision() {
 		for (Zombie zombie : zombieInGame) {
 			for (Bullet bullet : bullets) {
@@ -353,6 +375,12 @@ public class GameController {
 					((Interactable) zombie).interact(bullet);
 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
+					
+							// TODO Auto-generated method stub
+//							SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
+//							SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
+						
+					
 				}
 			}
 		}
@@ -414,24 +442,29 @@ public class GameController {
 			break;
 
 		}
-		System.out.println("row : "+row);
+		System.out.println("row : " + row);
 		return row;
 	}
+
 	public void checkPlantShoot() {
 		for (GameCharacter plant : plantInGame) {
-			if(plant instanceof Shootable) {
-			    if(zombies.get(checkPlantRow(plant)-1).size()>0) {
-			    	bullets.add(((Shootable) plant).shoot());
-			    }
+			if (plant instanceof Shootable) {
+				if (zombies.get(checkPlantRow(plant) - 1).size() > 0) {
+					Bullet bullet = ((Shootable) plant).shoot();
+
+					bullets.add(bullet);
+					bullet.shootRight();
+
+				}
 			}
 		}
 	}
+
 	public void shootBullet() {
-		
-		
+
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
 		}
-		
+
 	}
 }

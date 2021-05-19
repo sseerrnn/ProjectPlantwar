@@ -3,7 +3,11 @@ package components.zombie;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
+import gui.SpriteAnimation;
 import implement.Interactable;
+import javafx.animation.Animation;
+import javafx.geometry.Rectangle2D;
+import javafx.util.Duration;
 
 public class RegularZombie extends Zombie implements Interactable {
 
@@ -31,11 +35,24 @@ public class RegularZombie extends Zombie implements Interactable {
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
-			this.shootZombie();
+			
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}
+			
+			
 		}
 	}
+	public void dokillZombie() {
+		 if(this.getCurrentHP()<=0) {
+			 imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
+				animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY + 650,
+						width, height);
+				animation.setCycleCount(Animation.INDEFINITE);
+				imageView.setLayoutX(getX());
+				imageView.setLayoutY(getY());
+				animation.play();
+		 }
+	 }
 
 }

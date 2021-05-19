@@ -1,9 +1,11 @@
 package components.other;
 
 import components.Entity;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public abstract class Bullet extends Entity {
 
@@ -17,11 +19,30 @@ public abstract class Bullet extends Entity {
 		this.velocity_x = 40;
 		this.imageView = new ImageView(img_path);
 
+		box = new Rectangle(width, height);
+		box.setFill(Color.GREEN);
+		box.setLayoutX(getX());
+		box.setLayoutY(getY());
+		setBox(box);
+
 	}
 
 	public void shootRight() {
-		this.setX(getX() + this.velocity_x);
-		getImageView().setLayoutX(getX());
+		TranslateTransition move = new TranslateTransition();
+		move.setNode(imageView);
+		move.setToX(1200);
+		move.setDuration(Duration.seconds(5));
+		setX(1200);
+		move.play();
+
+		TranslateTransition movebox = new TranslateTransition();
+		movebox.setNode(box);
+		movebox.setToX(1200);
+		movebox.setDuration(Duration.seconds(5));
+
+		movebox.play();
+//		this.setX(getX() + this.velocity_x);
+//		getImageView().setLayoutX(getX());
 		getBox().setLayoutX(getX());
 	}
 

@@ -1,6 +1,9 @@
 package components.character;
 
+import gui.SpriteAnimation;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -40,5 +43,8 @@ public class Zombie extends GameCharacter {
 	public void setEat(boolean isEat) {
 		this.isEat = isEat;
 	}
-
+	public void dokillZombie() {
+		 
+		 
+	 }
 }
