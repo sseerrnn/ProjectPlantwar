@@ -46,7 +46,7 @@ public class GameController {
 	private ArrayList<GameCharacter> inGameCharacter;
 	private ArrayList<GameCharacter> plantInGame;
 	private ArrayList<Bullet> bullets;
-	private ArrayList<Zombie> zombies;
+	private ArrayList<ArrayList<Zombie>> zombies;
 
 	public GameController() {
 		// TODO Auto-generated constructor stub
@@ -62,8 +62,13 @@ public class GameController {
 		inGameCharacter = new ArrayList<GameCharacter>();
 		plantInGame = new ArrayList<GameCharacter>();
 		bullets = new ArrayList<Bullet>();
-		zombies = new ArrayList<Zombie>(5);
+		zombies = new ArrayList<ArrayList<Zombie>>(5);
+		for (int i=0; i<5;i++) {
+			zombies.add(new ArrayList<Zombie>());
+		}
+		
 	}
+	
 
 	public int getSunCount() {
 		return sunCount;
@@ -121,6 +126,7 @@ public class GameController {
 					canCreateSun = false;
 					checkCollision();
 					checkDie();
+					checkPlantShoot();
 					shootBullet();
 					addEnergy();
 
@@ -245,6 +251,7 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+			zombies.get(row).add(zombie);
 
 		}
 
@@ -259,6 +266,7 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+			zombies.get(row).add(zombie);
 		}
 	}
 
@@ -271,6 +279,7 @@ public class GameController {
 			inGameCharacter.add(zombie);
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
+			zombies.get(row).add(zombie);
 		}
 	}
 
@@ -336,19 +345,6 @@ public class GameController {
 		}
 	}
 
-	public void shootBullet() {
-		for (GameCharacter plant : plantInGame) {
-			if (plant instanceof Shootable) {
-				bullets.add(((Shootable) plant).shoot());
-
-			}
-		}
-
-		for (Bullet bullet : bullets) {
-			bullet.shootRight();
-		}
-
-	}
 
 	public void checkBulletCollision() {
 		for (Zombie zombie : zombieInGame) {
@@ -420,5 +416,22 @@ public class GameController {
 		}
 		System.out.println("row : "+row);
 		return row;
+	}
+	public void checkPlantShoot() {
+		for (GameCharacter plant : plantInGame) {
+			if(plant instanceof Shootable) {
+			    if(zombies.get(checkPlantRow(plant)-1).size()>0) {
+			    	bullets.add(((Shootable) plant).shoot());
+			    }
+			}
+		}
+	}
+	public void shootBullet() {
+		
+		
+		for (Bullet bullet : bullets) {
+			bullet.shootRight();
+		}
+		
 	}
 }
