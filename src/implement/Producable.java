@@ -1,7 +1,9 @@
 package implement;
 
+import components.other.Sun;
+
 public interface Producable {
 
-	public abstract void produce();
+	public abstract Sun produce();
 
 }
