@@ -120,7 +120,7 @@ public class GameController {
 		checkBulletCollision();
 		checkZombieDie();
 		produceSun();
-		dropSun();
+//		dropSun();
 	}
 	public void dropSun() {
 		for (Sun sun:producedSun) {
@@ -473,7 +473,8 @@ public class GameController {
 
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Producable && currentTime % 5 == 0) {
-				Sun sun = ((Producable) plant).produce();
+				for (Sun sun:((Producable) plant).produce()) {
+				
 				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event arg0) {
@@ -483,6 +484,7 @@ public class GameController {
 				});
 				producedSun.add(sun);
 				SceneController.getInstance().getMainPane().getChildren().add(sun.getImageView());
+				}
 			}
 		}
 	}

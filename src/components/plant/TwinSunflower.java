@@ -1,10 +1,14 @@
 package components.plant;
 
+import java.util.ArrayList;
+
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
+import components.other.Sun;
 import implement.Interactable;
 import implement.Producable;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public class TwinSunflower extends GameCharacter implements Interactable, Producable {
@@ -28,8 +32,21 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 		createAnimation();
 	}
 
+	
+	
 	@Override
-	public void produce() {
+	public ArrayList<Sun> produce() {
+		ArrayList<Sun> sunArrayList = new ArrayList<Sun>();
+
+		for (int i = 0; i < 2; i++) {
+			Sun sun = new Sun();
+			sun.toImageView();
+			ImageView image = sun.getImageView();
+			image.setLayoutX(this.getX() - 50 + 100 * i);
+			image.setLayoutY(this.getY());
+			sunArrayList.add(sun);
+		}
+		return sunArrayList;
 
 	}
 

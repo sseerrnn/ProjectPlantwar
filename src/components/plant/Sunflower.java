@@ -1,5 +1,7 @@
 package components.plant;
 
+import java.util.ArrayList;
+
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
@@ -33,14 +35,18 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 	}
 
 	@Override
-	public Sun produce() {
-		Sun sun = new Sun();
-		sun.toImageView();
-		ImageView image = sun.getImageView();
-		image.setLayoutX(this.getX()+50);
-		image.setLayoutY(this.getY());
-		
-		return sun;
+	public ArrayList<Sun> produce() {
+		ArrayList<Sun> sunArrayList = new ArrayList<Sun>();
+
+		for (int i = 0; i < 1; i++) {
+			Sun sun = new Sun();
+			sun.toImageView();
+			ImageView image = sun.getImageView();
+			image.setLayoutX(this.getX() - 50 + 100 * i);
+			image.setLayoutY(this.getY());
+			sunArrayList.add(sun);
+		}
+		return sunArrayList;
 
 	}
 
