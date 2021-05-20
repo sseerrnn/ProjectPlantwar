@@ -4,6 +4,8 @@ import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
+import javafx.application.Platform;
+import scene.SceneController;
 
 public class RegularZombie extends Zombie implements Interactable {
 
@@ -31,8 +33,20 @@ public class RegularZombie extends Zombie implements Interactable {
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
+			bullet.getMove().stop();
+			bullet.getMovebox().stop();
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
+				 SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
+			}
+		});
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
+				
 			}
 		}
 	}

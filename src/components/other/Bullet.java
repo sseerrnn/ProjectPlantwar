@@ -11,6 +11,8 @@ public abstract class Bullet extends Entity {
 
 	protected String img_path;
 	protected int damage;
+	protected TranslateTransition move;
+	protected TranslateTransition movebox;
 
 	public Bullet(String img_path, int initX, int initY, int width, int height) {
 		super(initX, initY, width, height);
@@ -20,29 +22,45 @@ public abstract class Bullet extends Entity {
 		this.imageView = new ImageView(img_path);
 
 		box = new Rectangle(width, height);
-		box.setFill(Color.GREEN);
+		box.setFill(Color.TRANSPARENT);
 		box.setLayoutX(getX());
 		box.setLayoutY(getY());
 		setBox(box);
 	}
 
 	public void shootRight() {
-		TranslateTransition move = new TranslateTransition();
+		move = new TranslateTransition();
 		move.setNode(imageView);
 		move.setToX(1200);
 		move.setDuration(Duration.seconds(5));
 		setX(1200);
 		move.play();
 
-		TranslateTransition movebox = new TranslateTransition();
+		movebox = new TranslateTransition();
 		movebox.setNode(box);
 		movebox.setToX(1200);
 		movebox.setDuration(Duration.seconds(5));
 
 		movebox.play();
-		this.setX(getX() + this.velocity_x);
-		getImageView().setLayoutX(getX());
+//		this.setX(getX() + this.velocity_x);
+//		getImageView().setLayoutX(getX());
 //		getBox().setLayoutX(getX());
+	}
+
+	public TranslateTransition getMove() {
+		return move;
+	}
+
+	public void setMove(TranslateTransition move) {
+		this.move = move;
+	}
+
+	public TranslateTransition getMovebox() {
+		return movebox;
+	}
+
+	public void setMovebox(TranslateTransition movebox) {
+		this.movebox = movebox;
 	}
 
 	public int getDamage() {

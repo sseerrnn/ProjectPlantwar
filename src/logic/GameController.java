@@ -271,6 +271,7 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
+				 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
 			}
