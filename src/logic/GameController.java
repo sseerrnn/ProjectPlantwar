@@ -130,7 +130,7 @@ public class GameController {
 
 	public void setUpArrayLv1() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 3; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -138,7 +138,7 @@ public class GameController {
 
 	public void setUpArrayLv2() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 4; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -146,7 +146,7 @@ public class GameController {
 
 	public void setUpArrayLv3() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 5; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -271,9 +271,15 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
-				 
+
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
+			}
+			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
+					&& (zombie.getCurrentHP() < 100)) {
+				
+//				zombie.destroyZombieHat(5, 5);
+				zombie.backToRegularZombie(7, 7);
 			}
 		}
 	}
@@ -329,7 +335,7 @@ public class GameController {
 			row = 5;
 			break;
 		}
-		
+
 		System.out.println("row : " + row);
 		return row;
 	}
