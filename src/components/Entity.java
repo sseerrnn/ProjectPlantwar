@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Entity {
+	
 	protected int x;
 	protected int y;
 
@@ -35,7 +36,6 @@ public class Entity {
 		this.height = height;
 		setX(init_x);
 		setY(init_y);
-
 	}
 
 	public Animation getAnimation() {

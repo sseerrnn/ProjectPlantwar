@@ -1,11 +1,9 @@
 package scene;
 
-
-
 import components.character.GameCharacter;
 import components.other.Sun;
-import exception.ChooseCharacterFailException;
-import exception.PlantNotEnoughFailException;
+import exception.ChooseCharacterFailedException;
+import exception.PlantNotEnoughFailedException;
 import gui.FieldCell;
 import gui.FieldPane;
 import gui.GameButton;
@@ -45,9 +43,12 @@ import logic.LevelController;
 import javafx.scene.input.MouseEvent;
 
 public class SceneController {
+
 	private static SceneController instance = null;
-	protected static final int Height = 674;
-	protected static final int Width = 1200;
+
+	protected static final int HEIGHT = 674;
+	protected static final int WIDTH = 1200;
+
 	protected Scene mainScene;
 	protected Stage mainStage;
 	protected VBox buttonPane;
@@ -66,18 +67,12 @@ public class SceneController {
 
 		mainStage.setScene(mainScene);
 		mainStage.setResizable(false);
-
 	}
 
 	public static SceneController getInstance() {
 		if (instance == null)
 			instance = new SceneController();
-
 		return instance;
-	}
-
-	public Stage getMainstage() {
-		return mainStage;
 	}
 
 	public void setUpMainStage() {
@@ -85,47 +80,29 @@ public class SceneController {
 		createMenuButtons();
 		createBackgroundPane();
 		createLogo();
-		mainScene = new Scene(mainPane, Width, Height);
-	}
-
-	public void setMainstage(Stage mainstage) {
-		this.mainStage = mainstage;
+		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 	}
 
 	public void createStartButton() {
 		GameButton StartButton = new GameButton("Start Game");
 		buttonPane.getChildren().add(StartButton);
 		StartButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
-
 			}
 		});
-	}
-
-	public AnchorPane getMainPane() {
-		return mainPane;
-	}
-
-	public void setMainPane(AnchorPane mainPane) {
-		this.mainPane = mainPane;
 	}
 
 	public void createExitButton() {
 		GameButton ExitButton = new GameButton("Exit Game");
 		buttonPane.getChildren().add(ExitButton);
 		ExitButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				mainStage.close();
 			}
-
 		});
 	}
 
@@ -151,7 +128,6 @@ public class SceneController {
 	public void createBackgroundPane() {
 		mainPane = new AnchorPane();
 		mainPane.getChildren().addAll(new ImageView("Background.jpg"), buttonPane);
-
 	}
 
 	public void setUpChooseMapScene() {
@@ -159,14 +135,12 @@ public class SceneController {
 		createChooseMapButtons();
 		createMapTopic();
 		createMapPicture();
-		mainScene = new Scene(mainPane, Width, Height);
-
+		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 	}
 
 	public void setUpChooseMapPane() {
 		mainPane = new AnchorPane();
 		mainPane.getChildren().add(new ImageView("blue green.jpg"));
-
 	}
 
 	public void createBackButton() {
@@ -174,10 +148,8 @@ public class SceneController {
 		back.setUpButtonStyle3();
 		mainPane.getChildren().add(back);
 		back.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				setUpMainStage();
 				mainStage.setScene(mainScene);
 			}
@@ -191,18 +163,15 @@ public class SceneController {
 		map1.setUpButtonStyle2();
 		mainPane.getChildren().add(map1);
 		map1.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
 				setUpGameScene();
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
-
 			}
 		});
+
 		map1.setLayoutX(166.5);
 		map1.setLayoutY(510);
 	}
@@ -212,13 +181,12 @@ public class SceneController {
 		map2.setUpButtonStyle2();
 		mainPane.getChildren().add(map2);
 		map2.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
+
 		map2.setLayoutX(474.5);
 		map2.setLayoutY(510);
 	}
@@ -228,13 +196,12 @@ public class SceneController {
 		map3.setUpButtonStyle2();
 		mainPane.getChildren().add(map3);
 		map3.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
+
 		map3.setLayoutX(782.5);
 		map3.setLayoutY(510);
 	}
@@ -251,7 +218,6 @@ public class SceneController {
 		maps.setLayoutX(444);
 		maps.setLayoutY(58);
 		mainPane.getChildren().add(maps);
-
 	}
 
 	public void createMapPicture() {
@@ -277,21 +243,18 @@ public class SceneController {
 		mapLock3.setLayoutY(269);
 
 		mainPane.getChildren().addAll(mapLock2, mapLock3);
-
 	}
 
 	public void setUpGameScene() {
 		setUpGamePane();
 		setUpFieldPane();
 		createGameButtons();
-		mainScene = new Scene(mainPane, Width, Height);
-
+		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
 	}
 
 	public void setUpGamePane() {
 		mainPane = new AnchorPane();
 		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
-
 	}
 
 	public void createSubmitButton() {
@@ -301,10 +264,8 @@ public class SceneController {
 		submit.setLayoutY(437);
 		chooseChar.getPane().getChildren().add(submit);
 		submit.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				try {
 					gameController.checkPlantEnough();
 					gameController.setGameStart(true);
@@ -312,18 +273,14 @@ public class SceneController {
 					gameController.Startgame();
 					chooseChar.moveSubSceneOut();
 					toFallSun();
-					createCavnas();
-				} catch (PlantNotEnoughFailException e) {
+					createSunCountSign();
+					createCanvas();
+				} catch (PlantNotEnoughFailedException e) {
 					System.out.println("Submit failed, " + e.getMessage());
 				}
 			}
 		});
-
 	}
-
-//	public void createFallSunThread() {
-//		Thread thread =new Thread();
-//	}
 
 	public void toFallSun() {
 		if (gameController.getSunCount() < 50) {
@@ -335,15 +292,12 @@ public class SceneController {
 				gameController.setSunCount(gameController.getSunCount() + 1);
 				System.out.println(gameController.getSunCount());
 				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
-
 					@Override
 					public void handle(Event arg0) {
-						// TODO Auto-generated method stub
 						sun.moveOut(sun.getImageView());
 						gameController.increaseEnegy();
 						mainPane.getChildren().remove(sun.getImageView());
 					}
-
 				});
 			}
 		}
@@ -365,10 +319,8 @@ public class SceneController {
 				chooseCharButton.setLayoutY(146);
 				chooseChar.getPane().getChildren().add(chooseCharButton);
 				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
-
 					@Override
 					public void handle(ActionEvent arg0) {
-
 						try {
 							gameController.checkSpaceInselectedPlantButtons();
 							chooseCharButton.setVisible(false);
@@ -380,8 +332,7 @@ public class SceneController {
 							moveCharacterButton(chooseCharButton, charButton);
 
 							setUpUnselectButtonListener(charButton, chooseCharButton);
-
-						} catch (ChooseCharacterFailException e) {
+						} catch (ChooseCharacterFailedException e) {
 							System.out.println("Choose character failed, " + e.getMessage());
 						}
 					}
@@ -394,10 +345,8 @@ public class SceneController {
 				chooseCharButton.setLayoutY(272);
 				chooseChar.getPane().getChildren().add(chooseCharButton);
 				chooseCharButton.setOnAction(new EventHandler<ActionEvent>() {
-
 					@Override
 					public void handle(ActionEvent arg0) {
-
 						try {
 							gameController.checkSpaceInselectedPlantButtons();
 							chooseCharButton.setVisible(false);
@@ -409,31 +358,22 @@ public class SceneController {
 							moveCharacterButton(chooseCharButton, charButton);
 
 							setUpUnselectButtonListener(charButton, chooseCharButton);
-
-						} catch (ChooseCharacterFailException e) {
-
+						} catch (ChooseCharacterFailedException e) {
 							System.out.println("Choose character failed, " + e.getMessage());
 						}
-
 					}
-
 				});
-
 			}
 		}
 	}
 
 	public void initializeFieldCellListeners(FieldCell cell) {
 		cell.setOnMouseClicked(new EventHandler<Event>() {
-
 			@Override
 			public void handle(Event arg0) {
-				// TODO Auto-generated method stub
-//				System.out.println(cell.getPlant().getPlantName());
 				onClickHandler(cell);
 			}
 		});
-
 	}
 
 	public void onClickHandler(FieldCell cell) {
@@ -454,7 +394,7 @@ public class SceneController {
 				Rectangle box = gameController.getSelectedPlant().getGameChar().getBox();
 				box.setLayoutX((int) cell.getLayoutX() + 300);
 				box.setLayoutY(((int) cell.getLayoutY()) + 100);
-				box.setFill(Color.BLUE);
+				box.setFill(Color.TRANSPARENT);
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getBox());
 				mainPane.getChildren().add(gameController.getSelectedPlant().getGameChar().getImageView());
 				gameController.getSelectedPlant().getGameChar().setFieldCell(cell);
@@ -475,34 +415,24 @@ public class SceneController {
 	public void setUpPlantButton(PlantButton charButton) {
 		charButton.setOnAction(null);
 		charButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
 				gameController.setSelectedPlant(charButton.getPlant());
 				System.out.println(gameController.getSelectedPlant().getPlantName());
-
 			}
 		});
 	}
 
 	public void setUpUnselectButtonListener(PlantButton charButton, PlantButton chooseCharButton) {
 		charButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-
 				chooseCharButton.setVisible(true);
-//				charButton.setVisible(false);
 				mainPane.getChildren().remove(charButton);
-
 				gameController.getSelectedPlantButtons()
 						.set(gameController.getSelectedPlantButtons().indexOf(charButton), new PlantButton(""));
 			}
-
 		});
-
 	}
 
 	public void moveCharacterButton(PlantButton input, PlantButton output) {
@@ -531,6 +461,7 @@ public class SceneController {
 		mainPane.getChildren().add(field);
 		field.setLayoutX(300);
 		field.setLayoutY(100);
+
 		for (FieldCell cell : field.getFieldCells()) {
 			initializeFieldCellListeners(cell);
 		}
@@ -541,30 +472,48 @@ public class SceneController {
 		pause.setUpPauseButtonStyle();
 		mainPane.getChildren().add(pause);
 		pause.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				// pop up Pause menu
 			}
-
 		});
 		pause.setLayoutX(1112);
 		pause.setLayoutY(17);
-
 	}
 
 	public void createGameButtons() {
 		createPauseButton();
 	}
-	public void createCavnas() {
+
+	public void createCanvas() {
 		canvas = new Canvas(300, 100);
-		gc= canvas.getGraphicsContext2D();
+		gc = canvas.getGraphicsContext2D();
 		mainPane.getChildren().add(canvas);
-		canvas.setLayoutX(0);
-		canvas.setLayoutY(0);
-		
-		
+		canvas.setLayoutX(-58);
+		canvas.setLayoutY(9);
+	}
+
+	public void createSunCountSign() {
+		ImageView sign = new ImageView("suncount.png");
+		sign.setLayoutX(11);
+		sign.setLayoutY(15);
+		mainPane.getChildren().add(sign);
+	}
+
+	public Stage getMainstage() {
+		return mainStage;
+	}
+
+	public void setMainstage(Stage mainstage) {
+		this.mainStage = mainstage;
+	}
+
+	public AnchorPane getMainPane() {
+		return mainPane;
+	}
+
+	public void setMainPane(AnchorPane mainPane) {
+		this.mainPane = mainPane;
 	}
 
 	public GraphicsContext getGc() {

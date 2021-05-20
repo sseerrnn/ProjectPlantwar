@@ -24,7 +24,6 @@ public abstract class Bullet extends Entity {
 		box.setLayoutX(getX());
 		box.setLayoutY(getY());
 		setBox(box);
-
 	}
 
 	public void shootRight() {

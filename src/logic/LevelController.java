@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import gui.PlantButton;
 
@@ -9,7 +8,6 @@ public class LevelController {
 	private ArrayList<PlantButton> plantButtonList;
 
 	public LevelController() {
-		// TODO Auto-generated constructor stub
 		plantButtonList = new ArrayList<PlantButton>();
 		setUpLevel1Button();
 		setUpLevel2Button();
@@ -34,8 +32,6 @@ public class LevelController {
 		plantButtonList.add(new PlantButton("CornPult"));
 		plantButtonList.add(new PlantButton("DoublePeaShooter"));
 		plantButtonList.add(new PlantButton("Tallnut"));
-
-
 	}
 
 	public ArrayList<PlantButton> getPlantButtonList() {

@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import scene.SceneController;
 
 public class Zombie extends GameCharacter {
+
 	public boolean isEat = false;
 
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
@@ -22,18 +23,15 @@ public class Zombie extends GameCharacter {
 		hitBox.setFill(Color.TRANSPARENT);
 		this.setBox(hitBox);
 		this.velocity_x = 20;
-
 	}
 
 	public void walkLeft() {
 		if (!isEat) {
-
 			// code more to change animation
 			this.setX(getX() - this.velocity_x);
 			getImageView().setLayoutX(getX());
 			getBox().setLayoutX(getX());
 		}
-
 	}
 
 	public boolean isEat() {
@@ -43,8 +41,9 @@ public class Zombie extends GameCharacter {
 	public void setEat(boolean isEat) {
 		this.isEat = isEat;
 	}
+
 	public void dokillZombie() {
-		 
-		 
-	 }
+
+	}
+
 }

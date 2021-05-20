@@ -10,7 +10,7 @@ public class Tallnut extends GameCharacter implements Interactable {
 
 	public Tallnut(int init_x, int init_y) {
 		super("tallnutsprite.png", init_x, init_y, 60, 75, 500, 0);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 9;
 		this.count = 9;
@@ -20,6 +20,7 @@ public class Tallnut extends GameCharacter implements Interactable {
 		this.width = 60;
 		this.diffX = 1;
 		this.diffY = 15;
+		
 		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
 
@@ -28,23 +29,18 @@ public class Tallnut extends GameCharacter implements Interactable {
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub
-//		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
-
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
-
 		}
 	}
 
 	@Override
 	public void interact(Bullet bullet) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

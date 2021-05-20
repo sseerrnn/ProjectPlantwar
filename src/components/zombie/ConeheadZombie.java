@@ -9,7 +9,7 @@ public class ConeheadZombie extends Zombie implements Interactable {
 
 	public ConeheadZombie(int init_x, int init_y) {
 		super("coneheadzombiesprite.png", init_x, init_y, 130, 100, 200, 35);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 7;
 		this.count = 7;
@@ -25,13 +25,13 @@ public class ConeheadZombie extends Zombie implements Interactable {
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		
+
 	}
 
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
-			this.shootZombie();
+			this.destroyZombieHat(5,5);
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}

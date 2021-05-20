@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class GameCharacter extends Entity {
+
 	protected int maxHP;
 	protected int currentHP;
 	protected int attackPoint;
@@ -26,13 +27,6 @@ public class GameCharacter extends Entity {
 	protected int diffY;
 
 	protected FieldCell fieldCell;
-	public int getDiffX() {
-		return diffX;
-	}
-
-	public int getDiffY() {
-		return diffY;
-	}
 
 	public GameCharacter(String img_path, int init_x, int init_y, int width, int height, int currentHP,
 			int attackPoint) {
@@ -41,7 +35,132 @@ public class GameCharacter extends Entity {
 		this.maxHP = currentHP;
 		this.attackPoint = attackPoint;
 		this.img_path = img_path;
+	}
 
+	public boolean checkCollision(GameCharacter gameCharacter) {
+		return this.getBox().getBoundsInParent().intersects(gameCharacter.getBox().getBoundsInParent());
+	}
+
+	public void createAnimation() {
+		imageView = new ImageView(img_path);
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(init_x);
+		imageView.setLayoutY(init_y);
+		animation.play();
+	}
+
+	public void doEatPlant() {
+		if (this.getCurrentHP() < 30) {
+
+		} else {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 130, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+	}
+
+	public boolean checkCollision(Bullet bullet) {
+		return this.getBox().getBoundsInParent().intersects(bullet.getBox().getBoundsInParent());
+	}
+
+	public void shootZombie(int count, int columns) {
+		if (this instanceof Shootable && isShoot) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + height, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + height,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+	}
+
+	public void destroyZombieHat(int count, int columns) {
+		if (this.getCurrentHP() < 100) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+	}
+
+	public void destroyZombieBody() {
+		if (this.getCurrentHP() < 30) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+		if (this.getCurrentHP() < 0) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+	}
+
+	public void brokenZombieWalk(int count, int columns) {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 390, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+
+	public void brokenZombieEat(int count, int columns) {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 520, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+	
+	public void killZombie(int count, int columns) {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+
+	public void resetAnimation() {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+
+	public int getDiffX() {
+		return diffX;
+	}
+
+	public int getDiffY() {
+		return diffY;
 	}
 
 	public int getMaxHP() {
@@ -124,79 +243,6 @@ public class GameCharacter extends Entity {
 		this.diffY = diffY;
 	}
 
-	public boolean checkCollision(GameCharacter gameCharacter) {
-//		System.out.println(this.getBox().getBoundsInLocal());
-//		System.out.println(gameCharacter.getBox().getBoundsInParent());
-		return this.getBox().getBoundsInParent().intersects(gameCharacter.getBox().getBoundsInParent());
-	}
-
-	public void createAnimation() {
-		imageView = new ImageView(img_path);
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
-				height);
-		animation.setCycleCount(Animation.INDEFINITE);
-		imageView.setLayoutX(init_x);
-		imageView.setLayoutY(init_y);
-		animation.play();
-	}
-
-	public void doEatPlant() {
-		if (this.getCurrentHP() < 30) {
-
-		} else {
-
-			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 130, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
-					width, height);
-			animation.setCycleCount(Animation.INDEFINITE);
-			imageView.setLayoutX(getX());
-			imageView.setLayoutY(getY());
-			animation.play();
-
-		}
-	}
-	
-	public boolean checkCollision(Bullet bullet) {
-		return this.getBox().getBoundsInParent().intersects(bullet.getBox().getBoundsInParent());
-	}
-	
-	public void shooting(int count, int columns) {
-		if(this instanceof Shootable && isShoot) {
-			imageView.setViewport(new Rectangle2D(offsetX, offsetY + height, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + height,
-					width, height);
-			animation.setCycleCount(Animation.INDEFINITE);
-			imageView.setLayoutX(getX());
-			imageView.setLayoutY(getY());
-			animation.play();
-		}
-	}
-	
-	public void shootZombie() {
-		if (this.getCurrentHP() < 100) {
-
-			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
-					width, height);
-			animation.setCycleCount(Animation.INDEFINITE);
-			imageView.setLayoutX(getX());
-			imageView.setLayoutY(getY());
-			animation.play();
-
-		}
-	}
-
-	public void resetAnimation() {
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
-				height);
-		animation.setCycleCount(Animation.INDEFINITE);
-		imageView.setLayoutX(getX());
-		imageView.setLayoutY(getY());
-		animation.play();
-	}
-
 	public FieldCell getFieldCell() {
 		return fieldCell;
 	}
@@ -204,5 +250,5 @@ public class GameCharacter extends Entity {
 	public void setFieldCell(FieldCell fieldCell) {
 		this.fieldCell = fieldCell;
 	}
- 
+
 }

@@ -1,5 +1,7 @@
 package implement;
 
 public interface Producable {
-public abstract void produce();
+
+	public abstract void produce();
+
 }

@@ -9,6 +9,7 @@ public class RegularZombie extends Zombie implements Interactable {
 
 	public RegularZombie(int init_x, int init_y) {
 		super("regularzombiesprite.png", init_x, init_y, 130, 100, 100, 35);
+
 		this.currentHP = maxHP;
 		this.columns = 7;
 		this.count = 7;

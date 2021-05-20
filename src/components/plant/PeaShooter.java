@@ -13,7 +13,7 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 
 	public PeaShooter(int init_x, int init_y) {
 		super("peashootersprite.png", init_x, init_y, 75, 75, 100, 20);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 8;
 		this.count = 8;
@@ -23,40 +23,37 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 		this.width = 75;
 		this.diffX = -10;
 		this.diffY = 13;
+		
 		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
+		
 		createAnimation();
 	}
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub
-//		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
-
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
-
 		}
 	}
 
 	@Override
 	public Bullet shoot() {
-		Bullet bullet = new PeaBullet(this.getX() + 10, this.getY() + 10);
+		Bullet bullet = new PeaBullet(this.getX() + 70, this.getY() + 10);
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
-		this.shooting(3,3);
+		this.shootZombie(3, 3);
 		return bullet;
 	}
 
 	@Override
 	public void interact(Bullet bullet) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

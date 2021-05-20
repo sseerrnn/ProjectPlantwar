@@ -9,7 +9,7 @@ public class BucketheadZombie extends Zombie implements Interactable {
 
 	public BucketheadZombie(int init_x, int init_y) {
 		super("bucketheadzombiesprite.png", init_x, init_y, 130, 100, 500, 35);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 7;
 		this.count = 7;
@@ -25,13 +25,13 @@ public class BucketheadZombie extends Zombie implements Interactable {
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		
+
 	}
 
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
-			this.shootZombie();
+			this.destroyZombieHat(5,5);
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}

@@ -13,7 +13,7 @@ public class CornPult extends GameCharacter implements Interactable, Shootable {
 
 	public CornPult(int init_x, int init_y) {
 		super("cornpultsprite.png", init_x, init_y, 76, 105, 100, 15);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 4;
 		this.count = 4;
@@ -23,22 +23,20 @@ public class CornPult extends GameCharacter implements Interactable, Shootable {
 		this.width = 76;
 		this.diffX = -15;
 		this.diffY = -18;
+		
 		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
+		
 		createAnimation();
 	}
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub
-//		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
-
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
-
 		}
 	}
 
@@ -48,14 +46,13 @@ public class CornPult extends GameCharacter implements Interactable, Shootable {
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
-		this.shooting(7,7);
+		this.shootZombie(7, 7);
 		return bullet;
 	}
 
 	@Override
 	public void interact(Bullet bullet) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

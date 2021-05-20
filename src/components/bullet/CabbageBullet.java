@@ -5,7 +5,6 @@ import components.other.Bullet;
 public class CabbageBullet extends Bullet {
 
 	public CabbageBullet(int initX, int initY) {
-
 		super("cabbage.png", initX, initY, 25, 25);
 		this.init_y = initY;
 		this.init_x = initX;
@@ -14,7 +13,6 @@ public class CabbageBullet extends Bullet {
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
 		damage = 30;
-
 	}
 
 }

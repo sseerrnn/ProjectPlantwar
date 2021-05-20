@@ -5,7 +5,6 @@ import components.other.Bullet;
 public class CornBullet extends Bullet {
 
 	public CornBullet(int initX, int initY) {
-
 		super("butter2.png", initX, initY, 20, 21);
 		this.init_y = initY;
 		this.init_x = initX;
@@ -14,7 +13,6 @@ public class CornBullet extends Bullet {
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
 		damage = 15;
-
 	}
 
 }

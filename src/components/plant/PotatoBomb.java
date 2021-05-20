@@ -16,7 +16,7 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 
 	public PotatoBomb(int init_x, int init_y) {
 		super("potatobombsprite.png", init_x, init_y, 100, 70, 100, 500);
-		// TODO Auto-generated constructor stub
+
 		this.currentHP = maxHP;
 		this.columns = 5;
 		this.count = 5;
@@ -26,18 +26,17 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		this.width = 100;
 		this.diffX = -22;
 		this.diffY = 15;
+		
 		Rectangle hitbox = new Rectangle(40, 100);
 		setBox(hitbox);
+		
 		createAnimation();
 	}
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		// TODO Auto-generated method stub
-//		System.out.println(checkCollision(gameCharacter));
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
-
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
@@ -47,7 +46,6 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 
 	@Override
 	public void explode() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -64,8 +62,7 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 
 	@Override
 	public void interact(Bullet bullet) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }
