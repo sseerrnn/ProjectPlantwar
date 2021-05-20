@@ -1,5 +1,7 @@
 package components.bullet;
 
+import components.character.GameCharacter;
+import components.character.Zombie;
 import components.other.Bullet;
 
 public class SnowBullet extends Bullet {

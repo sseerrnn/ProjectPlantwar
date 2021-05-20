@@ -1,6 +1,8 @@
 package components.other;
 
 import components.Entity;
+import components.bullet.SnowBullet;
+import components.character.Zombie;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -22,7 +24,7 @@ public abstract class Bullet extends Entity {
 		this.imageView = new ImageView(img_path);
 
 		box = new Rectangle(width, height);
-		box.setFill(Color.TRANSPARENT);
+		box.setFill(Color.GRAY);
 		box.setLayoutX(getX());
 		box.setLayoutY(getY());
 		setBox(box);
@@ -71,4 +73,5 @@ public abstract class Bullet extends Entity {
 		this.damage = damage;
 	}
 
+	
 }

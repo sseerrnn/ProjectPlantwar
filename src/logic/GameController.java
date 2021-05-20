@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import components.bullet.SnowBullet;
 import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
@@ -271,6 +272,7 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
+					doSlowZombie(bullet, zombie);
 				 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
@@ -346,7 +348,14 @@ public class GameController {
 			}
 		}
 	}
-
+public void doSlowZombie(Bullet bullet,Zombie zombie) {
+	
+	if(bullet instanceof SnowBullet) {
+		zombie.setVelocity_x(20);
+		zombie.setSlowUntil(currentTime+5);
+		
+	}
+}
 	public void shootBullet() {
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();

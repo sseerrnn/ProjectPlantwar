@@ -13,6 +13,7 @@ import scene.SceneController;
 public class Zombie extends GameCharacter {
 
 	public boolean isEat = false;
+	public int slowUntil;
 
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
 		super(img_path, init_x, init_y, width, height, currentHP, attackPoint);
@@ -23,6 +24,15 @@ public class Zombie extends GameCharacter {
 		hitBox.setFill(Color.TRANSPARENT);
 		this.setBox(hitBox);
 		this.velocity_x = 20;
+		slowUntil=0;
+	}
+
+	public int getSlowUntil() {
+		return slowUntil;
+	}
+
+	public void setSlowUntil(int slowUntil) {
+		this.slowUntil = slowUntil;
 	}
 
 	public void walkLeft() {
