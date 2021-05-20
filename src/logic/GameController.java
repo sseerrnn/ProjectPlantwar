@@ -19,6 +19,8 @@ import gui.PlantButton;
 import implement.Interactable;
 import implement.Shootable;
 import javafx.animation.AnimationTimer;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -277,9 +279,15 @@ public class GameController {
 			}
 			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
 					&& (zombie.getCurrentHP() < 100)) {
-				
-//				zombie.destroyZombieHat(5, 5);
-				zombie.backToRegularZombie(7, 7);
+				TranslateTransition move1 = new  TranslateTransition();
+				move1.setOnFinished(e->zombie.destroyZombieHat(5, 5));
+//				zombie.destroyZombieHat(5, 5)
+				TranslateTransition move2 = new TranslateTransition();
+				move2.setOnFinished(e->zombie.backToRegularZombie(7, 7));
+//				zombie.backToRegularZombie(7, 7);
+				SequentialTransition seq=new SequentialTransition() ;
+				seq.getChildren().addAll(move1,move2);
+				seq.play();
 			}
 		}
 	}
