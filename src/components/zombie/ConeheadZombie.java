@@ -33,18 +33,17 @@ public class ConeheadZombie extends Zombie implements Interactable {
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
+
 			bullet.getMove().stop();
 			bullet.getMovebox().stop();
 			Platform.runLater(new Runnable() {
-				
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
-					 SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
+					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
 				}
 			});
-			this.destroyZombieHat(5,5);
+			
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}

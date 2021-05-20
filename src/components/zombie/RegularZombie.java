@@ -35,18 +35,15 @@ public class RegularZombie extends Zombie implements Interactable {
 		if (checkCollision(bullet)) {
 			bullet.getMove().stop();
 			bullet.getMovebox().stop();
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
-				 SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
-			}
-		});
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
+					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
+				}
+			});
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
-				
 			}
 		}
 	}

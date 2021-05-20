@@ -21,6 +21,8 @@ import implement.Interactable;
 import implement.Producable;
 import implement.Shootable;
 import javafx.animation.AnimationTimer;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -289,10 +291,28 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
+<<<<<<< HEAD
 					doSlowZombie(bullet, zombie);
 
+||||||| remove bullet when hit zombie
+				 
+=======
+
+>>>>>>> newdev
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
+			}
+			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
+					&& (zombie.getCurrentHP() < 100)) {
+				TranslateTransition move1 = new  TranslateTransition();
+				move1.setOnFinished(e->zombie.destroyZombieHat(5, 5));
+//				zombie.destroyZombieHat(5, 5)
+				TranslateTransition move2 = new TranslateTransition();
+				move2.setOnFinished(e->zombie.backToRegularZombie(7, 7));
+//				zombie.backToRegularZombie(7, 7);
+				SequentialTransition seq=new SequentialTransition() ;
+				seq.getChildren().addAll(move1,move2);
+				seq.play();
 			}
 		}
 	}
