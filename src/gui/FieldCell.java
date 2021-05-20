@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import logic.GameController;
 
 public class FieldCell extends Pane {
+
 	private Plant plant;
 	private int layoutx;
 	private int layouty;
@@ -21,8 +22,6 @@ public class FieldCell extends Pane {
 		this.setMinWidth(95);
 		this.setMinHeight(100);
 		this.setBackground(new Background(new BackgroundFill(Color.BLACK, null, getInsets())));
-		
-
 	}
 
 	public Plant getPlant() {
@@ -32,6 +31,5 @@ public class FieldCell extends Pane {
 	public void setPlant(Plant plant) {
 		this.plant = plant;
 	}
-	
 
 }

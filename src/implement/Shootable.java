@@ -1,5 +1,9 @@
 package implement;
 
+import components.other.Bullet;
+
 public interface Shootable {
-public abstract void shoot();
+
+	public abstract Bullet shoot();
+
 }

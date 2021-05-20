@@ -12,6 +12,7 @@ import components.plant.TwinSunflower;
 import components.plant.Wallnut;
 
 public class Plant {
+
 	private String plantName;
 	private String url;
 	private int price;
@@ -24,7 +25,6 @@ public class Plant {
 		case "CabbagePult":
 			url = "cabbagepultbutton1.png";
 			price = 100;
-
 			break;
 		case "CornPult":
 			url = "cornpultbutton1.png";
@@ -41,7 +41,6 @@ public class Plant {
 		case "PeaShooter":
 			url = "peashooterbutton1.png";
 			price = 100;
-
 			break;
 		case "PotatoBomb":
 			url = "potatobombbutton1.png";
@@ -62,9 +61,7 @@ public class Plant {
 		case "Wallnut":
 			url = "wallnutbutton1.png";
 			price = 50;
-
 			break;
-
 		default:
 			url = "plantbutton.png";
 			price = 0;
@@ -77,11 +74,9 @@ public class Plant {
 		switch (plantName) {
 		case "CabbagePult":
 			gameChar = new CabbagePult(initX, initY);
-
 			break;
 		case "CornPult":
 			gameChar = new CornPult(initX, initY);
-
 			break;
 		case "DoublePeaShooter":
 			gameChar = new DoublePeaShooter(initX, initY);
@@ -100,16 +95,13 @@ public class Plant {
 			break;
 		case "Sunflower":
 			gameChar = new Sunflower(initX, initY);
-
 			break;
 		case "TwinSunflower":
 			gameChar = new TwinSunflower(initX, initY);
 			break;
 		case "Wallnut":
 			gameChar = new Wallnut(initX, initY);
-
 			break;
-
 		}
 	}
 

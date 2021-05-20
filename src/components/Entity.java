@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Entity {
+	
 	protected int x;
 	protected int y;
 
@@ -23,17 +24,18 @@ public class Entity {
 	protected Animation animation;
 	protected String img_path;
 
+	protected boolean isShoot = false;
+
 	public Entity(int init_x, int init_y, int width, int height) {
 		this.init_x = init_x;
 		this.init_y = init_y;
-		
+
 		box = new Rectangle(width, height);
-		this.box.setFill(Color.TRANSPARENT);
+		this.box.setFill(Color.GREEN);
 		this.width = width;
 		this.height = height;
 		setX(init_x);
 		setY(init_y);
-
 	}
 
 	public Animation getAnimation() {
@@ -118,6 +120,14 @@ public class Entity {
 
 	public void setVelocity_y(int velocity_y) {
 		this.velocity_y = velocity_y;
+	}
+
+	public boolean isShoot() {
+		return isShoot;
+	}
+
+	public void setShoot(boolean isShoot) {
+		this.isShoot = isShoot;
 	}
 
 }

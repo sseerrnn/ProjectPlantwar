@@ -12,7 +12,6 @@ public class Sun extends Entity {
 
 	public Sun() {
 		super(0, 0, 54, 50);
-		// TODO Auto-generated constructor stub
 		this.init_x = randomX();
 		this.init_y = -100;
 		this.width = 54;
@@ -32,9 +31,8 @@ public class Sun extends Entity {
 
 	public int randomY() {
 		Random random = new Random();
-		int y = 200+ random.nextInt(460);
+		int y = 200 + random.nextInt(460);
 		return y;
-
 	}
 
 	public int randomX() {
