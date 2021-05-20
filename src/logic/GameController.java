@@ -291,14 +291,7 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
-<<<<<<< HEAD
-					doSlowZombie(bullet, zombie);
 
-||||||| remove bullet when hit zombie
-				 
-=======
-
->>>>>>> newdev
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
 			}
