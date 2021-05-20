@@ -3,10 +3,15 @@ package components.other;
 import java.util.Random;
 
 import components.Entity;
+import javafx.animation.FadeTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import scene.SceneController;
 
 public class Sun extends Entity {
 
@@ -50,10 +55,17 @@ public class Sun extends Entity {
 	public void moveOut(ImageView imageView) {
 		TranslateTransition move = new TranslateTransition();
 		move.setNode(imageView);
-		move.setToX(21 - x);
-		move.setToY(20 - y);
+
+		move.setToX(-init_x);
+		move.setByY(-600);
 		move.play();
-		imageView.setVisible(false);
+		move.setOnFinished(e -> {
+
+			imageView.setVisible(false);
+			SceneController.getInstance().getMainPane().getChildren().remove(getImageView());
+
+		});
+
 	}
 
 }

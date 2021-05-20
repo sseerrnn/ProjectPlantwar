@@ -18,9 +18,14 @@ import exception.PlantNotEnoughFailedException;
 import gui.GameButton;
 import gui.PlantButton;
 import implement.Interactable;
+import implement.Producable;
 import implement.Shootable;
 import javafx.animation.AnimationTimer;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -50,6 +55,7 @@ public class GameController {
 	private ArrayList<GameCharacter> plantInGame;
 	private ArrayList<Bullet> bullets;
 	private ArrayList<ArrayList<Zombie>> zombies;
+	private ArrayList<Sun> producedSun;
 
 	public GameController() {
 		isGameStart = false;
@@ -65,7 +71,7 @@ public class GameController {
 		plantInGame = new ArrayList<GameCharacter>();
 		bullets = new ArrayList<Bullet>();
 		zombies = new ArrayList<ArrayList<Zombie>>(5);
-
+		producedSun = new ArrayList<Sun>();
 		for (int i = 0; i < 5; i++) {
 			zombies.add(new ArrayList<Zombie>());
 		}
@@ -89,28 +95,41 @@ public class GameController {
 					lastTimeTriggered = now;
 					System.out.println(currentTime);
 
-					SceneController.getInstance().toFallSun();
-					generateZombieLv1();
-					generateZombieLv2();
-					generateZombieLv3();
-
-					for (Zombie zombie : zombieInGame) {
-						zombie.walkLeft();
-					}
-
-					System.out.println("Zombie : " + zombieInGame.size());
-					canCreateSun = false;
-					checkCollision();
-					checkDie();
-					checkPlantShoot();
-					addEnergy();
-					checkBulletCollision();
-					checkZombieDie();
+					update();
 				}
 			}
 		};
 
 		this.animationTimer.start();
+	}
+
+	public void update() {
+		SceneController.getInstance().toFallSun();
+		generateZombieLv1();
+		generateZombieLv2();
+		generateZombieLv3();
+
+		for (Zombie zombie : zombieInGame) {
+			zombie.walkLeft();
+		}
+
+		System.out.println("Zombie : " + zombieInGame.size());
+		canCreateSun = false;
+		checkCollision();
+		checkDie();
+		checkPlantShoot();
+		addEnergy();
+		checkBulletCollision();
+		checkZombieDie();
+		produceSun();
+//		dropSun();
+	}
+	public void dropSun() {
+		for (Sun sun:producedSun) {
+			if(-sun.getInit_y()+sun.getY()<20)
+			sun.getImageView().setTranslateY(sun.getY()+10);
+			sun.setY(sun.getY()+10);
+		}
 	}
 
 	public void checkSpaceInselectedPlantButtons() throws ChooseCharacterFailedException {
@@ -131,7 +150,7 @@ public class GameController {
 
 	public void setUpArrayLv1() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 3; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -139,7 +158,7 @@ public class GameController {
 
 	public void setUpArrayLv2() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 4; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -147,7 +166,7 @@ public class GameController {
 
 	public void setUpArrayLv3() {
 		selectedPlantButtons = new ArrayList<>();
-		
+
 		for (int i = 0; i < 5; i++) {
 			selectedPlantButtons.add(new PlantButton(""));
 		}
@@ -272,10 +291,21 @@ public class GameController {
 			for (Bullet bullet : bullets) {
 				if (zombie instanceof Interactable) {
 					((Interactable) zombie).interact(bullet);
-					doSlowZombie(bullet, zombie);
-				 
+
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
+			}
+			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
+					&& (zombie.getCurrentHP() < 100)) {
+				TranslateTransition move1 = new  TranslateTransition();
+				move1.setOnFinished(e->zombie.destroyZombieHat(5, 5));
+//				zombie.destroyZombieHat(5, 5)
+				TranslateTransition move2 = new TranslateTransition();
+				move2.setOnFinished(e->zombie.backToRegularZombie(7, 7));
+//				zombie.backToRegularZombie(7, 7);
+				SequentialTransition seq=new SequentialTransition() ;
+				seq.getChildren().addAll(move1,move2);
+				seq.play();
 			}
 		}
 	}
@@ -331,7 +361,7 @@ public class GameController {
 			row = 5;
 			break;
 		}
-		
+
 		System.out.println("row : " + row);
 		return row;
 	}
@@ -348,14 +378,16 @@ public class GameController {
 			}
 		}
 	}
-public void doSlowZombie(Bullet bullet,Zombie zombie) {
-	
-	if(bullet instanceof SnowBullet) {
-		zombie.setVelocity_x(20);
-		zombie.setSlowUntil(currentTime+5);
-		
+
+	public void doSlowZombie(Bullet bullet, Zombie zombie) {
+
+		if (bullet instanceof SnowBullet) {
+			zombie.setVelocity_x(20);
+			zombie.setSlowUntil(currentTime + 5);
+
+		}
 	}
-}
+
 	public void shootBullet() {
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
@@ -450,4 +482,23 @@ public void doSlowZombie(Bullet bullet,Zombie zombie) {
 		this.isGameEnd = isGameEnd;
 	}
 
+	public void produceSun() {
+
+		for (GameCharacter plant : plantInGame) {
+			if (plant instanceof Producable && currentTime % 5 == 0) {
+				for (Sun sun:((Producable) plant).produce()) {
+				
+				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event arg0) {
+						sun.moveOut(sun.getImageView());
+						increaseEnegy();
+					}
+				});
+				producedSun.add(sun);
+				SceneController.getInstance().getMainPane().getChildren().add(sun.getImageView());
+				}
+			}
+		}
+	}
 }

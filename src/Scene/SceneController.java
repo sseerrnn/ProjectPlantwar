@@ -296,12 +296,13 @@ public class SceneController {
 					public void handle(Event arg0) {
 						sun.moveOut(sun.getImageView());
 						gameController.increaseEnegy();
-						mainPane.getChildren().remove(sun.getImageView());
+//						mainPane.getChildren().remove(sun.getImageView());
 					}
 				});
 			}
 		}
 	}
+	
 
 	public void createChooseCharSubScene() {
 		initializeLevelController();
