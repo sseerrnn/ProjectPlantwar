@@ -40,9 +40,9 @@ public abstract class Bullet extends Entity {
 		movebox.setDuration(Duration.seconds(5));
 
 		movebox.play();
-//		this.setX(getX() + this.velocity_x);
-//		getImageView().setLayoutX(getX());
-		getBox().setLayoutX(getX());
+		this.setX(getX() + this.velocity_x);
+		getImageView().setLayoutX(getX());
+//		getBox().setLayoutX(getX());
 	}
 
 	public int getDamage() {
