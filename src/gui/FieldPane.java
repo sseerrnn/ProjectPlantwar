@@ -2,6 +2,7 @@ package gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -18,7 +19,7 @@ public class FieldPane extends GridPane {
 			for (int j = 0; j < 9; j++) {
 				FieldCell cell = new FieldCell();
 				if ((i + j) % 2 == 0) {
-					cell.setBackground(new Background(new BackgroundFill(Color.WHITE, null, getInsets())));
+					cell.getChildren().add(new ImageView("yardscale2.png"));
 				}
 				fieldCells.add(cell);
 				this.add(cell, j, i);

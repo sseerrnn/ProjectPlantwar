@@ -125,11 +125,12 @@ public class GameController {
 		shootBullet();
 //		dropSun();
 	}
+
 	public void dropSun() {
-		for (Sun sun:producedSun) {
-			if(-sun.getInit_y()+sun.getY()<20)
-			sun.getImageView().setTranslateY(sun.getY()+10);
-			sun.setY(sun.getY()+10);
+		for (Sun sun : producedSun) {
+			if (-sun.getInit_y() + sun.getY() < 20)
+				sun.getImageView().setTranslateY(sun.getY() + 10);
+			sun.setY(sun.getY() + 10);
 		}
 	}
 
@@ -297,15 +298,15 @@ public class GameController {
 				}
 			}
 			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
-					&& (zombie.getCurrentHP() < 100)&& zombie.isHaveHat()) {
-				TranslateTransition move1 = new  TranslateTransition();
-				move1.setOnFinished(e->zombie.destroyZombieHat(5, 5));
+					&& (zombie.getCurrentHP() < 100) && zombie.isHaveHat()) {
+				TranslateTransition move1 = new TranslateTransition();
+				move1.setOnFinished(e -> zombie.destroyZombieHat(5, 5));
 //				zombie.destroyZombieHat(5, 5)
 				TranslateTransition move2 = new TranslateTransition();
-				move2.setOnFinished(e->zombie.backToRegularZombie(7, 7));
+				move2.setOnFinished(e -> zombie.backToRegularZombie(7, 7));
 //				zombie.backToRegularZombie(7, 7);
-				SequentialTransition seq=new SequentialTransition() ;
-				seq.getChildren().addAll(move1,move2);
+				SequentialTransition seq = new SequentialTransition();
+				seq.getChildren().addAll(move1, move2);
 				seq.play();
 				zombie.setHaveHat(false);
 			}
@@ -371,7 +372,7 @@ public class GameController {
 	public void checkPlantShoot() {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
-				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime%5==0) {
+				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
 //					bullet.shootRight();
@@ -394,6 +395,15 @@ public class GameController {
 		for (Bullet bullet : bullets) {
 			bullet.shootRight();
 		}
+	}
+
+	public void setUpGameResult() {
+		if (zombieInGame.size() == 0) {
+			SceneController.getInstance().setUpGameEnding(true);
+		}
+//		else if() {
+//		SceneController.getInstance().setUpGameEnding(false);
+//		}
 	}
 
 	public boolean isGameStart() {
@@ -488,17 +498,17 @@ public class GameController {
 
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Producable && currentTime % 5 == 0) {
-				for (Sun sun:((Producable) plant).produce()) {
-				
-				sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event arg0) {
-						sun.moveOut(sun.getImageView());
-						increaseEnegy();
-					}
-				});
-				producedSun.add(sun);
-				SceneController.getInstance().getMainPane().getChildren().add(sun.getImageView());
+				for (Sun sun : ((Producable) plant).produce()) {
+
+					sun.getImageView().setOnMouseClicked(new EventHandler<Event>() {
+						@Override
+						public void handle(Event arg0) {
+							sun.moveOut(sun.getImageView());
+							increaseEnegy();
+						}
+					});
+					producedSun.add(sun);
+					SceneController.getInstance().getMainPane().getChildren().add(sun.getImageView());
 				}
 			}
 		}

@@ -7,6 +7,7 @@ import exception.PlantNotEnoughFailedException;
 import gui.FieldCell;
 import gui.FieldPane;
 import gui.GameButton;
+import gui.GameEnding;
 import gui.GameSubScene;
 import gui.PlantButton;
 import gui.SpriteAnimation;
@@ -254,7 +255,7 @@ public class SceneController {
 
 	public void setUpGamePane() {
 		mainPane = new AnchorPane();
-		mainPane.setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));// color background
+		mainPane.getChildren().add(new ImageView("bg.png"));
 	}
 
 	public void createSubmitButton() {
@@ -302,7 +303,6 @@ public class SceneController {
 			}
 		}
 	}
-	
 
 	public void createChooseCharSubScene() {
 		initializeLevelController();
@@ -499,6 +499,27 @@ public class SceneController {
 		sign.setLayoutX(11);
 		sign.setLayoutY(15);
 		mainPane.getChildren().add(sign);
+	}
+
+	public void setUpGameEnding(boolean isWin) {
+		GameEnding gameEnding = new GameEnding(isWin);
+		mainScene = new Scene(gameEnding.getEndingPane(), WIDTH, HEIGHT);
+	}
+
+	public Scene getMainScene() {
+		return mainScene;
+	}
+
+	public void setMainScene(Scene mainScene) {
+		this.mainScene = mainScene;
+	}
+
+	public GameSubScene getChooseChar() {
+		return chooseChar;
+	}
+
+	public void setChooseChar(GameSubScene chooseChar) {
+		this.chooseChar = chooseChar;
 	}
 
 	public Stage getMainstage() {

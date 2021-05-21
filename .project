@@ -14,4 +14,21 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/bg.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/PlantWar/bg.png</locationURI>
+		</link>
+		<link>
+			<name>res/yardscale1.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/PlantWar/yardscale1.png</locationURI>
+		</link>
+		<link>
+			<name>res/yardscale2.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/PlantWar/yardscale2.png</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -1,11 +1,13 @@
 package gui;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
+import scene.SceneController;
 
 public class GameEnding extends AnchorPane {
 
@@ -15,6 +17,7 @@ public class GameEnding extends AnchorPane {
 	private Button replayButton;
 	private Button nextButton;
 	private Button homeButton;
+	private AnchorPane endingPane;
 
 	public GameEnding(boolean isWin) {
 		super();
@@ -26,7 +29,7 @@ public class GameEnding extends AnchorPane {
 
 	public void createBackground() {
 		background = new ImageView("result_background.jpg");
-		this.getChildren().add(background);
+		endingPane.getChildren().add(background);
 	}
 
 	public void createStatusImage() {
@@ -48,7 +51,7 @@ public class GameEnding extends AnchorPane {
 			createReplayButton(352, 328);
 			createHomeButton(639, 328);
 		}
-		this.getChildren().add(statusImage);
+		endingPane.getChildren().add(statusImage);
 	}
 
 	public void createReplayButton(int initX, int initY) {
@@ -56,7 +59,16 @@ public class GameEnding extends AnchorPane {
 		replayButton.setGraphic(new ImageView("replaybutton.png"));
 		replayButton.setLayoutX(initX);
 		replayButton.setLayoutY(initY);
-		this.getChildren().add(replayButton);
+		endingPane.getChildren().add(replayButton);
+
+		replayButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				SceneController.getInstance().setUpGameScene();
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				SceneController.getInstance().createChooseCharSubScene();
+				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+			}
+		});
 	}
 
 	public void createNextButton(int initX, int initY) {
@@ -64,7 +76,16 @@ public class GameEnding extends AnchorPane {
 		nextButton.setGraphic(new ImageView("nextbutton.png"));
 		nextButton.setLayoutX(initX);
 		nextButton.setLayoutY(initY);
-		this.getChildren().add(nextButton);
+		endingPane.getChildren().add(nextButton);
+
+//		nextButton.setOnAction(new EventHandler <ActionEvent>() {
+//			public void handle(ActionEvent event) {
+//				SceneController.getInstance().setUpGameScene();
+//				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+//				SceneController.getInstance().createChooseCharSubScene();
+//				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+//			}
+//		});
 	}
 
 	public void createHomeButton(int initX, int initY) {
@@ -72,7 +93,21 @@ public class GameEnding extends AnchorPane {
 		homeButton.setGraphic(new ImageView("homebutton.png"));
 		homeButton.setLayoutX(initX);
 		homeButton.setLayoutY(initY);
-		this.getChildren().add(homeButton);
+		endingPane.getChildren().add(homeButton);
+
+		homeButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				SceneController.getInstance().setUpChooseMapScene();
+			}
+		});
+	}
+
+	public AnchorPane getEndingPane() {
+		return endingPane;
+	}
+
+	public void setEndingPane(AnchorPane endingPane) {
+		this.endingPane = endingPane;
 	}
 
 }
