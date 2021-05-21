@@ -16,9 +16,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>res/bg.png</name>
+			<name>res/brickbg.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/PlantWar/bg.png</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/brickbg.png</locationURI>
+		</link>
+		<link>
+			<name>res/fence.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/fence.png</locationURI>
+		</link>
+		<link>
+			<name>res/yardborder.png</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/yardborder.png</locationURI>
 		</link>
 		<link>
 			<name>res/yardscale1.png</name>

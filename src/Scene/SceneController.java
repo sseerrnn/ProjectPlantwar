@@ -255,7 +255,10 @@ public class SceneController {
 
 	public void setUpGamePane() {
 		mainPane = new AnchorPane();
-		mainPane.getChildren().add(new ImageView("bg.png"));
+		ImageView yardBorder = new ImageView("yardborder.png");
+		yardBorder.setLayoutX(297);
+		yardBorder.setLayoutY(96);
+		mainPane.getChildren().addAll(new ImageView("brickbg.png"), yardBorder);
 	}
 
 	public void createSubmitButton() {
@@ -297,7 +300,6 @@ public class SceneController {
 					public void handle(Event arg0) {
 						sun.moveOut(sun.getImageView());
 						gameController.increaseEnegy();
-//						mainPane.getChildren().remove(sun.getImageView());
 					}
 				});
 			}
@@ -459,7 +461,10 @@ public class SceneController {
 
 	public void setUpFieldPane() {
 		FieldPane field = new FieldPane();
-		mainPane.getChildren().add(field);
+		ImageView fence = new ImageView("fence.png");
+		fence.setLayoutX(0);
+		fence.setLayoutY(572);
+		mainPane.getChildren().addAll(field,fence);
 		field.setLayoutX(300);
 		field.setLayoutY(100);
 
