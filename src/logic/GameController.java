@@ -10,6 +10,7 @@ import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
 import components.other.Bullet;
+import components.other.Lawnmower;
 import components.other.Sun;
 import components.plant.PeaShooter;
 import components.zombie.BucketheadZombie;
@@ -59,6 +60,7 @@ public class GameController {
 	private ArrayList<Bullet> bullets;
 	private ArrayList<ArrayList<Zombie>> zombies;
 	private ArrayList<Sun> producedSun;
+	private ArrayList<Lawnmower> lawnmowerInGame;
 
 	public GameController() {
 		isGameStart = false;
@@ -77,6 +79,15 @@ public class GameController {
 		producedSun = new ArrayList<Sun>();
 		for (int i = 0; i < 5; i++) {
 			zombies.add(new ArrayList<Zombie>());
+		}
+		lawnmowerInGame = new ArrayList<Lawnmower>();
+		createLawnmower();
+	}
+
+	public void createLawnmower() {
+		for (int i = 0; i < 5; i++) {
+			Lawnmower mower = new Lawnmower(216, 95 + 100 * i, 94, 80);
+			lawnmowerInGame.add(mower);
 		}
 	}
 
@@ -118,15 +129,43 @@ public class GameController {
 
 		System.out.println("Zombie : " + zombieInGame.size());
 		canCreateSun = false;
+		checkMowerCollision();
+		checkBulletCollision();
 		checkCollision();
 		checkDie();
 		checkPlantShoot();
 		addEnergy();
-		checkBulletCollision();
 		checkZombieDie();
 		produceSun();
 		shootBullet();
 //		dropSun();
+	}
+
+	public void checkMowerCollision() {
+		ArrayList<ArrayList<Zombie>> deadZombie = new ArrayList<ArrayList<Zombie>>();
+		for (ArrayList<Zombie> zombieList : zombies) {
+			for (Zombie zombie : zombieList) {
+				for (Lawnmower mower : lawnmowerInGame) {
+					if (mower.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())) {
+						mower.interact(zombie);
+						if(!deadZombie.contains(zombieList)){
+						deadZombie.add(zombieList);
+						}
+					}
+
+				}
+			}
+		}
+		for (ArrayList<Zombie> deadZombieList : deadZombie) {
+			for (Zombie zombie : deadZombieList) {
+				zombie.setCurrentHP(0);
+					
+				
+			}
+
+		}
+	
+
 	}
 
 	public void dropSun() {
@@ -268,7 +307,7 @@ public class GameController {
 		ArrayList<Zombie> deadZombies = new ArrayList<Zombie>();
 		for (Zombie zombie : zombieInGame) {
 			if (zombie.getCurrentHP() <= 0) {
-				zombie.dokillZombie();
+				
 				deadZombies.add(zombie);
 
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
@@ -277,7 +316,7 @@ public class GameController {
 		}
 		for (GameCharacter zombie : deadZombies) {
 			zombieInGame.remove(zombie);
-			for (ArrayList<Zombie> arr:zombies) {
+			for (ArrayList<Zombie> arr : zombies) {
 				arr.remove(zombie);
 			}
 		}
@@ -401,9 +440,10 @@ public class GameController {
 			if (plant instanceof Throwable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
 					Bullet bullet = ((Throwable) plant).projectile();
-					bullet.setRow(checkPlantRow(plant) - 1);;
+					bullet.setRow(checkPlantRow(plant) - 1);
+					;
 					bullets.add(bullet);
-					bullet.setVelocity_y(-10*bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
+					bullet.setVelocity_y(-10 * bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
 //				bullet.shootRight();
 					plant.setShoot(true);
 				}
@@ -423,10 +463,8 @@ public class GameController {
 	public void shootBullet() {
 		for (Bullet bullet : bullets) {
 			if (bullet instanceof CabbageBullet || bullet instanceof CornBullet) {
-				
+
 				bullet.projectileRight();
-					
-				
 
 			} else {
 				bullet.shootRight();

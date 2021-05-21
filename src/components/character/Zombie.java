@@ -67,8 +67,6 @@ public class Zombie extends GameCharacter {
 		this.isEat = isEat;
 	}
 
-	public void dokillZombie() {
-
-	}
+	
 
 }

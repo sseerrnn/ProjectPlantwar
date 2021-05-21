@@ -31,7 +31,9 @@ public class Entity {
 		this.init_y = init_y;
 
 		box = new Rectangle(width, height);
-		this.box.setFill(Color.GREEN);
+		this.box.setFill(Color.TRANSPARENT);
+		box.setLayoutX(init_x);
+		box.setLayoutY(init_y);
 		this.width = width;
 		this.height = height;
 		setX(init_x);
