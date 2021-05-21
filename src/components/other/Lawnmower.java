@@ -8,6 +8,15 @@ import javafx.scene.image.ImageView;
 import scene.SceneController;
 
 public class Lawnmower extends Entity implements Interactable{
+	public boolean isActive;
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	public Lawnmower(int init_x, int init_y, int width, int height) {
 		super(init_x, init_y, width, height);
@@ -19,23 +28,23 @@ public class Lawnmower extends Entity implements Interactable{
 		this.getBox().setLayoutY(getY()+30);
 		SceneController.getInstance().getMainPane().getChildren().add(this.imageView);
 		SceneController.getInstance().getMainPane().getChildren().add(this.box);
-		
+		isActive=true;
 	}
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
 		// TODO Auto-generated method stub
-		if (this.getBox().getBoundsInParent().intersects(gameCharacter.getBox().getBoundsInParent())) {
+		
 			TranslateTransition move = new TranslateTransition();
 			move.setNode(imageView);
 			move.setToX(1200);
 			move.play();
 			move.setOnFinished( e->{
-				SceneController.getInstance().getMainPane().getChildren().remove(this.imageView);
 				SceneController.getInstance().getMainPane().getChildren().remove(this.box);
+				SceneController.getInstance().getMainPane().getChildren().remove(this.imageView);
 			});
 			
-		}
+		
 		
 	}
 

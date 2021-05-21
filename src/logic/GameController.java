@@ -33,6 +33,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import scene.SceneController;
 
@@ -49,10 +50,12 @@ public class GameController {
 
 	private boolean isGameStart;
 	private boolean isGameEnd;
+	
 
 	private int currentTime;
 	private AnimationTimer animationTimer;
 	private long lastTimeTriggered;
+	private Rectangle goal;
 
 	private ArrayList<Zombie> zombieInGame;
 	private ArrayList<GameCharacter> inGameCharacter;
@@ -82,6 +85,7 @@ public class GameController {
 		}
 		lawnmowerInGame = new ArrayList<Lawnmower>();
 		createLawnmower();
+		createGoal();
 	}
 
 	public void createLawnmower() {
@@ -118,6 +122,7 @@ public class GameController {
 	}
 
 	public void update() {
+		checkIsGoal();
 		SceneController.getInstance().toFallSun();
 		generateZombieLv1();
 		generateZombieLv2();
@@ -142,12 +147,16 @@ public class GameController {
 	}
 
 	public void checkMowerCollision() {
+		ArrayList<Lawnmower> removedMower = new ArrayList<Lawnmower>();
 		ArrayList<ArrayList<Zombie>> deadZombie = new ArrayList<ArrayList<Zombie>>();
 		for (ArrayList<Zombie> zombieList : zombies) {
 			for (Zombie zombie : zombieList) {
 				for (Lawnmower mower : lawnmowerInGame) {
-					if (mower.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())) {
+					if (mower.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())&& mower.isActive() ) {
 						mower.interact(zombie);
+						System.out.println();
+						mower.setActive(false);
+						
 						if(!deadZombie.contains(zombieList)){
 						deadZombie.add(zombieList);
 						}
@@ -155,6 +164,9 @@ public class GameController {
 
 				}
 			}
+		}
+		for(Lawnmower mower : removedMower) {
+			lawnmowerInGame.remove(mower);
 		}
 		for (ArrayList<Zombie> deadZombieList : deadZombie) {
 			for (Zombie zombie : deadZombieList) {
@@ -567,6 +579,21 @@ public class GameController {
 
 	public void setGameEnd(boolean isGameEnd) {
 		this.isGameEnd = isGameEnd;
+	}
+	public void createGoal() {
+		 goal = new Rectangle(50,500 );
+		goal.setFill(Color.GREEN);
+		goal.setLayoutX(166);
+		goal.setLayoutY(95);
+		SceneController.getInstance().getMainPane().getChildren().add(goal);
+	}
+	public void checkIsGoal() {
+		for (Zombie zombie:zombieInGame) {
+			if(zombie.getBox().getBoundsInParent().intersects(goal.getBoundsInParent())) {
+				setGameEnd(true);
+//				System.out.println(isGameEnd);
+			}
+		}
 	}
 
 	public void produceSun() {
