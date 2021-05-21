@@ -130,9 +130,9 @@ public class GameController {
 		System.out.println("Zombie : " + zombieInGame.size());
 		canCreateSun = false;
 		checkMowerCollision();
+		checkDie();
 		checkBulletCollision();
 		checkCollision();
-		checkDie();
 		checkPlantShoot();
 		addEnergy();
 		checkZombieDie();

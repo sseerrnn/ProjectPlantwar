@@ -15,6 +15,8 @@ public class Lawnmower extends Entity implements Interactable{
 		this.imageView =new ImageView("lawnmower.png");
 		this.imageView.setLayoutX(init_x);
 		this.imageView.setLayoutY(init_y);
+		this.getBox().setHeight(height-30);
+		this.getBox().setLayoutY(getY()+30);
 		SceneController.getInstance().getMainPane().getChildren().add(this.imageView);
 		SceneController.getInstance().getMainPane().getChildren().add(this.box);
 		
