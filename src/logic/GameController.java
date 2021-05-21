@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import components.bullet.CabbageBullet;
+import components.bullet.CornBullet;
 import components.bullet.SnowBullet;
 import components.character.GameCharacter;
 import components.character.Plant;
@@ -20,6 +22,7 @@ import gui.PlantButton;
 import implement.Interactable;
 import implement.Producable;
 import implement.Shootable;
+import implement.Throwable;
 import javafx.animation.AnimationTimer;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
@@ -274,6 +277,9 @@ public class GameController {
 		}
 		for (GameCharacter zombie : deadZombies) {
 			zombieInGame.remove(zombie);
+			for (ArrayList<Zombie> arr:zombies) {
+				arr.remove(zombie);
+			}
 		}
 	}
 
@@ -369,6 +375,19 @@ public class GameController {
 		return row;
 	}
 
+//	public void checkPlantThrow() {
+//		for (GameCharacter plant : plantInGame) {
+//			if (plant instanceof Throwable) {
+//				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
+//					Bullet bullet = ((Throwable) plant).projectile();
+//					bullets.add(bullet);
+////				bullet.shootRight();
+//					plant.setShoot(true);
+//				}
+//			}
+//		}
+//	}
+
 	public void checkPlantShoot() {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
@@ -376,6 +395,16 @@ public class GameController {
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
 //					bullet.shootRight();
+					plant.setShoot(true);
+				}
+			}
+			if (plant instanceof Throwable) {
+				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
+					Bullet bullet = ((Throwable) plant).projectile();
+					bullet.setRow(checkPlantRow(plant) - 1);;
+					bullets.add(bullet);
+					bullet.setVelocity_y(-10*bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
+//				bullet.shootRight();
 					plant.setShoot(true);
 				}
 			}
@@ -393,7 +422,15 @@ public class GameController {
 
 	public void shootBullet() {
 		for (Bullet bullet : bullets) {
-			bullet.shootRight();
+			if (bullet instanceof CabbageBullet || bullet instanceof CornBullet) {
+				
+				bullet.projectileRight();
+					
+				
+
+			} else {
+				bullet.shootRight();
+			}
 		}
 	}
 

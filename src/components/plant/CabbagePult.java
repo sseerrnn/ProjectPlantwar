@@ -6,10 +6,11 @@ import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
+import implement.Throwable;
 import javafx.scene.shape.Rectangle;
 import scene.SceneController;
 
-public class CabbagePult extends GameCharacter implements Interactable, Shootable {
+public class CabbagePult extends GameCharacter implements Interactable, Throwable {
 
 	public CabbagePult(int init_x, int init_y) {
 		super("cabbagepultsprite.png", init_x, init_y, 90, 95, 100, 30);
@@ -41,19 +42,21 @@ public class CabbagePult extends GameCharacter implements Interactable, Shootabl
 		}
 	}
 
+	
+
 	@Override
-	public Bullet shoot() {
+	public void interact(Bullet bullet) {
+		
+	}
+
+	@Override
+	public Bullet projectile() {
 		Bullet bullet = new CabbageBullet(this.getX() + 10, this.getY() + 10);
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
 		this.shootZombie(9, 9);
 		return bullet;
-	}
-
-	@Override
-	public void interact(Bullet bullet) {
-		
 	}
 
 }

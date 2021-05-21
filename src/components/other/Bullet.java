@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import scene.SceneController;
 
 public abstract class Bullet extends Entity {
 
@@ -15,6 +16,15 @@ public abstract class Bullet extends Entity {
 	protected int damage;
 	protected TranslateTransition move;
 	protected TranslateTransition movebox;
+	protected int Row;
+
+	public int getRow() {
+		return Row;
+	}
+
+	public void setRow(int row) {
+		Row = row;
+	}
 
 	public Bullet(String img_path, int initX, int initY, int width, int height) {
 		super(initX, initY, width, height);
@@ -50,39 +60,67 @@ public abstract class Bullet extends Entity {
 		getImageView().setLayoutX(getX());
 		getBox().setLayoutX(getX());
 	}
-	public void projectileRight(Zombie zombie) {
-		move = new TranslateTransition();
-		move.setNode(imageView);
-		move.setToX(zombie.getX()-getX());
-		move.setDuration(Duration.seconds(timeCalculate(zombie)));
-		TranslateTransition move_y=new TranslateTransition();
-		move.play();
-		move_y.setNode(imageView);
-		move_y.setToY(-100);
-		move_y.setDuration(Duration.seconds(timeCalculate(zombie)/2));
-		move_y.play();
-		move_y.setOnFinished(e->{
-			move_y.setToY(0);
-			move_y.setDuration(Duration.seconds(timeCalculate(zombie)/2));
-			move_y.play();
-			
-		});
+//	public void projectileRight(Zombie zombie) {
+//		move = new TranslateTransition();
+//		move.setNode(imageView);
+//		move.setToX(zombie.getX()-getX());
+//		move.setDuration(Duration.seconds(timeCalculate(zombie)));
+//		TranslateTransition move_y=new TranslateTransition();
+//		move.play();
+//		move_y.setNode(imageView);
+//		move_y.setToY(-100);
+//		move_y.setDuration(Duration.seconds(timeCalculate(zombie)/2));
+//		move_y.play();
+//		move_y.setOnFinished(e->{
+//			move_y.setToY(0);
+//			move_y.setDuration(Duration.seconds(timeCalculate(zombie)/2));
+//			move_y.play();
+//			
+//		});
+//		
+//
+//		movebox = new TranslateTransition();
+//		movebox.setNode(box);
+//		movebox.setToX(zombie.getX()-getX());
+//		movebox.setDuration(Duration.seconds(timeCalculate(zombie)));
+//
+//		movebox.play();
+//		setX(getX()+zombie.getX());
+//	}
+	public void projectileRight() {
+		this.velocity_y+=10;
+		this.setX(getX() + this.velocity_x);
+		getImageView().setLayoutX(getX());
+		getBox().setLayoutX(getX());
 		
-
-		movebox = new TranslateTransition();
-		movebox.setNode(box);
-		movebox.setToX(zombie.getX()-getX());
-		movebox.setDuration(Duration.seconds(timeCalculate(zombie)));
-
-		movebox.play();
-		setX(getX()+zombie.getX());
+		
+		this.setY(getY()+this.velocity_y);
+		getImageView().setLayoutY(getY());
+		System.out.println("Y :"+getY());
+		System.out.println("inity :"+getInit_y());
+		if (getY()-getInit_y()>100) {
+			SceneController.getInstance().getMainPane().getChildren().remove(imageView);
+			SceneController.getInstance().getMainPane().getChildren().remove(box);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	public int timeCalculate(Zombie zombie) {
-		int del_sx = zombie.getX() - getX();
-		int del_vx = getVelocity_x() - zombie.getVelocity_x();
+		int sx = ((zombie.getX() - getX())*2)/3;
+		int vx = getVelocity_x() + zombie.getVelocity_x();
 
-		return Math.abs(del_sx/del_vx)/2 ;
+		return Math.abs(sx/vx);
 
 	}
 
