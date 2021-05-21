@@ -122,6 +122,7 @@ public class GameController {
 		checkBulletCollision();
 		checkZombieDie();
 		produceSun();
+		shootBullet();
 //		dropSun();
 	}
 	public void dropSun() {
@@ -296,7 +297,7 @@ public class GameController {
 				}
 			}
 			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
-					&& (zombie.getCurrentHP() < 100)) {
+					&& (zombie.getCurrentHP() < 100)&& zombie.isHaveHat()) {
 				TranslateTransition move1 = new  TranslateTransition();
 				move1.setOnFinished(e->zombie.destroyZombieHat(5, 5));
 //				zombie.destroyZombieHat(5, 5)
@@ -306,6 +307,7 @@ public class GameController {
 				SequentialTransition seq=new SequentialTransition() ;
 				seq.getChildren().addAll(move1,move2);
 				seq.play();
+				zombie.setHaveHat(false);
 			}
 		}
 	}
@@ -369,10 +371,10 @@ public class GameController {
 	public void checkPlantShoot() {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
-				if (zombies.get(checkPlantRow(plant) - 1).size() > 0) {
+				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime%5==0) {
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
-					bullet.shootRight();
+//					bullet.shootRight();
 					plant.setShoot(true);
 				}
 			}

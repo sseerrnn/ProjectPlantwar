@@ -33,8 +33,7 @@ public class BucketheadZombie extends Zombie implements Interactable {
 	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
-			bullet.getMove().stop();
-			bullet.getMovebox().stop();
+			
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {

@@ -24,29 +24,31 @@ public abstract class Bullet extends Entity {
 		this.imageView = new ImageView(img_path);
 
 		box = new Rectangle(width, height);
-		box.setFill(Color.GRAY);
+		box.setFill(Color.TRANSPARENT);
 		box.setLayoutX(getX());
 		box.setLayoutY(getY());
 		setBox(box);
+		
 	}
 
 	public void shootRight() {
-		move = new TranslateTransition();
-		move.setNode(imageView);
-		move.setToX(1200);
-		move.setDuration(Duration.seconds(5));
-		setX(1200);
-		move.play();
+//		move = new TranslateTransition();
+//		move.setNode(imageView);
+//		move.setToX(1200);
+//		move.setDuration(Duration.seconds(5));
+//		setX(1200);
+//		move.play();
+//
+//		movebox = new TranslateTransition();
+//		movebox.setNode(box);
+//		movebox.setToX(1200);
+//		movebox.setDuration(Duration.seconds(5));
 
-		movebox = new TranslateTransition();
-		movebox.setNode(box);
-		movebox.setToX(1200);
-		movebox.setDuration(Duration.seconds(5));
-
-		movebox.play();
-//		this.setX(getX() + this.velocity_x);
-//		getImageView().setLayoutX(getX());
-//		getBox().setLayoutX(getX());
+//		movebox.play();
+		
+		this.setX(getX() + this.velocity_x);
+		getImageView().setLayoutX(getX());
+		getBox().setLayoutX(getX());
 	}
 	public void projectileRight(Zombie zombie) {
 		move = new TranslateTransition();

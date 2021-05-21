@@ -34,8 +34,7 @@ public class ConeheadZombie extends Zombie implements Interactable {
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
 
-			bullet.getMove().stop();
-			bullet.getMovebox().stop();
+			
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
