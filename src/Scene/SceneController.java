@@ -57,7 +57,6 @@ public class SceneController {
 	protected AnchorPane mainPane;
 
 	private GameController gameController;
-	
 
 	private GameSubScene chooseChar;
 	private GameSubScene gamePaused;
@@ -99,7 +98,6 @@ public class SceneController {
 				initializeGameController();
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
-				
 
 			}
 		});
@@ -271,7 +269,7 @@ public class SceneController {
 	}
 
 	public void setUpGameScene() {
-		
+
 		setUpGamePane();
 		setUpFieldPane();
 		createGameButtons();
@@ -518,8 +516,9 @@ public class SceneController {
 	public void createGamePausedSubScene() {
 		gamePaused = new GameSubScene();
 		gamePaused.setUpGamePaused();
-		gameController.getAnimationTimer().stop();
-
+		if (gameController.isGameStart()) {
+			gameController.getAnimationTimer().stop();
+		}
 		gamePaused.getResumeButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gamePaused.moveSubSceneOut();
@@ -537,10 +536,10 @@ public class SceneController {
 
 				setUpGameScene();
 				mainStage.setScene(mainScene);
-				
+
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
-				
+
 //				SceneController.getInstance().getChooseChar().moveSubSceneOut();
 //				SceneController.getInstance().createChooseCharSubScene();
 
