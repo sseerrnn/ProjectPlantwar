@@ -361,7 +361,7 @@ public class GameController {
 	}
 
 	public void generateRegularZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 19 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -383,7 +383,7 @@ public class GameController {
 	}
 
 	public void generateConeheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 29 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 30 && currentTime % timeSpawn == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -397,7 +397,7 @@ public class GameController {
 	}
 
 	public void generateBucketheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 39 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 40 && currentTime % timeSpawn == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
