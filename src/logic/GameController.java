@@ -50,7 +50,6 @@ public class GameController {
 
 	private boolean isGameStart;
 	private boolean isGameEnd;
-	
 
 	private int currentTime;
 	private AnimationTimer animationTimer;
@@ -101,6 +100,7 @@ public class GameController {
 	}
 
 	public void timecount() {
+
 		this.animationTimer = new AnimationTimer() {
 
 			@Override
@@ -117,8 +117,14 @@ public class GameController {
 				}
 			}
 		};
+		if (isGameStart == true) {
+			this.animationTimer.start();
+		}
+		if(isGameStart==false) {
+			this.animationTimer.stop();
+		}
 
-		this.animationTimer.start();
+		
 	}
 
 	public void update() {
@@ -152,31 +158,30 @@ public class GameController {
 		for (ArrayList<Zombie> zombieList : zombies) {
 			for (Zombie zombie : zombieList) {
 				for (Lawnmower mower : lawnmowerInGame) {
-					if (mower.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())&& mower.isActive() ) {
+					if (mower.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())
+							&& mower.isActive()) {
 						mower.interact(zombie);
 						System.out.println();
 						mower.setActive(false);
-						
-						if(!deadZombie.contains(zombieList)){
-						deadZombie.add(zombieList);
+
+						if (!deadZombie.contains(zombieList)) {
+							deadZombie.add(zombieList);
 						}
 					}
 
 				}
 			}
 		}
-		for(Lawnmower mower : removedMower) {
+		for (Lawnmower mower : removedMower) {
 			lawnmowerInGame.remove(mower);
 		}
 		for (ArrayList<Zombie> deadZombieList : deadZombie) {
 			for (Zombie zombie : deadZombieList) {
 				zombie.setCurrentHP(0);
-					
-				
+
 			}
 
 		}
-	
 
 	}
 
@@ -319,7 +324,7 @@ public class GameController {
 		ArrayList<Zombie> deadZombies = new ArrayList<Zombie>();
 		for (Zombie zombie : zombieInGame) {
 			if (zombie.getCurrentHP() <= 0) {
-				
+
 				deadZombies.add(zombie);
 
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
@@ -580,16 +585,18 @@ public class GameController {
 	public void setGameEnd(boolean isGameEnd) {
 		this.isGameEnd = isGameEnd;
 	}
+
 	public void createGoal() {
-		 goal = new Rectangle(50,500 );
+		goal = new Rectangle(50, 500);
 		goal.setFill(Color.GREEN);
 		goal.setLayoutX(166);
 		goal.setLayoutY(95);
 		SceneController.getInstance().getMainPane().getChildren().add(goal);
 	}
+
 	public void checkIsGoal() {
-		for (Zombie zombie:zombieInGame) {
-			if(zombie.getBox().getBoundsInParent().intersects(goal.getBoundsInParent())) {
+		for (Zombie zombie : zombieInGame) {
+			if (zombie.getBox().getBoundsInParent().intersects(goal.getBoundsInParent())) {
 				setGameEnd(true);
 //				System.out.println(isGameEnd);
 			}

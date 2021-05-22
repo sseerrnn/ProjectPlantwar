@@ -31,6 +31,11 @@ public class GameSubScene extends SubScene {
 			"twinsunflowerbuttonoff.png", "cornpultbuttonoff.png", "doublepeashooterbuttonoff.png",
 			"tallnutbuttonoff.png" };
 
+	private GameButton resumeButton;
+	private GameButton restartButton;
+	private GameButton levelButton;
+	private GameButton exitButton;
+
 	public GameSubScene() {
 		super(new AnchorPane(), WIDTH, HEIGHT);
 
@@ -63,56 +68,49 @@ public class GameSubScene extends SubScene {
 		pauseLogo.setLayoutX(210);
 		pauseLogo.setLayoutY(70);
 
-		GameButton resumeButton = new GameButton("RESUME");
-		GameButton restartButton = new GameButton("RESTART");
-		GameButton levelButton = new GameButton("MAPS");
-		GameButton exitButton = new GameButton("EXIT");
+		resumeButton = new GameButton("RESUME");
+		restartButton = new GameButton("RESTART");
+		levelButton = new GameButton("MAPS");
+		exitButton = new GameButton("EXIT");
 
 		resumeButton.setUpPauseMenuButton1();
 		restartButton.setUpPauseMenuButton2();
 		levelButton.setUpPauseMenuButton3();
 		exitButton.setUpPauseMenuButton4();
 
-		resumeButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				moveSubSceneOut();
-			}
-		});
-
-		restartButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				GameController plantButton = new GameController();
-
-				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
-					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
-					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
-				}
-
-				SceneController.getInstance().getChooseChar().moveSubSceneOut();
-				SceneController.getInstance().createChooseCharSubScene();
-				SceneController.getInstance().getChooseChar().moveSubSceneIn();
-				moveSubSceneOut();
-				plantButton.setGameStart(false);
-				plantButton.setGameStart(true);
-			}
-		});
-
-		levelButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				GameController exitGame = new GameController();
-
-				SceneController.getInstance().setUpChooseMapScene();
-				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
-			}
-		});
-
-		exitButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				SceneController.getInstance().getMainstage().close();
-			}
-		});
-
 		getPane().getChildren().addAll(pauseLogo, resumeButton, restartButton, levelButton, exitButton);
+	}
+
+	public GameButton getResumeButton() {
+		return resumeButton;
+	}
+
+	public void setResumeButton(GameButton resumeButton) {
+		this.resumeButton = resumeButton;
+	}
+
+	public GameButton getRestartButton() {
+		return restartButton;
+	}
+
+	public void setRestartButton(GameButton restartButton) {
+		this.restartButton = restartButton;
+	}
+
+	public GameButton getLevelButton() {
+		return levelButton;
+	}
+
+	public void setLevelButton(GameButton levelButton) {
+		this.levelButton = levelButton;
+	}
+
+	public GameButton getExitButton() {
+		return exitButton;
+	}
+
+	public void setExitButton(GameButton exitButton) {
+		this.exitButton = exitButton;
 	}
 
 	public AnchorPane getPane() {

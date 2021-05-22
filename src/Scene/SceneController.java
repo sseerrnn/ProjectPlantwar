@@ -498,6 +498,46 @@ public class SceneController {
 		gamePaused = new GameSubScene();
 		gamePaused.setUpGamePaused();
 
+		gamePaused.getResumeButton().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				gamePaused.moveSubSceneOut();
+			}
+		});
+
+		gamePaused.getRestartButton().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				GameController plantButton = new GameController();
+
+				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
+					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
+					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
+				}
+
+				SceneController.getInstance().getChooseChar().moveSubSceneOut();
+				SceneController.getInstance().createChooseCharSubScene();
+				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+				gamePaused.moveSubSceneOut();
+				plantButton.setGameStart(false);
+				plantButton.setGameStart(true);
+			}
+		});
+
+		gamePaused.getLevelButton().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				GameController exitGame = new GameController();
+				exitGame.setGameStart(false);
+
+				SceneController.getInstance().setUpChooseMapScene();
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+			}
+		});
+
+		gamePaused.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				SceneController.getInstance().getMainstage().close();
+			}
+		});
+
 		mainPane.getChildren().addAll(gamePaused);
 	}
 
