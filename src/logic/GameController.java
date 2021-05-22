@@ -55,6 +55,8 @@ public class GameController {
 	private AnimationTimer animationTimer;
 	private long lastTimeTriggered;
 	private Rectangle goal;
+    private int level;
+    private int countZombieDie;
 
 	private ArrayList<Zombie> zombieInGame;
 	private ArrayList<GameCharacter> inGameCharacter;
@@ -63,10 +65,13 @@ public class GameController {
 	private ArrayList<ArrayList<Zombie>> zombies;
 	private ArrayList<Sun> producedSun;
 	private ArrayList<Lawnmower> lawnmowerInGame;
+	private ArrayList<Zombie> countZombie;
+
 
 	public GameController() {
 		isGameStart = false;
-		setUpArrayLv3();
+		setUpArrayLv1();
+		countZombieDie=0;
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
@@ -74,6 +79,7 @@ public class GameController {
 		sunCount = 0;
 		canCreateSun = false;
 		zombieInGame = new ArrayList<Zombie>();
+		countZombie = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
 		plantInGame = new ArrayList<GameCharacter>();
 		bullets = new ArrayList<Bullet>();
@@ -84,7 +90,7 @@ public class GameController {
 		}
 		lawnmowerInGame = new ArrayList<Lawnmower>();
 		createLawnmower();
-		createGoal();
+		createGoalZombie();
 	}
 
 	public void createLawnmower() {
@@ -134,7 +140,31 @@ public class GameController {
 	public void setAnimationTimer(AnimationTimer animationTimer) {
 		this.animationTimer = animationTimer;
 	}
-
+public void selectLevel(int level) {
+	setLevel(level);
+	switch(level) {
+	case 1:
+		setUpArrayLv1();
+		generateZombieLv1();
+		break;
+		
+	case 2:
+		setUpArrayLv2();
+		generateZombieLv1();
+		generateZombieLv2();
+		break;
+		
+		
+	case 3:
+		setUpArrayLv3();
+		generateZombieLv1();
+		generateZombieLv2();
+		generateZombieLv3();
+		break;
+	}
+		
+	
+}
 	public void update() {
 		checkIsGoal();
 		SceneController.getInstance().toFallSun();
@@ -158,6 +188,39 @@ public class GameController {
 		produceSun();
 		shootBullet();
 //		dropSun();
+	}
+	public void resetGame() {
+		isGameStart = false;
+		setUpArrayLv1();
+		countZombieDie=0;
+		energy = 5000;
+		currentTime = 0;
+		lastTimeTriggered = -1;
+		isGameEnd = false;
+		sunCount = 0;
+		canCreateSun = false;
+		zombieInGame = new ArrayList<Zombie>();
+		countZombie = new ArrayList<Zombie>();
+		inGameCharacter = new ArrayList<GameCharacter>();
+		plantInGame = new ArrayList<GameCharacter>();
+		bullets = new ArrayList<Bullet>();
+		zombies = new ArrayList<ArrayList<Zombie>>(5);
+		producedSun = new ArrayList<Sun>();
+		for (int i = 0; i < 5; i++) {
+			zombies.add(new ArrayList<Zombie>());
+		}
+		lawnmowerInGame = new ArrayList<Lawnmower>();
+		createLawnmower();
+		createGoalZombie();
+	}
+	public void checkWin() {
+		switch(getLevel()) {
+		case 1: if(countZombieDie==20) {
+			setGameStart(false);
+			setGameEnd(true);
+			
+		}
+		}
 	}
 
 	public void checkMowerCollision() {
@@ -253,6 +316,8 @@ public class GameController {
 		this.spaceIndex = count;
 
 		if (spaceIndex != selectedPlantButtons.size()) {
+			System.out.println(spaceIndex);
+			System.out.println(selectedPlantButtons.size());
 			throw new PlantNotEnoughFailedException("Plant not enough.");
 		}
 	}
@@ -268,7 +333,7 @@ public class GameController {
 	}
 
 	public void generateRegularZombie(int initx, int inity, int timeSpawn, int row) {
-		if (zombieInGame.size() < 20 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -277,11 +342,19 @@ public class GameController {
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
 			zombies.get(row).add(zombie);
+			countZombie.add(zombie);
 		}
 	}
 
+	public int getLevel() {
+		return level;
+	}
+	
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public void generateConeheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (zombieInGame.size() < 5 && currentTime % 7 == 0) {
+		if (countZombie.size() < 30 && currentTime % timeSpawn == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -290,11 +363,12 @@ public class GameController {
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
 			zombies.get(row).add(zombie);
+			countZombie.add(zombie);
 		}
 	}
 
 	public void generateBucketheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (zombieInGame.size() < 5 && currentTime % 9 == 0) {
+		if (countZombie.size() < 40 && currentTime % timeSpawn == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -303,6 +377,7 @@ public class GameController {
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getBox());
 			SceneController.getInstance().getMainPane().getChildren().add(zombie.getImageView());
 			zombies.get(row).add(zombie);
+			countZombie.add(zombie);
 		}
 	}
 
@@ -334,6 +409,8 @@ public class GameController {
 			if (zombie.getCurrentHP() <= 0) {
 
 				deadZombies.add(zombie);
+				countZombieDie+=1;
+				
 
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getBox());
@@ -594,7 +671,7 @@ public class GameController {
 		this.isGameEnd = isGameEnd;
 	}
 
-	public void createGoal() {
+	public void createGoalZombie() {
 		goal = new Rectangle(50, 500);
 		goal.setFill(Color.GREEN);
 		goal.setLayoutX(166);
@@ -606,6 +683,7 @@ public class GameController {
 		for (Zombie zombie : zombieInGame) {
 			if (zombie.getBox().getBoundsInParent().intersects(goal.getBoundsInParent())) {
 				setGameEnd(true);
+				animationTimer.stop();
 //				System.out.println(isGameEnd);
 			}
 		}

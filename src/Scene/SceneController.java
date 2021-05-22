@@ -94,8 +94,12 @@ public class SceneController {
 		StartButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				initializeLevelController();
+				initializeGameController();
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
+				
+
 			}
 		});
 	}
@@ -171,6 +175,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				setUpGameScene();
+				gameController.selectLevel(1);
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
@@ -188,12 +193,19 @@ public class SceneController {
 		map2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				setUpGameScene();
+				gameController.selectLevel(2);
+				mainStage.setScene(mainScene);
+				createChooseCharSubScene();
+				chooseChar.moveSubSceneIn();
 			}
 		});
 
 		map2.setLayoutX(474.5);
 		map2.setLayoutY(510);
+		if (!levelController.isLevel2()) {
+			map2.setDisable(true);
+		}
 	}
 
 	public void createChooseMapButton3() {
@@ -203,12 +215,19 @@ public class SceneController {
 		map3.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				setUpGameScene();
+				gameController.selectLevel(3);
+				mainStage.setScene(mainScene);
+				createChooseCharSubScene();
+				chooseChar.moveSubSceneIn();
 			}
 		});
 
 		map3.setLayoutX(782.5);
 		map3.setLayoutY(510);
+		if (!levelController.isLevel3()) {
+			map3.setDisable(true);
+		}
 	}
 
 	public void createChooseMapButtons() {
@@ -251,6 +270,7 @@ public class SceneController {
 	}
 
 	public void setUpGameScene() {
+		
 		setUpGamePane();
 		setUpFieldPane();
 		createGameButtons();
@@ -311,8 +331,8 @@ public class SceneController {
 	}
 
 	public void createChooseCharSubScene() {
-		initializeLevelController();
-		initializeGameController();
+		levelController.resetGame();
+		gameController.resetGame();
 		chooseChar = new GameSubScene();
 		chooseChar.setUpPlantButtonOff();
 
@@ -508,35 +528,32 @@ public class SceneController {
 
 		gamePaused.getRestartButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				
 
 //				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
 //					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
 //					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
 //				}
-				gameController.getAnimationTimer().stop();
+
 				setUpGameScene();
 				mainStage.setScene(mainScene);
+				
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
-
+				
 //				SceneController.getInstance().getChooseChar().moveSubSceneOut();
 //				SceneController.getInstance().createChooseCharSubScene();
-				
+
 //				gamePaused.moveSubSceneOut();
-				
+
 			}
 		});
 
 		gamePaused.getLevelButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				
-				
-				 
-				
 
-				SceneController.getInstance().setUpChooseMapScene();
-				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				setUpChooseMapScene();
+				mainStage.setScene(SceneController.getInstance().getMainScene());
+				gameController.setGameStart(false);
 			}
 		});
 
