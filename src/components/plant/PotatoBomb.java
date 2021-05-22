@@ -13,6 +13,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class PotatoBomb extends GameCharacter implements Interactable, Explodable {
+	
+	private SpriteAnimation animation;
+	private Duration duration = new Duration(10);
 
 	public PotatoBomb(int init_x, int init_y) {
 		super("potatobombsprite.png", init_x, init_y, 100, 70, 100, 500);
@@ -35,18 +38,41 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
-		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
+		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)
+				&& (this.animation.getCurrentTime().lessThan(this.duration))) {
+			this.animation.stop();
 			gameCharacter.doEatPlant();
 			((Zombie) gameCharacter).isEat = true;
+
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
 		}
 	}
 
-	@Override
-	public void explode() {
+	public SpriteAnimation getAnimation() {
+		return animation;
+	}
 
+	public void setAnimation(SpriteAnimation animation) {
+		this.animation = animation;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	@Override
+	public void explode(GameCharacter gameCharacter) {
+		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)&& (this.animation.getCurrentTime().greaterThan(this.duration))) {
+			gameCharacter.setCurrentHP(0);
+			this.explodeAnimation(70, 10, 10);
+			this.currentHP = 0;
+		}
 	}
 
 	public void createAnimation() {

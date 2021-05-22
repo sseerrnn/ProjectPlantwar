@@ -162,6 +162,15 @@ public class GameCharacter extends Entity {
 		imageView.setLayoutY(getY());
 		animation.play();
 	}
+	
+	public void explodeAnimation(int offsetY, int count, int columns) {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+				height);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
 
 	public int getDiffX() {
 		return diffX;
