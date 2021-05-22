@@ -39,7 +39,7 @@ public class RegularZombie extends Zombie implements Interactable {
 				public void run() {
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
-					System.out.println("HEllo");
+					
 				}
 			});
 			if (currentHP > 0) {

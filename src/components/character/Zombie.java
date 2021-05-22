@@ -17,6 +17,8 @@ public class Zombie extends GameCharacter {
 	public boolean isEat = false;
 	public int slowUntil;
 	public boolean haveHat;
+	public boolean havehead;
+	
 
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
 		super(img_path, init_x, init_y, width, height, currentHP, attackPoint);
@@ -28,10 +30,19 @@ public class Zombie extends GameCharacter {
 		this.setBox(hitBox);
 		this.velocity_x = 20;
 		slowUntil=0;
+		havehead=true;
 		if(this instanceof ConeheadZombie || this instanceof BucketheadZombie) {
 			haveHat=true;
 			
 		}
+	}
+
+	public boolean isHavehead() {
+		return havehead;
+	}
+
+	public void setHavehead(boolean havehead) {
+		this.havehead = havehead;
 	}
 
 	public boolean isHaveHat() {

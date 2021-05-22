@@ -444,9 +444,21 @@ public class GameController {
 
 				deadZombies.add(zombie);
 				countZombieDie += 1;
+				TranslateTransition move1 = new TranslateTransition();
+				move1.setOnFinished(e -> zombie.killRegularZombie());
+//				zombie.destroyZombieHat(5, 5)
+				TranslateTransition move2 = new TranslateTransition();
+				move2.setOnFinished(e -> {
+					SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
+					SceneController.getInstance().getMainPane().getChildren().remove(zombie.getBox());
+					
+				});
+//				zombie.backToRegularZombie(7, 7);
+				SequentialTransition seq = new SequentialTransition();
+				seq.getChildren().addAll(move1, move2);
+				seq.play();
 
-				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
-				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getBox());
+				
 			}
 		}
 		for (GameCharacter zombie : deadZombies) {
@@ -487,9 +499,8 @@ public class GameController {
 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
-			}
 			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
-					&& (zombie.getCurrentHP() < 100) && zombie.isHaveHat()) {
+					&& zombie.getCurrentHP() < 100 && zombie.getCurrentHP() >30 && zombie.isHaveHat()) {
 				TranslateTransition move1 = new TranslateTransition();
 				move1.setOnFinished(e -> zombie.destroyZombieHat());
 //				zombie.destroyZombieHat(5, 5)
@@ -501,6 +512,19 @@ public class GameController {
 				seq.play();
 				zombie.setHaveHat(false);
 			}
+			if (zombie.getCurrentHP() < 30 && zombie.getCurrentHP() >0 && zombie.isHavehead()) {
+				TranslateTransition move1 = new TranslateTransition();
+				move1.setOnFinished(e -> zombie.destroyRegularZombieBody());
+				TranslateTransition move2 = new TranslateTransition();
+				move2.setOnFinished(e -> zombie.brokenRegularZombieWalk());
+				SequentialTransition seq = new SequentialTransition();
+				seq.getChildren().addAll(move1, move2);
+				seq.play();
+				zombie.setHavehead(false);
+			}
+			}
+			
+			
 		}
 		for (Bullet bullet : removedBullet) {
 			bullets.remove(bullet);
