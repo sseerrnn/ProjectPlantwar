@@ -82,9 +82,9 @@ public class GameCharacter extends Entity {
 		}
 	}
 
-	public void destroyZombieHat(int count, int columns) {
+	public void destroyZombieHat() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260, width,
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 260, width,
 				height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
@@ -92,9 +92,9 @@ public class GameCharacter extends Entity {
 		animation.play();
 	}
 
-	public void backToRegularZombie(int count, int columns) {
+	public void backToRegularZombie() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 390, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 390, width,
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 390, width,
 				height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
@@ -102,10 +102,10 @@ public class GameCharacter extends Entity {
 		animation.play();
 	}
 
-	public void destroyZombieBody() {
+	public void destroyRegularZombieBody() {
 		if (this.getCurrentHP() < 30) {
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 260,
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), 4, 4, offsetX, offsetY + 260,
 					width, height);
 			animation.setCycleCount(Animation.INDEFINITE);
 			imageView.setLayoutX(getX());
@@ -114,7 +114,7 @@ public class GameCharacter extends Entity {
 		}
 		if (this.getCurrentHP() < 0) {
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 650,
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY + 650,
 					width, height);
 			animation.setCycleCount(Animation.INDEFINITE);
 			imageView.setLayoutX(getX());
@@ -123,9 +123,9 @@ public class GameCharacter extends Entity {
 		}
 	}
 
-	public void brokenZombieWalk(int count, int columns) {
+	public void brokenRegularZombieWalk() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 390, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 390, width,
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 390, width,
 				height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
@@ -133,19 +133,9 @@ public class GameCharacter extends Entity {
 		animation.play();
 	}
 
-	public void brokenZombieEat(int count, int columns) {
+	public void brokenRegularZombieEat() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 520, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 520, width,
-				height);
-		animation.setCycleCount(Animation.INDEFINITE);
-		imageView.setLayoutX(getX());
-		imageView.setLayoutY(getY());
-		animation.play();
-	}
-
-	public void killZombie(int count, int columns) {
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 650, width,
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 520, width,
 				height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
@@ -162,11 +152,62 @@ public class GameCharacter extends Entity {
 		imageView.setLayoutY(getY());
 		animation.play();
 	}
-	
-	public void explodeAnimation(int offsetY, int count, int columns) {
+
+	public void explodeAnimation() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY, width,
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 10, 10, offsetX, offsetY+70, width,
 				height);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+	
+	public void backToRegularZombieEat() {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 520, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 520, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+	
+	public void destroyBackToRegularZombieBody() {
+		if (this.getCurrentHP() < 30) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), 4, 4, offsetX, offsetY + 260,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+		if (this.getCurrentHP() < 0) {
+			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 1040, width, height));
+			animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY + 650,
+					width, height);
+			animation.setCycleCount(Animation.INDEFINITE);
+			imageView.setLayoutX(getX());
+			imageView.setLayoutY(getY());
+			animation.play();
+		}
+	}
+	
+	public void brokenBackToRegularZombieWalk() {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 780, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 780, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
+	}
+	
+	public void brokenBackToRegularZombieEat() {
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 910, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 910, width,
+				height);
+		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
 		animation.play();

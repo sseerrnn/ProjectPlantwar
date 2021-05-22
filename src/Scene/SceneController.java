@@ -2,6 +2,7 @@ package scene;
 
 import components.character.GameCharacter;
 import components.other.Sun;
+import components.plant.PotatoBomb;
 import exception.ChooseCharacterFailedException;
 import exception.PlantNotEnoughFailedException;
 import gui.FieldCell;
@@ -174,7 +175,8 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				setUpGameScene();
-				gameController.selectLevel(1);
+				resetGame();
+				gameController.selectLevel(2);
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
@@ -329,9 +331,13 @@ public class SceneController {
 		}
 	}
 
-	public void createChooseCharSubScene() {
+	public void resetGame() {
 		gameController.getLevelController().resetGame();
 		gameController.resetGame();
+	}
+
+	public void createChooseCharSubScene() {
+
 		chooseChar = new GameSubScene();
 		chooseChar.setUpPlantButtonOff();
 
@@ -427,6 +433,10 @@ public class SceneController {
 				gameController.getSelectedPlant().getGameChar().setFieldCell(cell);
 				System.out.println(box.getLayoutX());
 				System.out.println(box.getLayoutY());
+				if (gameController.getSelectedPlant().getGameChar() instanceof PotatoBomb) {
+					PotatoBomb potato = (PotatoBomb) (gameController.getSelectedPlant().getGameChar());
+					potato.setTime(gameController.getCurrentTime() + potato.getTimeCount());
+				}
 				gameController.checkPlantRow(gameController.getSelectedPlant().getGameChar());
 			}
 		}
@@ -536,7 +546,9 @@ public class SceneController {
 
 				setUpGameScene();
 				mainStage.setScene(mainScene);
-
+				int level =gameController.getLevel();
+				resetGame();
+				gameController.selectLevel(level);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
 

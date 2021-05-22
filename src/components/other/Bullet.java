@@ -34,7 +34,7 @@ public abstract class Bullet extends Entity {
 		this.imageView = new ImageView(img_path);
 
 		box = new Rectangle(width, height);
-		box.setFill(Color.TRANSPARENT);
+		box.setFill(Color.BLUE);
 		box.setLayoutX(getX());
 		box.setLayoutY(getY());
 		setBox(box);

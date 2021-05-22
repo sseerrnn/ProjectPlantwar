@@ -13,6 +13,7 @@ import components.other.Bullet;
 import components.other.Lawnmower;
 import components.other.Sun;
 import components.plant.PeaShooter;
+import components.plant.PotatoBomb;
 import components.zombie.BucketheadZombie;
 import components.zombie.ConeheadZombie;
 import components.zombie.RegularZombie;
@@ -40,7 +41,7 @@ import scene.SceneController;
 
 public class GameController {
 	private LevelController levelController;
-	
+
 	private ArrayList<PlantButton> selectedPlantButtons;
 	private PlantButton selectedPlantButton;// for choose plant in choose menu
 	private int spaceIndex;
@@ -92,7 +93,7 @@ public class GameController {
 		lawnmowerInGame = new ArrayList<Lawnmower>();
 		createLawnmower();
 		createGoalZombie();
-		levelController =new LevelController();
+		levelController = new LevelController();
 	}
 
 	public LevelController getLevelController() {
@@ -159,12 +160,15 @@ public class GameController {
 			break;
 
 		case 2:
+			levelController.setUpLevel2Button();
 			setUpArrayLv2();
 			generateZombieLv1();
 			generateZombieLv2();
 			break;
 
 		case 3:
+			levelController.setUpLevel2Button();
+			levelController.setUpLevel3Button();
 			setUpArrayLv3();
 			generateZombieLv1();
 			generateZombieLv2();
@@ -362,7 +366,7 @@ public class GameController {
 	}
 
 	public void generateRegularZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 19 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 20 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -384,7 +388,7 @@ public class GameController {
 	}
 
 	public void generateConeheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 29 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 30 && currentTime % timeSpawn == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -398,7 +402,7 @@ public class GameController {
 	}
 
 	public void generateBucketheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 39 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 40 && currentTime % timeSpawn == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -414,7 +418,7 @@ public class GameController {
 	public void checkDie() {
 		ArrayList<GameCharacter> deadPlants = new ArrayList<GameCharacter>();
 		for (GameCharacter plant : plantInGame) {
-			if (plant.getCurrentHP() < 0) {
+			if (plant.getCurrentHP() <= 0) {
 				System.out.println("plantdie : " + plant);
 				for (Zombie zombie : zombieInGame) {
 					if (plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())) {
@@ -456,30 +460,30 @@ public class GameController {
 	public void checkCollision() {
 		for (GameCharacter plant : plantInGame) {
 			for (Zombie zombie : zombieInGame) {
-				if (plant instanceof Interactable) {
-					((Interactable) plant).interact(zombie);
-					System.out.println("plant hp: " + plant.getCurrentHP());
-				}
-				if ((plant instanceof Explodable)
-						&& (plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent()))) {
-					TranslateTransition explosion = new TranslateTransition();
-					explosion.setOnFinished(e -> ((Explodable) plant).explode(zombie));
+				if (plant instanceof Explodable) {
+					if (plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())
+							&& ((PotatoBomb) plant).getTime() < this.getCurrentTime()) {
+						((Explodable) plant).explode(zombie);
 
-					SequentialTransition seq = new SequentialTransition();
-					seq.getChildren().add(explosion);
-					seq.play();
-
+					}
 				} 
-
+					if (plant instanceof Interactable) {
+						((Interactable) plant).interact(zombie);
+						System.out.println("plant hp: " + plant.getCurrentHP());
+					}
+				
 			}
 		}
 	}
 
 	public void checkBulletCollision() {
+		ArrayList<Bullet> removedBullet = new ArrayList<Bullet>();
 		for (Zombie zombie : zombieInGame) {
 			for (Bullet bullet : bullets) {
-				if (zombie instanceof Interactable) {
+				if (zombie instanceof Interactable
+						&& zombie.getBox().getBoundsInParent().intersects(bullet.getBox().getBoundsInParent())) {
 					((Interactable) zombie).interact(bullet);
+					removedBullet.add(bullet);
 
 					System.out.println("zombie hp: " + zombie.getCurrentHP());
 				}
@@ -487,16 +491,19 @@ public class GameController {
 			if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
 					&& (zombie.getCurrentHP() < 100) && zombie.isHaveHat()) {
 				TranslateTransition move1 = new TranslateTransition();
-				move1.setOnFinished(e -> zombie.destroyZombieHat(5, 5));
+				move1.setOnFinished(e -> zombie.destroyZombieHat());
 //				zombie.destroyZombieHat(5, 5)
 				TranslateTransition move2 = new TranslateTransition();
-				move2.setOnFinished(e -> zombie.backToRegularZombie(7, 7));
+				move2.setOnFinished(e -> zombie.backToRegularZombie());
 //				zombie.backToRegularZombie(7, 7);
 				SequentialTransition seq = new SequentialTransition();
 				seq.getChildren().addAll(move1, move2);
 				seq.play();
 				zombie.setHaveHat(false);
 			}
+		}
+		for (Bullet bullet : removedBullet) {
+			bullets.remove(bullet);
 		}
 	}
 
