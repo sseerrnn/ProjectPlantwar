@@ -127,6 +127,14 @@ public class GameController {
 		
 	}
 
+	public AnimationTimer getAnimationTimer() {
+		return animationTimer;
+	}
+
+	public void setAnimationTimer(AnimationTimer animationTimer) {
+		this.animationTimer = animationTimer;
+	}
+
 	public void update() {
 		checkIsGoal();
 		SceneController.getInstance().toFallSun();

@@ -497,35 +497,43 @@ public class SceneController {
 	public void createGamePausedSubScene() {
 		gamePaused = new GameSubScene();
 		gamePaused.setUpGamePaused();
+		gameController.getAnimationTimer().stop();
 
 		gamePaused.getResumeButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gamePaused.moveSubSceneOut();
+				gameController.getAnimationTimer().start();
 			}
 		});
 
 		gamePaused.getRestartButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				GameController plantButton = new GameController();
+				
 
-				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
-					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
-					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
-				}
+//				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
+//					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
+//					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
+//				}
+				gameController.getAnimationTimer().stop();
+				setUpGameScene();
+				mainStage.setScene(mainScene);
+				createChooseCharSubScene();
+				chooseChar.moveSubSceneIn();
 
-				SceneController.getInstance().getChooseChar().moveSubSceneOut();
-				SceneController.getInstance().createChooseCharSubScene();
-				SceneController.getInstance().getChooseChar().moveSubSceneIn();
-				gamePaused.moveSubSceneOut();
-				plantButton.setGameStart(false);
-				plantButton.setGameStart(true);
+//				SceneController.getInstance().getChooseChar().moveSubSceneOut();
+//				SceneController.getInstance().createChooseCharSubScene();
+				
+//				gamePaused.moveSubSceneOut();
+				
 			}
 		});
 
 		gamePaused.getLevelButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				GameController exitGame = new GameController();
-				exitGame.setGameStart(false);
+				
+				
+				 
+				
 
 				SceneController.getInstance().setUpChooseMapScene();
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
