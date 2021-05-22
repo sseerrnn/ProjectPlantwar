@@ -19,6 +19,8 @@ public class GameButton extends Button {
 	private final String BUTTON_STYLE_3 = "-fx-background-color: transparent; -fx-background-image: url('back.png');";
 	private final String BUTTON_STYLE_PAUSE = "-fx-background-color: transparent; -fx-background-image: url('pause2.png');";
 	private final String BUTTON_STYLE_SUBMIT = "-fx-background-color: transparent; -fx-background-image: url('submit3.png');";
+	private final String BUTTON_STYLE_MENU = "-fx-background-color: transparent; -fx-background-image: url('pausemenubutton.png');";
+	private final String BUTTON_STYLE_EXIT = "-fx-background-color: transparent; -fx-background-image: url('exitbutton.png');";
 
 	public GameButton(String text) {
 		setText(text);
@@ -165,6 +167,42 @@ public class GameButton extends Button {
 		initializeButtonListeners3();
 		setPrefHeight(63);
 		setPrefWidth(237);
+	}
+
+	public void setUpPauseMenuButton1() {
+		setStyle(BUTTON_STYLE_MENU);
+		initializeButtonListeners3();
+		setPrefHeight(104);
+		setPrefWidth(240);
+		setLayoutX(59);
+		setLayoutY(208);
+	}
+
+	public void setUpPauseMenuButton2() {
+		setStyle(BUTTON_STYLE_MENU);
+		initializeButtonListeners3();
+		setPrefHeight(104);
+		setPrefWidth(240);
+		setLayoutX(372);
+		setLayoutY(208);
+	}
+
+	public void setUpPauseMenuButton3() {
+		setStyle(BUTTON_STYLE_MENU);
+		initializeButtonListeners3();
+		setPrefHeight(104);
+		setPrefWidth(240);
+		setLayoutX(685);
+		setLayoutY(208);
+	}
+
+	public void setUpPauseMenuButton4() {
+		setStyle(BUTTON_STYLE_EXIT);
+		initializeButtonListeners3();
+		setMaxWidth(272);
+		setMaxHeight(80);
+		setLayoutX(356);
+		setLayoutY(377);
 	}
 
 }

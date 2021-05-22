@@ -33,6 +33,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -58,8 +59,11 @@ public class SceneController {
 	private GameController gameController;
 	private LevelController levelController;
 	private GameSubScene chooseChar;
+	private GameSubScene gamePaused;
 	private Canvas canvas;
 	private GraphicsContext gc;
+
+	private AudioClip gameClickSound;
 
 	private SceneController() {
 		mainStage = new Stage();
@@ -310,6 +314,7 @@ public class SceneController {
 		initializeLevelController();
 		initializeGameController();
 		chooseChar = new GameSubScene();
+		chooseChar.setUpPlantButtonOff();
 
 		mainPane.getChildren().add(chooseChar);
 
@@ -464,7 +469,7 @@ public class SceneController {
 		ImageView fence = new ImageView("fence.png");
 		fence.setLayoutX(0);
 		fence.setLayoutY(572);
-		mainPane.getChildren().addAll(field,fence);
+		mainPane.getChildren().addAll(field, fence);
 		field.setLayoutX(300);
 		field.setLayoutY(100);
 
@@ -481,10 +486,19 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// pop up Pause menu
+				createGamePausedSubScene();
+				gamePaused.moveSubSceneIn();
 			}
 		});
 		pause.setLayoutX(1112);
 		pause.setLayoutY(17);
+	}
+
+	public void createGamePausedSubScene() {
+		gamePaused = new GameSubScene();
+		gamePaused.setUpGamePaused();
+
+		mainPane.getChildren().addAll(gamePaused);
 	}
 
 	public void createGameButtons() {

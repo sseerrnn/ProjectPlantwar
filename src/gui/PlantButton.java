@@ -20,17 +20,25 @@ public class PlantButton extends Button {
 
 	private String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('WoodButton.png');";
 	private Plant plant;
-	private boolean isClicked = false;
+	private ImageView image;
 
 	public PlantButton(String plantName) {
 		this.plant = new Plant(plantName);
-		ImageView image = new ImageView(plant.getUrl());
+		image = new ImageView(plant.getUrl());
 		this.setPrefHeight(107);
 		this.setPrefWidth(165);
 
 		BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('" + plant.getUrl() + "');";
 		this.setStyle(BUTTON_STYLE);
 		initializeButtonListeners();
+	}
+
+	public ImageView getImage() {
+		return image;
+	}
+
+	public void setImage(ImageView image) {
+		this.image = image;
 	}
 
 	public Plant getPlant() {
