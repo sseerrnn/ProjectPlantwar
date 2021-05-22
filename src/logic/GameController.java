@@ -38,7 +38,8 @@ import javafx.scene.text.Font;
 import scene.SceneController;
 
 public class GameController {
-
+	private LevelController levelController;
+	
 	private ArrayList<PlantButton> selectedPlantButtons;
 	private PlantButton selectedPlantButton;// for choose plant in choose menu
 	private int spaceIndex;
@@ -55,8 +56,8 @@ public class GameController {
 	private AnimationTimer animationTimer;
 	private long lastTimeTriggered;
 	private Rectangle goal;
-    private int level;
-    private int countZombieDie;
+	private int level;
+	private int countZombieDie;
 
 	private ArrayList<Zombie> zombieInGame;
 	private ArrayList<GameCharacter> inGameCharacter;
@@ -67,11 +68,10 @@ public class GameController {
 	private ArrayList<Lawnmower> lawnmowerInGame;
 	private ArrayList<Zombie> countZombie;
 
-
 	public GameController() {
 		isGameStart = false;
 		setUpArrayLv1();
-		countZombieDie=0;
+		countZombieDie = 0;
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
@@ -91,6 +91,15 @@ public class GameController {
 		lawnmowerInGame = new ArrayList<Lawnmower>();
 		createLawnmower();
 		createGoalZombie();
+		levelController =new LevelController();
+	}
+
+	public LevelController getLevelController() {
+		return levelController;
+	}
+
+	public void setLevelController(LevelController levelController) {
+		this.levelController = levelController;
 	}
 
 	public void createLawnmower() {
@@ -126,11 +135,10 @@ public class GameController {
 		if (isGameStart == true) {
 			this.animationTimer.start();
 		}
-		if(isGameStart==false) {
+		if (isGameStart == false) {
 			this.animationTimer.stop();
 		}
 
-		
 	}
 
 	public AnimationTimer getAnimationTimer() {
@@ -140,33 +148,34 @@ public class GameController {
 	public void setAnimationTimer(AnimationTimer animationTimer) {
 		this.animationTimer = animationTimer;
 	}
-public void selectLevel(int level) {
-	setLevel(level);
-	switch(level) {
-	case 1:
-		setUpArrayLv1();
-		generateZombieLv1();
-		break;
-		
-	case 2:
-		setUpArrayLv2();
-		generateZombieLv1();
-		generateZombieLv2();
-		break;
-		
-		
-	case 3:
-		setUpArrayLv3();
-		generateZombieLv1();
-		generateZombieLv2();
-		generateZombieLv3();
-		break;
+
+	public void selectLevel(int level) {
+		setLevel(level);
+		switch (level) {
+		case 1:
+			setUpArrayLv1();
+			generateZombieLv1();
+			break;
+
+		case 2:
+			setUpArrayLv2();
+			generateZombieLv1();
+			generateZombieLv2();
+			break;
+
+		case 3:
+			setUpArrayLv3();
+			generateZombieLv1();
+			generateZombieLv2();
+			generateZombieLv3();
+			break;
+		}
+
 	}
-		
-	
-}
+
 	public void update() {
 		checkIsGoal();
+		checkWin();
 		SceneController.getInstance().toFallSun();
 		generateZombieLv1();
 		generateZombieLv2();
@@ -189,13 +198,15 @@ public void selectLevel(int level) {
 		shootBullet();
 //		dropSun();
 	}
+
 	public void resetGame() {
 		isGameStart = false;
 		setUpArrayLv1();
-		countZombieDie=0;
+		countZombieDie = 0;
 		energy = 5000;
 		currentTime = 0;
 		lastTimeTriggered = -1;
+
 		isGameEnd = false;
 		sunCount = 0;
 		canCreateSun = false;
@@ -213,13 +224,30 @@ public void selectLevel(int level) {
 		createLawnmower();
 		createGoalZombie();
 	}
+
 	public void checkWin() {
-		switch(getLevel()) {
-		case 1: if(countZombieDie==20) {
-			setGameStart(false);
-			setGameEnd(true);
-			
-		}
+		switch (getLevel()) {
+		case 1:
+			if (countZombieDie == 20) {
+				setGameStart(false);
+				setGameEnd(true);
+				animationTimer.stop();
+				break;
+			}
+		case 2:
+			if (countZombieDie == 30) {
+				setGameStart(false);
+				setGameEnd(true);
+				animationTimer.stop();
+				break;
+			}
+		case 3:
+			if (countZombieDie == 40) {
+				setGameStart(false);
+				setGameEnd(true);
+				animationTimer.stop();
+				break;
+			}
 		}
 	}
 
@@ -333,7 +361,7 @@ public void selectLevel(int level) {
 	}
 
 	public void generateRegularZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 20 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 19 && currentTime % timeSpawn == 0) {
 			RegularZombie zombie = new RegularZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -349,12 +377,13 @@ public void selectLevel(int level) {
 	public int getLevel() {
 		return level;
 	}
-	
+
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
 	public void generateConeheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 30 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 29 && currentTime % timeSpawn == 0) {
 			ConeheadZombie zombie = new ConeheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -368,7 +397,7 @@ public void selectLevel(int level) {
 	}
 
 	public void generateBucketheadZombie(int initx, int inity, int timeSpawn, int row) {
-		if (countZombie.size() < 40 && currentTime % timeSpawn == 0) {
+		if (countZombie.size() < 39 && currentTime % timeSpawn == 0) {
 			BucketheadZombie zombie = new BucketheadZombie(initx, inity);
 			zombie.setY(zombie.getY() + zombie.getDiffY());
 			zombie.getImageView().setLayoutY(zombie.getY());
@@ -409,8 +438,7 @@ public void selectLevel(int level) {
 			if (zombie.getCurrentHP() <= 0) {
 
 				deadZombies.add(zombie);
-				countZombieDie+=1;
-				
+				countZombieDie += 1;
 
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getImageView());
 				SceneController.getInstance().getMainPane().getChildren().remove(zombie.getBox());

@@ -57,7 +57,8 @@ public class SceneController {
 	protected AnchorPane mainPane;
 
 	private GameController gameController;
-	private LevelController levelController;
+	
+
 	private GameSubScene chooseChar;
 	private GameSubScene gamePaused;
 	private Canvas canvas;
@@ -94,7 +95,7 @@ public class SceneController {
 		StartButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				initializeLevelController();
+//				initializeLevelController();
 				initializeGameController();
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
@@ -203,7 +204,7 @@ public class SceneController {
 
 		map2.setLayoutX(474.5);
 		map2.setLayoutY(510);
-		if (!levelController.isLevel2()) {
+		if (!gameController.getLevelController().isLevel2()) {
 			map2.setDisable(true);
 		}
 	}
@@ -225,7 +226,7 @@ public class SceneController {
 
 		map3.setLayoutX(782.5);
 		map3.setLayoutY(510);
-		if (!levelController.isLevel3()) {
+		if (!gameController.getLevelController().isLevel3()) {
 			map3.setDisable(true);
 		}
 	}
@@ -331,7 +332,7 @@ public class SceneController {
 	}
 
 	public void createChooseCharSubScene() {
-		levelController.resetGame();
+		gameController.getLevelController().resetGame();
 		gameController.resetGame();
 		chooseChar = new GameSubScene();
 		chooseChar.setUpPlantButtonOff();
@@ -340,9 +341,9 @@ public class SceneController {
 
 		createSubmitButton();
 
-		for (int i = 0; i < levelController.getPlantButtonList().size(); i++) {
+		for (int i = 0; i < gameController.getLevelController().getPlantButtonList().size(); i++) {
 			if (i < 5) {
-				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
+				PlantButton chooseCharButton = gameController.getLevelController().getPlantButtonList().get(i);
 				chooseCharButton.setLayoutX(55 + 177 * (i));
 				chooseCharButton.setLayoutY(146);
 				chooseChar.getPane().getChildren().add(chooseCharButton);
@@ -367,7 +368,7 @@ public class SceneController {
 				});
 
 			} else {
-				PlantButton chooseCharButton = levelController.getPlantButtonList().get(i);
+				PlantButton chooseCharButton = gameController.getLevelController().getPlantButtonList().get(i);
 				int j = i - 5;
 				chooseCharButton.setLayoutX(55 + 177 * (j));
 				chooseCharButton.setLayoutY(272);
@@ -476,9 +477,9 @@ public class SceneController {
 		transition.play();
 	}
 
-	public void initializeLevelController() {
-		levelController = new LevelController();
-	}
+//	public void initializeLevelController() {
+//		levelController = new LevelController();
+//	}
 
 	public void initializeGameController() {
 		gameController = new GameController();
