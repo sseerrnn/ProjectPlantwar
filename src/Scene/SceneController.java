@@ -45,9 +45,7 @@ public class SceneController {
 	private GameSubScene gamePaused;
 	private Canvas canvas;
 	private GraphicsContext gc;
-	
-
-
+	private GameButton pause;
 
 	private SceneController() {
 		mainStage = new Stage();
@@ -356,6 +354,7 @@ public class SceneController {
 		gameController.getLevelController().resetGame();
 		gameController.resetGame();
 	}
+
 	public void resetGameStatus() {
 		gameController.getLevelController().resetGame();
 		gameController.resetGameStatus();
@@ -474,7 +473,7 @@ public class SceneController {
 				}
 			}
 		}
-		
+
 	}
 
 	public void setUpInGamePlantButtons() {
@@ -539,15 +538,18 @@ public class SceneController {
 	}
 
 	public void createPauseButton() {
-		GameButton pause = new GameButton("");
+		pause = new GameButton("");
 		pause.setUpPauseButtonStyle();
 		mainPane.getChildren().add(pause);
 
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+
 				createGamePausedSubScene();
+				pause.setDisable(true);
 				gamePaused.moveSubSceneIn();
+				
 
 				Audio.createMouseClickedSound();
 			}
@@ -565,7 +567,11 @@ public class SceneController {
 		gamePaused.getResumeButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gamePaused.moveSubSceneOut();
-				gameController.getAnimationTimer().start();
+				if (gameController.isGameStart()) {
+					gameController.getAnimationTimer().start();
+				}
+				
+				pause.setDisable(false);
 
 				Audio.createMouseClickedSound();
 			}

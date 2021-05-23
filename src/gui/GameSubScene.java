@@ -17,11 +17,14 @@ public class GameSubScene extends SubScene {
 			"wallnutbuttonoff.png", "potatobombbuttonoff.png", "cabbagepultbuttonoff.png", "snowpeabuttonoff.png",
 			"twinsunflowerbuttonoff.png", "cornpultbuttonoff.png", "doublepeashooterbuttonoff.png",
 			"tallnutbuttonoff.png" };
+	
 
 	private GameButton resumeButton;
 	private GameButton restartButton;
 	private GameButton levelButton;
 	private GameButton exitButton;
+
+
 
 	public GameSubScene() {
 		super(new AnchorPane(), WIDTH, HEIGHT);
@@ -32,6 +35,7 @@ public class GameSubScene extends SubScene {
 		this.setLayoutX(200);
 		this.setLayoutY(-94);
 		this.setVisible(false);
+		
 	}
 
 	public void setUpPlantButtonOff() {
