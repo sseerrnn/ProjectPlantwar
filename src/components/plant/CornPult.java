@@ -1,17 +1,17 @@
 package components.plant;
 
-import components.bullet.CornBullet;
+import components.bullet.CabbageBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
-import implement.Shootable;
+import implement.Throwable;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import scene.SceneController;
 
-public class CornPult extends GameCharacter implements Interactable, Shootable {
+public class CornPult extends GameCharacter implements Interactable, Throwable {
 
 	public CornPult(int init_x, int init_y) {
 		super("cornpultsprite.png", init_x, init_y, 76, 105, 100, 15);
@@ -43,8 +43,8 @@ public class CornPult extends GameCharacter implements Interactable, Shootable {
 	}
 
 	@Override
-	public Bullet shoot() {
-		Bullet bullet = new CornBullet(this.getX() + 10, this.getY() + 10);
+	public Bullet projectile() {
+		Bullet bullet = new CabbageBullet(this.getX() + 10, this.getY() + 10);
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
