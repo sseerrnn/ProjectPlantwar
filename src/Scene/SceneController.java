@@ -330,7 +330,7 @@ public class SceneController {
 
 	public void toFallSun() {
 		if (gameController.getSunCount() < 50) {
-			if (gameController.getCurrentTime() % 2 == 0) {
+			if (gameController.getCurrentTime() % 7 == 0) {
 				Sun sun = new Sun();
 				sun.toImageView();
 				sun.toFalling(sun.getImageView());
@@ -443,7 +443,8 @@ public class SceneController {
 
 	public void onClickHandler(FieldCell cell) {
 		if (gameController.getSelectedPlant() != null) {
-			if (cell.getPlant() == null) {
+			if (cell.getPlant() == null && gameController.getEnergy()>=gameController.getSelectedPlant().getPrice()) {
+				
 				cell.setPlant(gameController.getSelectedPlant());
 				gameController.reduceEneryToBuyPlant();
 				gameController.getSelectedPlant().setUp();

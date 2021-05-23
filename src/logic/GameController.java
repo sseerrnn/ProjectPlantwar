@@ -73,7 +73,7 @@ public class GameController {
 		isGameStart = false;
 		setUpArrayLv1();
 		countZombieDie = 0;
-		energy = 5000;
+		energy = 500;
 		currentTime = 0;
 		lastTimeTriggered = -1;
 		isGameEnd = false;
@@ -184,7 +184,7 @@ public class GameController {
 		isGameStart = false;
 		setUpArrayLv1();
 		countZombieDie = 0;
-		energy = 5000;
+		energy = 500;
 		currentTime = 0;
 		lastTimeTriggered = -1;
 
@@ -204,11 +204,19 @@ public class GameController {
 		lawnMowerInGame = new ArrayList<LawnMower>();
 	}
 
+	public int getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(int energy) {
+		this.energy = energy;
+	}
+
 	public void resetGame() {
 		isGameStart = false;
 		setUpArrayLv1();
 		countZombieDie = 0;
-		energy = 5000;
+		energy = 500;
 		currentTime = 0;
 		lastTimeTriggered = -1;
 
