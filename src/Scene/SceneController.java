@@ -196,6 +196,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				setUpGameScene();
+				resetGame();
 				gameController.selectLevel(2);
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
@@ -220,6 +221,7 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				setUpGameScene();
+				resetGame();
 				gameController.selectLevel(3);
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
