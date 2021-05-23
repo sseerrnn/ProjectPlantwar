@@ -20,6 +20,7 @@ public class GameEnding extends AnchorPane {
 	public GameEnding(boolean isWin) {
 		super();
 		this.isWin = isWin;
+		endingPane = new AnchorPane();
 
 		createBackground();
 		createStatusImage();
@@ -62,6 +63,12 @@ public class GameEnding extends AnchorPane {
 		replayButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				SceneController.getInstance().setUpGameScene();
+
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				int level = SceneController.getInstance().getGameController().getLevel();
+				SceneController.getInstance().resetGame();
+				SceneController.getInstance().getGameController().selectLevel(level);
+				
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				SceneController.getInstance().createChooseCharSubScene();
 				SceneController.getInstance().getChooseChar().moveSubSceneIn();
@@ -75,6 +82,25 @@ public class GameEnding extends AnchorPane {
 		nextButton.setLayoutX(initX);
 		nextButton.setLayoutY(initY);
 		endingPane.getChildren().add(nextButton);
+		nextButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				SceneController.getInstance().setUpGameScene();
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				int level = SceneController.getInstance().getGameController().getLevel();
+				if (level<3) {
+					level+=1;
+				}
+				SceneController.getInstance().resetGame();
+				SceneController.getInstance().getGameController().selectLevel(level);
+				
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				SceneController.getInstance().createChooseCharSubScene();
+				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+			}
+		});
 	}
 
 	public void createHomeButton(int initX, int initY) {
@@ -86,7 +112,10 @@ public class GameEnding extends AnchorPane {
 
 		homeButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				SceneController.getInstance().resetGameStatus();
 				SceneController.getInstance().setUpChooseMapScene();
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+				SceneController.getInstance().getGameController().setGameStart(false);
 			}
 		});
 	}

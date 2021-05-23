@@ -11,7 +11,6 @@ import components.character.Zombie;
 import components.other.Bullet;
 import components.other.LawnMower;
 import components.other.Sun;
-import components.plant.DoublePeaShooter;
 import components.plant.PotatoBomb;
 import components.zombie.BucketheadZombie;
 import components.zombie.ConeheadZombie;
@@ -52,6 +51,7 @@ public class GameController {
 
 	private boolean isGameStart;
 	private boolean isGameEnd;
+	private boolean isWin;
 
 	private int currentTime;
 	private AnimationTimer animationTimer;
@@ -182,6 +182,30 @@ public class GameController {
 		shootBullet();
 	}
 
+	public void resetGameStatus() {
+		isGameStart = false;
+		setUpArrayLv1();
+		countZombieDie = 0;
+		energy = 5000;
+		currentTime = 0;
+		lastTimeTriggered = -1;
+
+		isGameEnd = false;
+		sunCount = 0;
+		canCreateSun = false;
+		zombieInGame = new ArrayList<Zombie>();
+		countZombie = new ArrayList<Zombie>();
+		inGameCharacter = new ArrayList<GameCharacter>();
+		plantInGame = new ArrayList<GameCharacter>();
+		bullets = new ArrayList<Bullet>();
+		zombies = new ArrayList<ArrayList<Zombie>>(5);
+		producedSun = new ArrayList<Sun>();
+		for (int i = 0; i < 5; i++) {
+			zombies.add(new ArrayList<Zombie>());
+		}
+		lawnMowerInGame = new ArrayList<LawnMower>();
+	}
+
 	public void resetGame() {
 		isGameStart = false;
 		setUpArrayLv1();
@@ -214,21 +238,34 @@ public class GameController {
 			if (countZombieDie == 20) {
 				setGameStart(false);
 				setGameEnd(true);
+				setWin(true);
+				levelController.setLevel2(true);
 				animationTimer.stop();
+				SceneController.getInstance().setUpGameEnding(isWin());
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				break;
 			}
 		case 2:
 			if (countZombieDie == 30) {
 				setGameStart(false);
 				setGameEnd(true);
+				setWin(true);
+				levelController.setLevel3(true);
 				animationTimer.stop();
+				SceneController.getInstance().setUpGameEnding(isWin());
+
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
+
 				break;
 			}
 		case 3:
 			if (countZombieDie == 40) {
 				setGameStart(false);
 				setGameEnd(true);
+				setWin(true);
 				animationTimer.stop();
+				SceneController.getInstance().setUpGameEnding(isWin());
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				break;
 			}
 		}
@@ -558,30 +595,19 @@ public class GameController {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
-					plant.setShoot(true);
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
-//					bullet.shootRight();
-					if (plant.getClass()==DoublePeaShooter.class) {
-						Bullet bullet2 = ((Shootable) plant).shoot();
-						bullets.add(bullet2);
-					}
+					plant.setShoot(true);
 				}
-				
 			}
 			if (plant instanceof Throwable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
-					plant.setShoot(true);
 					Bullet bullet = ((Throwable) plant).projectile();
 					bullet.setRow(checkPlantRow(plant) - 1);
-					
 					bullets.add(bullet);
-					System.out.println(plant.getClass());
 					bullet.setVelocity_y(-10 * bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
-//				bullet.shootRight();
-					
+					plant.setShoot(true);
 				}
-				
 			}
 		}
 	}
@@ -756,6 +782,14 @@ public class GameController {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public boolean isWin() {
+		return isWin;
+	}
+
+	public void setWin(boolean isWin) {
+		this.isWin = isWin;
 	}
 
 }

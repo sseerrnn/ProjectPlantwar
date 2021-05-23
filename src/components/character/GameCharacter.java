@@ -84,7 +84,7 @@ public class GameCharacter extends Entity {
 	}
 
 	public void shootZombie(int count, int columns) {
-		if ( isShoot()) {
+		if (this instanceof Shootable && isShoot) {
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + height, width, height));
 			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + height,
 					width, height);

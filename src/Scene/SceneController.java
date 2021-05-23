@@ -45,6 +45,9 @@ public class SceneController {
 	private GameSubScene gamePaused;
 	private Canvas canvas;
 	private GraphicsContext gc;
+	
+
+
 
 	private SceneController() {
 		mainStage = new Stage();
@@ -113,6 +116,14 @@ public class SceneController {
 		buttonPane.setLayoutY(340);
 	}
 
+	public GameController getGameController() {
+		return gameController;
+	}
+
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
+	}
+
 	public void createLogo() {
 		ImageView Logo = new ImageView("Logo.png");
 		Logo.setLayoutX(125);
@@ -166,7 +177,7 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 				setUpGameScene();
 				resetGame();
-				gameController.selectLevel(2);
+				gameController.selectLevel(1);
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
@@ -264,6 +275,12 @@ public class SceneController {
 		mapLock3.setLayoutY(269);
 
 		mainPane.getChildren().addAll(mapLock2, mapLock3);
+		if (gameController.getLevelController().isLevel2()) {
+			mapLock2.setVisible(false);
+		}
+		if (gameController.getLevelController().isLevel3()) {
+			mapLock3.setVisible(false);
+		}
 	}
 
 	public void setUpGameScene() {
@@ -338,6 +355,10 @@ public class SceneController {
 	public void resetGame() {
 		gameController.getLevelController().resetGame();
 		gameController.resetGame();
+	}
+	public void resetGameStatus() {
+		gameController.getLevelController().resetGame();
+		gameController.resetGameStatus();
 	}
 
 	public void createChooseCharSubScene() {
@@ -453,7 +474,7 @@ public class SceneController {
 				}
 			}
 		}
-		System.out.println(cell.getPlant().getPlantName());
+		
 	}
 
 	public void setUpInGamePlantButtons() {
@@ -569,6 +590,7 @@ public class SceneController {
 		gamePaused.getLevelButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				setUpChooseMapScene();
+				resetGameStatus();
 				mainStage.setScene(mainScene);
 				gameController.setGameStart(false);
 
