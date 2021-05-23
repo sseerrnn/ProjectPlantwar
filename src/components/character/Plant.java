@@ -34,10 +34,6 @@ public class Plant {
 			url = "doublepeashooterbutton1.png";
 			price = 200;
 			break;
-		case "Tallnut":
-			url = "tallnutbutton1.png";
-			price = 150;
-			break;
 		case "PeaShooter":
 			url = "peashooterbutton1.png";
 			price = 100;
@@ -53,6 +49,10 @@ public class Plant {
 		case "Sunflower":
 			url = "sunflowerbutton1.png";
 			price = 50;
+			break;
+		case "Tallnut":
+			url = "tallnutbutton1.png";
+			price = 150;
 			break;
 		case "TwinSunflower":
 			url = "twinsunflowerbutton1.png";

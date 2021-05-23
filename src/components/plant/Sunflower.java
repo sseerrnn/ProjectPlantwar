@@ -1,7 +1,6 @@
 package components.plant;
 
 import java.util.ArrayList;
-
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
@@ -10,7 +9,6 @@ import implement.Interactable;
 import implement.Producable;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
-import scene.SceneController;
 
 public class Sunflower extends GameCharacter implements Interactable, Producable {
 	protected double time_count = 0;
@@ -28,8 +26,8 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 		this.diffX = -10;
 		this.diffY = 12;
 
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
 
 		createAnimation();
 	}
@@ -47,19 +45,16 @@ public class Sunflower extends GameCharacter implements Interactable, Producable
 			sunArrayList.add(sun);
 		}
 		return sunArrayList;
-
 	}
 
 	@Override
 	public void interact(GameCharacter gameCharacter) {
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
 			gameCharacter.doEatPlant();
-
 			((Zombie) gameCharacter).isEat = true;
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - gameCharacter.getAttackPoint());
 			}
-
 		}
 	}
 

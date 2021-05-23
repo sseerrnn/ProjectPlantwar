@@ -26,26 +26,26 @@ public class RegularZombie extends Zombie implements Interactable {
 	}
 
 	@Override
-	public void interact(GameCharacter gameCharacter) {
-
-	}
-
-	@Override
 	public void interact(Bullet bullet) {
 		if (checkCollision(bullet)) {
-			
+
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getImageView());
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
-					
 				}
 			});
+			
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}
 		}
+	}
+
+	@Override
+	public void interact(GameCharacter gameCharacter) {
+
 	}
 
 }

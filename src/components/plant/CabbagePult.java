@@ -5,8 +5,9 @@ import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
-import implement.Shootable;
 import implement.Throwable;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import scene.SceneController;
 
@@ -24,10 +25,10 @@ public class CabbagePult extends GameCharacter implements Interactable, Throwabl
 		this.width = 90;
 		this.diffX = -28;
 		this.diffY = -9;
-		
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
-		
+
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
+
 		createAnimation();
 	}
 
@@ -42,21 +43,26 @@ public class CabbagePult extends GameCharacter implements Interactable, Throwabl
 		}
 	}
 
-	
-
-	@Override
-	public void interact(Bullet bullet) {
-		
-	}
-
 	@Override
 	public Bullet projectile() {
 		Bullet bullet = new CabbageBullet(this.getX() + 10, this.getY() + 10);
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
-		this.shootZombie(9, 9);
+
+		TranslateTransition move1 = new TranslateTransition();
+		move1.setOnFinished(e -> this.shootZombie(9, 9));
+
+		SequentialTransition seq = new SequentialTransition();
+		seq.getChildren().addAll(move1);
+		seq.play();
+
 		return bullet;
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+
 	}
 
 }

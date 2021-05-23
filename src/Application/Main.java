@@ -6,18 +6,18 @@ import scene.SceneController;
 
 public class Main extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 	@Override
-	public void start(Stage primarystage) throws Exception {
+	public void start(Stage primaryStage) throws Exception {
 		try {
-			primarystage = SceneController.getInstance().getMainstage();
-			primarystage.show();
+			primaryStage = SceneController.getInstance().getMainstage();
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }

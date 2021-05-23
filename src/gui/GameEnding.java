@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.AudioClip;
 import scene.SceneController;
 
 public class GameEnding extends AnchorPane {
@@ -77,15 +75,6 @@ public class GameEnding extends AnchorPane {
 		nextButton.setLayoutX(initX);
 		nextButton.setLayoutY(initY);
 		endingPane.getChildren().add(nextButton);
-
-//		nextButton.setOnAction(new EventHandler <ActionEvent>() {
-//			public void handle(ActionEvent event) {
-//				SceneController.getInstance().setUpGameScene();
-//				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
-//				SceneController.getInstance().createChooseCharSubScene();
-//				SceneController.getInstance().getChooseChar().moveSubSceneIn();
-//			}
-//		});
 	}
 
 	public void createHomeButton(int initX, int initY) {

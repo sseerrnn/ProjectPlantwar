@@ -12,7 +12,7 @@ public class PeaBullet extends Bullet {
 		this.y = initY;
 		this.imageView.setLayoutY(getY());
 		this.imageView.setLayoutX(getX());
-		damage = 20;
+		this.damage = 20;
 	}
 
 }

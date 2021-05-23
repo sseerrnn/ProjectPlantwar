@@ -12,7 +12,7 @@ public class CabbageBullet extends Bullet {
 		this.y = initY;
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
-		damage = 30;
+		this.damage = 30;
 	}
 
 }

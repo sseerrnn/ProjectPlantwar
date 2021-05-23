@@ -20,9 +20,9 @@ public class Tallnut extends GameCharacter implements Interactable {
 		this.width = 60;
 		this.diffX = 1;
 		this.diffY = 15;
-		
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
+
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
 
 		createAnimation();
 	}

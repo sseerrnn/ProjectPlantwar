@@ -1,25 +1,12 @@
 package gui;
 
-import java.util.ArrayList;
-
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-import logic.GameController;
-import scene.SceneController;
 
 public class GameSubScene extends SubScene {
 
@@ -81,6 +68,25 @@ public class GameSubScene extends SubScene {
 		getPane().getChildren().addAll(pauseLogo, resumeButton, restartButton, levelButton, exitButton);
 	}
 
+	public void moveSubSceneIn() {
+		TranslateTransition move = new TranslateTransition();
+		move.setNode(this);
+		this.setVisible(true);
+		move.setToY(94 * 2);
+		move.play();
+	}
+
+	public void moveSubSceneOut() {
+		TranslateTransition move = new TranslateTransition();
+		move.setNode(this);
+		move.setToY(-94 * 2 - 520);
+		move.play();
+	}
+
+	public AnchorPane getPane() {
+		return (AnchorPane) this.getRoot();
+	}
+
 	public GameButton getResumeButton() {
 		return resumeButton;
 	}
@@ -111,25 +117,6 @@ public class GameSubScene extends SubScene {
 
 	public void setExitButton(GameButton exitButton) {
 		this.exitButton = exitButton;
-	}
-
-	public AnchorPane getPane() {
-		return (AnchorPane) this.getRoot();
-	}
-
-	public void moveSubSceneIn() {
-		TranslateTransition move = new TranslateTransition();
-		move.setNode(this);
-		this.setVisible(true);
-		move.setToY(94 * 2);
-		move.play();
-	}
-
-	public void moveSubSceneOut() {
-		TranslateTransition move = new TranslateTransition();
-		move.setNode(this);
-		move.setToY(-94 * 2 - 520);
-		move.play();
 	}
 
 }

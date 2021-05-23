@@ -1,14 +1,8 @@
 package components.other;
 
 import java.util.Random;
-
 import components.Entity;
-import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import scene.SceneController;
@@ -60,12 +54,9 @@ public class Sun extends Entity {
 		move.setByY(-600);
 		move.play();
 		move.setOnFinished(e -> {
-
 			imageView.setVisible(false);
 			SceneController.getInstance().getMainPane().getChildren().remove(getImageView());
-
 		});
-
 	}
 
 }

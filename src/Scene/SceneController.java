@@ -1,8 +1,8 @@
 package scene;
 
-import components.character.GameCharacter;
 import components.other.Sun;
 import components.plant.PotatoBomb;
+import element.Audio;
 import exception.ChooseCharacterFailedException;
 import exception.PlantNotEnoughFailedException;
 import gui.FieldCell;
@@ -11,39 +11,21 @@ import gui.GameButton;
 import gui.GameEnding;
 import gui.GameSubScene;
 import gui.PlantButton;
-import gui.SpriteAnimation;
-import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GameController;
-import logic.LevelController;
-import javafx.scene.input.MouseEvent;
 
 public class SceneController {
 
@@ -63,8 +45,6 @@ public class SceneController {
 	private GameSubScene gamePaused;
 	private Canvas canvas;
 	private GraphicsContext gc;
-
-	private AudioClip gameClickSound;
 
 	private SceneController() {
 		mainStage = new Stage();
@@ -87,6 +67,8 @@ public class SceneController {
 		createBackgroundPane();
 		createLogo();
 		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
+
+		Audio.createBackgroundMusic();
 	}
 
 	public void createStartButton() {
@@ -95,11 +77,13 @@ public class SceneController {
 		StartButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-//				initializeLevelController();
 				initializeGameController();
 				setUpChooseMapScene();
 				mainStage.setScene(mainScene);
 
+				Audio.createMouseClickedSound();
+				Audio.createBackgroundMusicStop();
+				Audio.createChooseMapMusic();
 			}
 		});
 	}
@@ -111,6 +95,8 @@ public class SceneController {
 			@Override
 			public void handle(ActionEvent arg0) {
 				mainStage.close();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 	}
@@ -161,6 +147,10 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 				setUpMainStage();
 				mainStage.setScene(mainScene);
+
+				Audio.createMouseClickedSound();
+				Audio.createChooseMapMusicStop();
+				Audio.createBackgroundMusic();
 			}
 		});
 		back.setLayoutX(38);
@@ -180,6 +170,8 @@ public class SceneController {
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 
@@ -199,6 +191,8 @@ public class SceneController {
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 
@@ -221,6 +215,8 @@ public class SceneController {
 				mainStage.setScene(mainScene);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 
@@ -271,11 +267,13 @@ public class SceneController {
 	}
 
 	public void setUpGameScene() {
-
 		setUpGamePane();
 		setUpFieldPane();
 		createGameButtons();
 		mainScene = new Scene(mainPane, WIDTH, HEIGHT);
+
+		Audio.createChooseMapMusicStop();
+		Audio.createGameSound();
 	}
 
 	public void setUpGamePane() {
@@ -304,8 +302,12 @@ public class SceneController {
 					toFallSun();
 					createSunCountSign();
 					createCanvas();
+
+					Audio.createMouseClickedSound();
 				} catch (PlantNotEnoughFailedException e) {
 					System.out.println("Submit failed, " + e.getMessage());
+
+					Audio.createMouseClickedErrorSound();
 				}
 			}
 		});
@@ -325,6 +327,8 @@ public class SceneController {
 					public void handle(Event arg0) {
 						sun.moveOut(sun.getImageView());
 						gameController.increaseEnegy();
+
+						Audio.createCollectSunSound();
 					}
 				});
 			}
@@ -365,12 +369,15 @@ public class SceneController {
 							moveCharacterButton(chooseCharButton, charButton);
 
 							setUpUnselectButtonListener(charButton, chooseCharButton);
+
+							Audio.createMouseClickedSound();
 						} catch (ChooseCharacterFailedException e) {
 							System.out.println("Choose character failed, " + e.getMessage());
+
+							Audio.createMouseClickedErrorSound();
 						}
 					}
 				});
-
 			} else {
 				PlantButton chooseCharButton = gameController.getLevelController().getPlantButtonList().get(i);
 				int j = i - 5;
@@ -391,8 +398,12 @@ public class SceneController {
 							moveCharacterButton(chooseCharButton, charButton);
 
 							setUpUnselectButtonListener(charButton, chooseCharButton);
+
+							Audio.createMouseClickedSound();
 						} catch (ChooseCharacterFailedException e) {
 							System.out.println("Choose character failed, " + e.getMessage());
+
+							Audio.createMouseClickedErrorSound();
 						}
 					}
 				});
@@ -405,6 +416,7 @@ public class SceneController {
 			@Override
 			public void handle(Event arg0) {
 				onClickHandler(cell);
+				Audio.createPlaceSound();
 			}
 		});
 	}
@@ -433,11 +445,12 @@ public class SceneController {
 				gameController.getSelectedPlant().getGameChar().setFieldCell(cell);
 				System.out.println(box.getLayoutX());
 				System.out.println(box.getLayoutY());
+				gameController.checkPlantRow(gameController.getSelectedPlant().getGameChar());
+
 				if (gameController.getSelectedPlant().getGameChar() instanceof PotatoBomb) {
 					PotatoBomb potato = (PotatoBomb) (gameController.getSelectedPlant().getGameChar());
 					potato.setTime(gameController.getCurrentTime() + potato.getTimeCount());
 				}
-				gameController.checkPlantRow(gameController.getSelectedPlant().getGameChar());
 			}
 		}
 		System.out.println(cell.getPlant().getPlantName());
@@ -456,6 +469,7 @@ public class SceneController {
 			public void handle(ActionEvent arg0) {
 				gameController.setSelectedPlant(charButton.getPlant());
 				System.out.println(gameController.getSelectedPlant().getPlantName());
+				Audio.createMouseClickedSound();
 			}
 		});
 	}
@@ -485,10 +499,6 @@ public class SceneController {
 		transition.play();
 	}
 
-//	public void initializeLevelController() {
-//		levelController = new LevelController();
-//	}
-
 	public void initializeGameController() {
 		gameController = new GameController();
 	}
@@ -511,12 +521,14 @@ public class SceneController {
 		GameButton pause = new GameButton("");
 		pause.setUpPauseButtonStyle();
 		mainPane.getChildren().add(pause);
+
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				// pop up Pause menu
 				createGamePausedSubScene();
 				gamePaused.moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 		pause.setLayoutX(1112);
@@ -533,48 +545,46 @@ public class SceneController {
 			public void handle(ActionEvent event) {
 				gamePaused.moveSubSceneOut();
 				gameController.getAnimationTimer().start();
+
+				Audio.createMouseClickedSound();
 			}
 		});
 
 		gamePaused.getRestartButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-
-//				for (PlantButton pt : plantButton.getSelectedPlantButtons()) {
-//					SceneController.getInstance().getMainPane().getChildren().remove(pt.getImage());
-//					// plantButton.getSelectedPlantButtons().removeAll(plantButton.getSelectedPlantButtons());
-//				}
-
 				setUpGameScene();
 				mainStage.setScene(mainScene);
-				int level =gameController.getLevel();
+				int level = gameController.getLevel();
 				resetGame();
 				gameController.selectLevel(level);
 				createChooseCharSubScene();
 				chooseChar.moveSubSceneIn();
 
-//				SceneController.getInstance().getChooseChar().moveSubSceneOut();
-//				SceneController.getInstance().createChooseCharSubScene();
-
-//				gamePaused.moveSubSceneOut();
-
+				Audio.createMouseClickedSound();
+				Audio.createGameSoundStop();
+				Audio.createGameSound();
 			}
 		});
 
 		gamePaused.getLevelButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-
 				setUpChooseMapScene();
-				mainStage.setScene(SceneController.getInstance().getMainScene());
+				mainStage.setScene(mainScene);
 				gameController.setGameStart(false);
+
+				Audio.createMouseClickedSound();
+				Audio.createGameSoundStop();
+				Audio.createChooseMapMusic();
 			}
 		});
 
 		gamePaused.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				SceneController.getInstance().getMainstage().close();
+				mainStage.close();
+
+				Audio.createMouseClickedSound();
 			}
 		});
-
 		mainPane.getChildren().addAll(gamePaused);
 	}
 
@@ -600,6 +610,11 @@ public class SceneController {
 	public void setUpGameEnding(boolean isWin) {
 		GameEnding gameEnding = new GameEnding(isWin);
 		mainScene = new Scene(gameEnding.getEndingPane(), WIDTH, HEIGHT);
+		if (isWin == true) {
+			Audio.createGameEndingWinMusic();
+		} else {
+			Audio.createGameEndingLoseMusic();
+		}
 	}
 
 	public Scene getMainScene() {

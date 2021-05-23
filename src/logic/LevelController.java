@@ -1,10 +1,10 @@
 package logic;
 
 import java.util.ArrayList;
-
 import gui.PlantButton;
 
 public class LevelController {
+
 	private ArrayList<PlantButton> plantButtonList;
 	private boolean level1;
 	private boolean level2;
@@ -19,10 +19,39 @@ public class LevelController {
 //		setUpLevel2Button();
 //		setUpLevel3Button();
 	}
-public void resetGame() {
-	plantButtonList = new ArrayList<PlantButton>();
-	setUpLevel1Button();
-}
+
+	public void resetGame() {
+		plantButtonList = new ArrayList<PlantButton>();
+		setUpLevel1Button();
+	}
+
+	public void setUpLevel1Button() {
+		plantButtonList.add(new PlantButton("PeaShooter"));
+		plantButtonList.add(new PlantButton("Sunflower"));
+		plantButtonList.add(new PlantButton("Wallnut"));
+	}
+
+	public void setUpLevel2Button() {
+		plantButtonList.add(new PlantButton("PotatoBomb"));
+		plantButtonList.add(new PlantButton("CabbagePult"));
+		plantButtonList.add(new PlantButton("SnowPea"));
+	}
+
+	public void setUpLevel3Button() {
+		plantButtonList.add(new PlantButton("TwinSunflower"));
+		plantButtonList.add(new PlantButton("CornPult"));
+		plantButtonList.add(new PlantButton("DoublePeaShooter"));
+		plantButtonList.add(new PlantButton("Tallnut"));
+	}
+
+	public ArrayList<PlantButton> getPlantButtonList() {
+		return plantButtonList;
+	}
+
+	public void setPlantButtonList(ArrayList<PlantButton> plantButtonList) {
+		this.plantButtonList = plantButtonList;
+	}
+
 	public boolean isLevel1() {
 		return level1;
 	}
@@ -45,34 +74,6 @@ public void resetGame() {
 
 	public void setLevel3(boolean level3) {
 		this.level3 = level3;
-	}
-
-	public void setUpLevel1Button() {
-		plantButtonList.add(new PlantButton("PeaShooter"));
-		plantButtonList.add(new PlantButton("Sunflower"));
-		plantButtonList.add(new PlantButton("Wallnut"));
-	}
-
-	public void setUpLevel2Button() {
-		plantButtonList.add(new PlantButton("PotatoBomb"));
-		plantButtonList.add(new PlantButton("CabbagePult"));
-		plantButtonList.add(new PlantButton("SnowPea"));
-
-	}
-
-	public void setUpLevel3Button() {
-		plantButtonList.add(new PlantButton("TwinSunflower"));
-		plantButtonList.add(new PlantButton("CornPult"));
-		plantButtonList.add(new PlantButton("DoublePeaShooter"));
-		plantButtonList.add(new PlantButton("Tallnut"));
-	}
-
-	public ArrayList<PlantButton> getPlantButtonList() {
-		return plantButtonList;
-	}
-
-	public void setPlantButtonList(ArrayList<PlantButton> plantButtonList) {
-		this.plantButtonList = plantButtonList;
 	}
 
 }

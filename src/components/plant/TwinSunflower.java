@@ -1,7 +1,6 @@
 package components.plant;
 
 import java.util.ArrayList;
-
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
@@ -26,14 +25,12 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 		this.diffX = -15;
 		this.diffY = 13;
 
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
 
 		createAnimation();
 	}
 
-	
-	
 	@Override
 	public ArrayList<Sun> produce() {
 		ArrayList<Sun> sunArrayList = new ArrayList<Sun>();
@@ -47,7 +44,6 @@ public class TwinSunflower extends GameCharacter implements Interactable, Produc
 			sunArrayList.add(sun);
 		}
 		return sunArrayList;
-
 	}
 
 	@Override

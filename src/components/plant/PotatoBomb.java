@@ -6,7 +6,6 @@ import components.other.Bullet;
 import gui.SpriteAnimation;
 import implement.Explodable;
 import implement.Interactable;
-import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Rectangle2D;
@@ -18,14 +17,6 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 
 	private int time;
 	private int timeCount = 10;
-
-	public int getTime() {
-		return time;
-	}
-
-	public void setTime(int time) {
-		this.time = time;
-	}
 
 	public PotatoBomb(int init_x, int init_y) {
 		super("potatobombsprite.png", init_x, init_y, 100, 70, 100, 500);
@@ -40,8 +31,8 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		this.diffX = -22;
 		this.diffY = 15;
 
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
 
 		createAnimation();
 	}
@@ -62,21 +53,25 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 	@Override
 	public void explode(GameCharacter gameCharacter) {
 		if (gameCharacter instanceof Zombie && checkCollision(gameCharacter)) {
-			
+
 			TranslateTransition explosion = new TranslateTransition();
 			explosion.setOnFinished(e -> this.explodeAnimation());
-			
+
 			TranslateTransition delete = new TranslateTransition();
 			delete.setOnFinished(e -> {
 				gameCharacter.setCurrentHP(0);
 				this.currentHP = 0;
-});
-			
+			});
+
 			SequentialTransition seq = new SequentialTransition();
-			seq.getChildren().addAll(explosion,delete);
+			seq.getChildren().addAll(explosion, delete);
 			seq.play();
-			
 		}
+	}
+
+	@Override
+	public void interact(Bullet bullet) {
+
 	}
 
 	public void createAnimation() {
@@ -90,6 +85,14 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 		animation.play();
 	}
 
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
 	public int getTimeCount() {
 		return timeCount;
 	}
@@ -97,12 +100,5 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 	public void setTimeCount(int timeCount) {
 		this.timeCount = timeCount;
 	}
-
-	@Override
-	public void interact(Bullet bullet) {
-
-	}
-
-
 
 }

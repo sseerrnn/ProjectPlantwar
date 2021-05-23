@@ -1,7 +1,5 @@
 package components.bullet;
 
-import components.character.GameCharacter;
-import components.character.Zombie;
 import components.other.Bullet;
 
 public class SnowBullet extends Bullet {
@@ -14,7 +12,7 @@ public class SnowBullet extends Bullet {
 		this.y = initY;
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
-		damage = 20;
+		this.damage = 20;
 	}
 
 }

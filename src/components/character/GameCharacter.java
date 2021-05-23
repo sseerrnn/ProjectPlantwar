@@ -32,6 +32,7 @@ public class GameCharacter extends Entity {
 	public GameCharacter(String img_path, int init_x, int init_y, int width, int height, int currentHP,
 			int attackPoint) {
 		super(init_x, init_y, width, height);
+
 		this.currentHP = currentHP;
 		this.maxHP = currentHP;
 		this.attackPoint = attackPoint;
@@ -56,9 +57,8 @@ public class GameCharacter extends Entity {
 	public void doEatPlant() {
 		if (this.getCurrentHP() < 30) {
 			brokenRegularZombieEat();
-
 		}
-		if(this.getCurrentHP()>30 && this.getCurrentHP()<100) {
+		if (this.getCurrentHP() > 30 && this.getCurrentHP() < 100) {
 			imageView.setImage(new Image("regularzombiesprite.png"));
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 130, width, height));
 			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
@@ -68,8 +68,7 @@ public class GameCharacter extends Entity {
 			imageView.setLayoutY(getY());
 			animation.play();
 		}
-		if(this.getCurrentHP()>=100) {
-			
+		if (this.getCurrentHP() >= 100) {
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 130, width, height));
 			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + 130,
 					width, height);
@@ -94,46 +93,41 @@ public class GameCharacter extends Entity {
 			imageView.setLayoutY(getY());
 			animation.play();
 		}
-	}//
+	}
 
 	public void destroyZombieHat() {
-		
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 260, width,
-				height);
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 260, width, height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
 		animation.play();
-	}//
+	}
 
 	public void backToRegularZombie() {
 		imageView.setImage(new Image("regularzombiesprite.png"));
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY , width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY , width,
-				height);
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY, width, height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
 		animation.play();
-	}//
+	}
 
 	public void destroyRegularZombieBody() {
 		imageView.setImage(new Image("regularzombiesprite.png"));
-			imageView.setViewport(new Rectangle2D(offsetX,offsetY+ 260, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), 4, 4, offsetX, offsetY+ 260,
-					width, height);
-			animation.setCycleCount(Animation.INDEFINITE);
-			imageView.setLayoutX(getX());
-			imageView.setLayoutY(getY());
-			animation.play();
-		
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 260, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 4, 4, offsetX, offsetY + 260, width, height);
+		animation.setCycleCount(Animation.INDEFINITE);
+		imageView.setLayoutX(getX());
+		imageView.setLayoutY(getY());
+		animation.play();
 	}
+
 	public void killRegularZombie() {
 		imageView.setImage(new Image("regularzombiesprite.png"));
-		imageView.setViewport(new Rectangle2D(offsetX, + offsetY+650, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY+650 ,
-				width, height);
+		imageView.setViewport(new Rectangle2D(offsetX, +offsetY + 650, width, height));
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY + 650, width, height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
@@ -141,11 +135,9 @@ public class GameCharacter extends Entity {
 	}
 
 	public void brokenRegularZombieWalk() {
-		
 		imageView.setImage(new Image("regularzombiesprite.png"));
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 390, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 390, width,
-				height);
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 390, width, height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
@@ -155,8 +147,7 @@ public class GameCharacter extends Entity {
 	public void brokenRegularZombieEat() {
 		imageView.setImage(new Image("regularzombiesprite.png"));
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 520, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 520, width,
-				height);
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 520, width, height);
 		animation.setCycleCount(Animation.INDEFINITE);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
@@ -175,63 +166,11 @@ public class GameCharacter extends Entity {
 
 	public void explodeAnimation() {
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		animation = new SpriteAnimation(imageView, Duration.millis(1000), 10, 10, offsetX, offsetY+70, width,
-				height);
+		animation = new SpriteAnimation(imageView, Duration.millis(1000), 10, 10, offsetX, offsetY + 70, width, height);
 		imageView.setLayoutX(getX());
 		imageView.setLayoutY(getY());
 		animation.play();
 	}
-	
-//	public void backToRegularZombieEat() {
-//		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 520, width, height));
-//		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 520, width,
-//				height);
-//		animation.setCycleCount(Animation.INDEFINITE);
-//		imageView.setLayoutX(getX());
-//		imageView.setLayoutY(getY());
-//		animation.play();
-//	}
-	
-//	public void destroyBackToRegularZombieBody() {
-//		if (this.getCurrentHP() < 30) {
-//			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 650, width, height));
-//			animation = new SpriteAnimation(imageView, Duration.millis(1000), 4, 4, offsetX, offsetY + 260,
-//					width, height);
-//			animation.setCycleCount(Animation.INDEFINITE);
-//			imageView.setLayoutX(getX());
-//			imageView.setLayoutY(getY());
-//			animation.play();
-//		}
-//		if (this.getCurrentHP() < 0) {
-//			imageView.setViewport(new Rectangle2D(offsetX, offsetY + 1040, width, height));
-//			animation = new SpriteAnimation(imageView, Duration.millis(1000), 6, 6, offsetX, offsetY + 650,
-//					width, height);
-//			animation.setCycleCount(Animation.INDEFINITE);
-//			imageView.setLayoutX(getX());
-//			imageView.setLayoutY(getY());
-//			animation.play();
-//		}
-//	}
-//	
-//	public void brokenBackToRegularZombieWalk() {
-//		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 780, width, height));
-//		animation = new SpriteAnimation(imageView, Duration.millis(1000), 7, 7, offsetX, offsetY + 780, width,
-//				height);
-//		animation.setCycleCount(Animation.INDEFINITE);
-//		imageView.setLayoutX(getX());
-//		imageView.setLayoutY(getY());
-//		animation.play();
-//	}
-//	
-//	public void brokenBackToRegularZombieEat() {
-//		imageView.setViewport(new Rectangle2D(offsetX, offsetY + 910, width, height));
-//		animation = new SpriteAnimation(imageView, Duration.millis(1000), 5, 5, offsetX, offsetY + 910, width,
-//				height);
-//		animation.setCycleCount(Animation.INDEFINITE);
-//		imageView.setLayoutX(getX());
-//		imageView.setLayoutY(getY());
-//		animation.play();
-//	}
 
 	public int getDiffX() {
 		return diffX;

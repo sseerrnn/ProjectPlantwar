@@ -12,7 +12,7 @@ public class CornBullet extends Bullet {
 		this.y = initY;
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
-		damage = 15;
+		this.damage = 15;
 	}
 
 }

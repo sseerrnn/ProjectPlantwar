@@ -6,6 +6,8 @@ import components.character.Zombie;
 import components.other.Bullet;
 import implement.Interactable;
 import implement.Shootable;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import scene.SceneController;
 
@@ -23,10 +25,10 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 		this.width = 75;
 		this.diffX = -10;
 		this.diffY = 13;
-		
-		Rectangle hitbox = new Rectangle(40, 100);
-		setBox(hitbox);
-		
+
+		Rectangle hitBox = new Rectangle(40, 100);
+		setBox(hitBox);
+
 		createAnimation();
 	}
 
@@ -47,7 +49,14 @@ public class PeaShooter extends GameCharacter implements Interactable, Shootable
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());
-		this.shootZombie(3, 3);
+
+		TranslateTransition move1 = new TranslateTransition();
+		move1.setOnFinished(e -> this.shootZombie(3, 3));
+
+		SequentialTransition seq = new SequentialTransition();
+		seq.getChildren().addAll(move1);
+		seq.play();
+
 		return bullet;
 	}
 

@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Entity {
-	
+
 	protected int x;
 	protected int y;
 

@@ -1,21 +1,12 @@
 package gui;
 
 import components.character.Plant;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import logic.GameController;
 
 public class FieldCell extends Pane {
 
 	private Plant plant;
-	private int layoutx;
-	private int layouty;
 
 	public FieldCell() {
 		this.setPrefWidth(95);
