@@ -161,9 +161,7 @@ public class GameController {
 		checkIsGoal();
 		checkWin();
 		SceneController.getInstance().toFallSun();
-		generateZombieLv1();
-		generateZombieLv2();
-		generateZombieLv3();
+		selectLevel(level);
 
 		for (Zombie zombie : zombieInGame) {
 			zombie.walkLeft();
@@ -649,7 +647,13 @@ public class GameController {
 		for (Zombie zombie : zombieInGame) {
 			if (zombie.getBox().getBoundsInParent().intersects(goal.getBoundsInParent())) {
 				setGameEnd(true);
+				setGameStart(false);
+				setGameEnd(true);
+				setWin(false);
 				animationTimer.stop();
+				
+				SceneController.getInstance().setUpGameEnding(isWin());
+				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 			}
 		}
 	}
