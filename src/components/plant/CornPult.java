@@ -1,6 +1,6 @@
 package components.plant;
 
-import components.bullet.CabbageBullet;
+import components.bullet.CornBullet;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
@@ -44,7 +44,7 @@ public class CornPult extends GameCharacter implements Interactable, Throwable {
 
 	@Override
 	public Bullet projectile() {
-		Bullet bullet = new CabbageBullet(this.getX() + 10, this.getY() + 10);
+		Bullet bullet = new CornBullet(this.getX() + 10, this.getY() + 10);
 		System.out.println(bullet);
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getImageView());
 		SceneController.getInstance().getMainPane().getChildren().add(bullet.getBox());

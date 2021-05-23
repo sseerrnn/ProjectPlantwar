@@ -73,9 +73,9 @@ public class SceneController {
 	}
 
 	public void createStartButton() {
-		GameButton StartButton = new GameButton("Start Game");
-		buttonPane.getChildren().add(StartButton);
-		StartButton.setOnAction(new EventHandler<ActionEvent>() {
+		GameButton startButton = new GameButton("Start Game");
+		buttonPane.getChildren().add(startButton);
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				initializeGameController();
@@ -90,9 +90,9 @@ public class SceneController {
 	}
 
 	public void createExitButton() {
-		GameButton ExitButton = new GameButton("Exit Game");
-		buttonPane.getChildren().add(ExitButton);
-		ExitButton.setOnAction(new EventHandler<ActionEvent>() {
+		GameButton exitButton = new GameButton("Exit Game");
+		buttonPane.getChildren().add(exitButton);
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				mainStage.close();
@@ -112,14 +112,6 @@ public class SceneController {
 		buttonPane.setSpacing(20);
 		buttonPane.setLayoutX(223);
 		buttonPane.setLayoutY(340);
-	}
-
-	public GameController getGameController() {
-		return gameController;
-	}
-
-	public void setGameController(GameController gameController) {
-		this.gameController = gameController;
 	}
 
 	public void createLogo() {
@@ -183,7 +175,6 @@ public class SceneController {
 				Audio.createMouseClickedSound();
 			}
 		});
-
 		map1.setLayoutX(166.5);
 		map1.setLayoutY(510);
 	}
@@ -205,7 +196,6 @@ public class SceneController {
 				Audio.createMouseClickedSound();
 			}
 		});
-
 		map2.setLayoutX(474.5);
 		map2.setLayoutY(510);
 		if (!gameController.getLevelController().isLevel2()) {
@@ -230,7 +220,6 @@ public class SceneController {
 				Audio.createMouseClickedSound();
 			}
 		});
-
 		map3.setLayoutX(782.5);
 		map3.setLayoutY(510);
 		if (!gameController.getLevelController().isLevel3()) {
@@ -253,9 +242,9 @@ public class SceneController {
 	}
 
 	public void createMapPicture() {
-		ImageView mapPic1 = new ImageView("black.jpg");
-		ImageView mapPic2 = new ImageView("black.jpg");
-		ImageView mapPic3 = new ImageView("black.jpg");
+		ImageView mapPic1 = new ImageView("level1.png");
+		ImageView mapPic2 = new ImageView("level2.png");
+		ImageView mapPic3 = new ImageView("level3.png");
 
 		mapPic1.setLayoutX(180);
 		mapPic1.setLayoutY(216);
@@ -363,7 +352,6 @@ public class SceneController {
 	}
 
 	public void createChooseCharSubScene() {
-
 		chooseChar = new GameSubScene();
 		chooseChar.setUpPlantButtonOff();
 
@@ -445,8 +433,8 @@ public class SceneController {
 
 	public void onClickHandler(FieldCell cell) {
 		if (gameController.getSelectedPlant() != null) {
-			if (cell.getPlant() == null && gameController.getEnergy()>=gameController.getSelectedPlant().getPrice()) {
-				
+			if (cell.getPlant() == null && gameController.getEnergy() >= gameController.getSelectedPlant().getPrice()) {
+
 				cell.setPlant(gameController.getSelectedPlant());
 				gameController.reduceEneryToBuyPlant();
 				gameController.getSelectedPlant().setUp();
@@ -505,6 +493,8 @@ public class SceneController {
 				mainPane.getChildren().remove(charButton);
 				gameController.getSelectedPlantButtons()
 						.set(gameController.getSelectedPlantButtons().indexOf(charButton), new PlantButton(""));
+
+				Audio.createMouseClickedSound();
 			}
 		});
 	}
@@ -552,7 +542,6 @@ public class SceneController {
 				createGamePausedSubScene();
 				pause.setDisable(true);
 				gamePaused.moveSubSceneIn();
-				
 
 				Audio.createMouseClickedSound();
 			}
@@ -573,7 +562,7 @@ public class SceneController {
 				if (gameController.isGameStart()) {
 					gameController.getAnimationTimer().start();
 				}
-				
+
 				pause.setDisable(false);
 
 				Audio.createMouseClickedSound();
@@ -643,8 +632,10 @@ public class SceneController {
 		mainScene = new Scene(gameEnding.getEndingPane(), WIDTH, HEIGHT);
 		if (isWin == true) {
 			Audio.createGameEndingWinMusic();
+			Audio.createGameSoundStop();
 		} else {
 			Audio.createGameEndingLoseMusic();
+			Audio.createGameSoundStop();
 		}
 	}
 
@@ -694,6 +685,14 @@ public class SceneController {
 
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
+	}
+
+	public GameController getGameController() {
+		return gameController;
+	}
+
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
 	}
 
 }

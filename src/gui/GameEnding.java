@@ -1,10 +1,16 @@
 package gui;
 
+import element.Audio;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import scene.SceneController;
 
 public class GameEnding extends AnchorPane {
@@ -56,6 +62,8 @@ public class GameEnding extends AnchorPane {
 	public void createReplayButton(int initX, int initY) {
 		replayButton = new Button();
 		replayButton.setGraphic(new ImageView("replaybutton.png"));
+		replayButton
+				.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 		replayButton.setLayoutX(initX);
 		replayButton.setLayoutY(initY);
 		endingPane.getChildren().add(replayButton);
@@ -68,10 +76,13 @@ public class GameEnding extends AnchorPane {
 				int level = SceneController.getInstance().getGameController().getLevel();
 				SceneController.getInstance().resetGame();
 				SceneController.getInstance().getGameController().selectLevel(level);
-				
+
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				SceneController.getInstance().createChooseCharSubScene();
 				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
+				Audio.createGameSound();
 			}
 		});
 	}
@@ -79,6 +90,8 @@ public class GameEnding extends AnchorPane {
 	public void createNextButton(int initX, int initY) {
 		nextButton = new Button();
 		nextButton.setGraphic(new ImageView("nextbutton.png"));
+		nextButton
+				.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 		nextButton.setLayoutX(initX);
 		nextButton.setLayoutY(initY);
 		endingPane.getChildren().add(nextButton);
@@ -86,19 +99,21 @@ public class GameEnding extends AnchorPane {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				SceneController.getInstance().setUpGameScene();
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				int level = SceneController.getInstance().getGameController().getLevel();
-				if (level<3) {
-					level+=1;
+				if (level < 3) {
+					level += 1;
 				}
 				SceneController.getInstance().resetGame();
 				SceneController.getInstance().getGameController().selectLevel(level);
-				
+
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				SceneController.getInstance().createChooseCharSubScene();
 				SceneController.getInstance().getChooseChar().moveSubSceneIn();
+
+				Audio.createMouseClickedSound();
+				Audio.createGameSound();
 			}
 		});
 	}
@@ -106,6 +121,8 @@ public class GameEnding extends AnchorPane {
 	public void createHomeButton(int initX, int initY) {
 		homeButton = new Button();
 		homeButton.setGraphic(new ImageView("homebutton.png"));
+		homeButton
+				.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 		homeButton.setLayoutX(initX);
 		homeButton.setLayoutY(initY);
 		endingPane.getChildren().add(homeButton);
@@ -116,6 +133,9 @@ public class GameEnding extends AnchorPane {
 				SceneController.getInstance().setUpChooseMapScene();
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 				SceneController.getInstance().getGameController().setGameStart(false);
+
+				Audio.createMouseClickedSound();
+				Audio.createChooseMapMusic();
 			}
 		});
 	}

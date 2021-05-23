@@ -2,7 +2,6 @@ package components.character;
 
 import gui.FieldCell;
 import gui.SpriteAnimation;
-import implement.Shootable;
 import components.Entity;
 import components.other.Bullet;
 import javafx.animation.Animation;
@@ -86,7 +85,7 @@ public class GameCharacter extends Entity {
 	public void shootZombie(int count, int columns) {
 		if (isShoot()) {
 			imageView.setViewport(new Rectangle2D(offsetX, offsetY + height, width, height));
-			animation = new SpriteAnimation(imageView, Duration.millis(1000), count, columns, offsetX, offsetY + height,
+			animation = new SpriteAnimation(imageView, Duration.millis(2000), count, columns, offsetX, offsetY + height,
 					width, height);
 			animation.setCycleCount(Animation.INDEFINITE);
 			imageView.setLayoutX(getX());

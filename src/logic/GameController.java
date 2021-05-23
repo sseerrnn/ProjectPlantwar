@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import components.bullet.CabbageBullet;
 import components.bullet.CornBullet;
-import components.bullet.SnowBullet;
 import components.character.GameCharacter;
 import components.character.Plant;
 import components.character.Zombie;
@@ -48,7 +47,7 @@ public class GameController {
 	private Plant selectedPlant;// for chooseplant in game
 	private int energy;
 	private int sunCount;
-	private boolean canCreateSun;
+	private boolean isCreateSun;
 
 	private boolean isGameStart;
 	private boolean isGameEnd;
@@ -79,7 +78,7 @@ public class GameController {
 		lastTimeTriggered = -1;
 		isGameEnd = false;
 		sunCount = 0;
-		canCreateSun = false;
+		isCreateSun = false;
 		zombieInGame = new ArrayList<Zombie>();
 		countZombie = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
@@ -169,7 +168,7 @@ public class GameController {
 		}
 
 		System.out.println("Zombie : " + zombieInGame.size());
-		canCreateSun = false;
+		isCreateSun = false;
 		checkMowerCollision();
 		checkDie();
 		checkBulletCollision();
@@ -191,7 +190,7 @@ public class GameController {
 
 		isGameEnd = false;
 		sunCount = 0;
-		canCreateSun = false;
+		isCreateSun = false;
 		zombieInGame = new ArrayList<Zombie>();
 		countZombie = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
@@ -223,7 +222,7 @@ public class GameController {
 
 		isGameEnd = false;
 		sunCount = 0;
-		canCreateSun = false;
+		isCreateSun = false;
 		zombieInGame = new ArrayList<Zombie>();
 		countZombie = new ArrayList<Zombie>();
 		inGameCharacter = new ArrayList<GameCharacter>();
@@ -482,7 +481,7 @@ public class GameController {
 			for (Zombie zombie : zombieInGame) {
 				if (plant instanceof Explodable) {
 					if (plant.getBox().getBoundsInParent().intersects(zombie.getBox().getBoundsInParent())
-							&& ((PotatoBomb) plant).getTime() < this.getCurrentTime()) {
+							&& ((PotatoBomb) plant).getTime() <= this.getCurrentTime()) {
 						((Explodable) plant).explode(zombie);
 					}
 				}
@@ -507,7 +506,7 @@ public class GameController {
 					Audio.createCrashSound();
 				}
 				if (((zombie instanceof BucketheadZombie) || (zombie instanceof ConeheadZombie))
-						&& zombie.getCurrentHP() < 100 && zombie.getCurrentHP() > 30 && zombie.isHaveHat()) {
+						&& zombie.getCurrentHP() < 100 && zombie.getCurrentHP() > 30 && zombie.isHasHat()) {
 					TranslateTransition move1 = new TranslateTransition();
 					move1.setOnFinished(e -> zombie.destroyZombieHat());
 
@@ -517,11 +516,11 @@ public class GameController {
 					SequentialTransition seq = new SequentialTransition();
 					seq.getChildren().addAll(move1, move2);
 					seq.play();
-					zombie.setHaveHat(false);
+					zombie.setHasHat(false);
 
 					Audio.createCrashSound();
 				}
-				if (zombie.getCurrentHP() < 30 && zombie.getCurrentHP() > 0 && zombie.isHaveHead()) {
+				if (zombie.getCurrentHP() < 30 && zombie.getCurrentHP() > 0 && zombie.isHasHead()) {
 					TranslateTransition move1 = new TranslateTransition();
 					move1.setOnFinished(e -> zombie.destroyRegularZombieBody());
 
@@ -560,7 +559,7 @@ public class GameController {
 		Random random = new Random();
 		int row = random.nextInt(5);
 		int timeSpawn = 6 + random.nextInt(4);
-		generateConeheadZombie(1200, 70 + 100 * row, timeSpawn, row);
+		generateBucketheadZombie(1200, 70 + 100 * row, timeSpawn, row);
 	}
 
 	public void addEnergy() {
@@ -605,37 +604,25 @@ public class GameController {
 					plant.setShoot(true);
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
-//					bullet.shootRight();
-					if (plant.getClass()==DoublePeaShooter.class) {
+					if (plant.getClass() == DoublePeaShooter.class) {
 						Bullet bullet2 = ((Shootable) plant).shoot();
 						bullets.add(bullet2);
 					}
 				}
-				
 			}
 			if (plant instanceof Throwable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
 					plant.setShoot(true);
 					Bullet bullet = ((Throwable) plant).projectile();
 					bullet.setRow(checkPlantRow(plant) - 1);
-					
+
 					bullets.add(bullet);
 					System.out.println(plant.getClass());
 					bullet.setVelocity_y(-10 * bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
-//				bullet.shootRight();
-					
 				}
-				
 			}
 		}
 	}
-
-//	public void doSlowZombie(Bullet bullet, Zombie zombie) {
-//		if (bullet instanceof SnowBullet) {
-//			zombie.setVelocity_x(20);
-//			zombie.setSlowUntil(currentTime + 5);
-//		}
-//	}
 
 	public void shootBullet() {
 		for (Bullet bullet : bullets) {
@@ -646,15 +633,6 @@ public class GameController {
 			}
 		}
 	}
-
-//	public void setUpGameResult() {
-//		if (zombieInGame.size() == 0) {
-//			SceneController.getInstance().setUpGameEnding(true);
-//		}
-////		else if() {
-////		SceneController.getInstance().setUpGameEnding(false);
-////		}
-//	}
 
 	public void createGoalZombie() {
 		goal = new ImageView("line.png");
@@ -671,7 +649,7 @@ public class GameController {
 				setGameEnd(true);
 				setWin(false);
 				animationTimer.stop();
-				
+
 				SceneController.getInstance().setUpGameEnding(isWin());
 				SceneController.getInstance().getMainstage().setScene(SceneController.getInstance().getMainScene());
 			}
@@ -687,6 +665,8 @@ public class GameController {
 						public void handle(Event arg0) {
 							sun.moveOut(sun.getImageView());
 							increaseEnegy();
+
+							Audio.createCollectSunSound();
 						}
 					});
 					producedSun.add(sun);
@@ -764,8 +744,8 @@ public class GameController {
 		this.spaceIndex = spaceIndex;
 	}
 
-	public boolean isCanCreateSun() {
-		return canCreateSun;
+	public boolean isCreateSun() {
+		return isCreateSun;
 	}
 
 	public ArrayList<PlantButton> getSelectedPlantButtons() {

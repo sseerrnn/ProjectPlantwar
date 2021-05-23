@@ -3,6 +3,7 @@ package components.plant;
 import components.character.GameCharacter;
 import components.character.Zombie;
 import components.other.Bullet;
+import element.Audio;
 import gui.SpriteAnimation;
 import implement.Explodable;
 import implement.Interactable;
@@ -66,6 +67,8 @@ public class PotatoBomb extends GameCharacter implements Interactable, Explodabl
 			SequentialTransition seq = new SequentialTransition();
 			seq.getChildren().addAll(explosion, delete);
 			seq.play();
+
+			Audio.createExplodeSound();
 		}
 	}
 

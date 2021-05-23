@@ -16,8 +16,6 @@ public class LevelController {
 		level2 = false;
 		level3 = false;
 		setUpLevel1Button();
-//		setUpLevel2Button();
-//		setUpLevel3Button();
 	}
 
 	public void resetGame() {

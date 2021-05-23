@@ -8,9 +8,8 @@ import javafx.scene.shape.Rectangle;
 public class Zombie extends GameCharacter {
 
 	public boolean isEat = false;
-	public int slowUntil;
-	public boolean haveHat;
-	public boolean haveHead;
+	public boolean hasHat;
+	public boolean hasHead;
 
 	public Zombie(String img_path, int init_x, int init_y, int width, int height, int currentHP, int attackPoint) {
 		super(img_path, init_x, init_y, width, height, currentHP, attackPoint);
@@ -22,10 +21,10 @@ public class Zombie extends GameCharacter {
 		this.setBox(hitBox);
 
 		this.velocity_x = 20;
-		this.slowUntil = 0;
-		this.haveHead = true;
+		this.hasHead = true;
+
 		if (this instanceof ConeheadZombie || this instanceof BucketheadZombie) {
-			this.haveHat = true;
+			this.hasHat = true;
 		}
 	}
 
@@ -37,28 +36,20 @@ public class Zombie extends GameCharacter {
 		}
 	}
 
-	public boolean isHaveHead() {
-		return haveHead;
+	public boolean isHasHead() {
+		return hasHead;
 	}
 
-	public void setHaveHead(boolean haveHead) {
-		this.haveHead = haveHead;
+	public void setHaveHead(boolean hasHead) {
+		this.hasHead = hasHead;
 	}
 
-	public boolean isHaveHat() {
-		return haveHat;
+	public boolean isHasHat() {
+		return hasHat;
 	}
 
-	public void setHaveHat(boolean haveHat) {
-		this.haveHat = haveHat;
-	}
-
-	public int getSlowUntil() {
-		return slowUntil;
-	}
-
-	public void setSlowUntil(int slowUntil) {
-		this.slowUntil = slowUntil;
+	public void setHasHat(boolean hasHat) {
+		this.hasHat = hasHat;
 	}
 
 	public boolean isEat() {

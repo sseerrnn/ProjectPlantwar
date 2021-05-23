@@ -36,7 +36,6 @@ public class BucketheadZombie extends Zombie implements Interactable {
 					SceneController.getInstance().getMainPane().getChildren().remove(bullet.getBox());
 				}
 			});
-
 			if (currentHP > 0) {
 				this.setCurrentHP(currentHP - bullet.getDamage());
 			}
