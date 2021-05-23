@@ -11,6 +11,7 @@ import components.character.Zombie;
 import components.other.Bullet;
 import components.other.LawnMower;
 import components.other.Sun;
+import components.plant.DoublePeaShooter;
 import components.plant.PotatoBomb;
 import components.zombie.BucketheadZombie;
 import components.zombie.ConeheadZombie;
@@ -557,19 +558,30 @@ public class GameController {
 		for (GameCharacter plant : plantInGame) {
 			if (plant instanceof Shootable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
+					plant.setShoot(true);
 					Bullet bullet = ((Shootable) plant).shoot();
 					bullets.add(bullet);
-					plant.setShoot(true);
+//					bullet.shootRight();
+					if (plant.getClass()==DoublePeaShooter.class) {
+						Bullet bullet2 = ((Shootable) plant).shoot();
+						bullets.add(bullet2);
+					}
 				}
+				
 			}
 			if (plant instanceof Throwable) {
 				if (zombies.get(checkPlantRow(plant) - 1).size() > 0 && currentTime % 5 == 0) {
+					plant.setShoot(true);
 					Bullet bullet = ((Throwable) plant).projectile();
 					bullet.setRow(checkPlantRow(plant) - 1);
+					
 					bullets.add(bullet);
+					System.out.println(plant.getClass());
 					bullet.setVelocity_y(-10 * bullet.timeCalculate(zombies.get(bullet.getRow()).get(0)));
-					plant.setShoot(true);
+//				bullet.shootRight();
+					
 				}
+				
 			}
 		}
 	}
