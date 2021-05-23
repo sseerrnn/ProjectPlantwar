@@ -12,7 +12,7 @@ public class SnowBullet extends Bullet {
 		this.y = initY;
 		this.imageView.setLayoutY(initY);
 		this.imageView.setLayoutX(initX);
-		this.damage = 20;
+		this.damage = 30;
 	}
 
 }

@@ -14,7 +14,7 @@ import scene.SceneController;
 public class SnowPea extends GameCharacter implements Interactable, Shootable {
 
 	public SnowPea(int init_x, int init_y) {
-		super("snowpeasprite.png", init_x, init_y, 80, 75, 100, 20);
+		super("snowpeasprite.png", init_x, init_y, 80, 75, 100, 30);
 
 		this.currentHP = maxHP;
 		this.columns = 8;
