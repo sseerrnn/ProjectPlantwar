@@ -40,7 +40,7 @@ public class Zombie extends GameCharacter {
 		return hasHead;
 	}
 
-	public void setHaveHead(boolean hasHead) {
+	public void setHasHead(boolean hasHead) {
 		this.hasHead = hasHead;
 	}
 

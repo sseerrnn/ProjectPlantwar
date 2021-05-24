@@ -530,7 +530,7 @@ public class GameController {
 					SequentialTransition seq = new SequentialTransition();
 					seq.getChildren().addAll(move1, move2);
 					seq.play();
-					zombie.setHaveHead(false);
+					zombie.setHasHead(false);
 
 					Audio.createCrashSound();
 				}
